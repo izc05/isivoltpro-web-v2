@@ -1,4 +1,60 @@
 ---
-import PlaceholderPage from '../components/PlaceholderPage.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Motion from '../components/Motion.astro';
+import '../styles/global.css';
+import '../styles/content-pages.css';
+
+const principles = [
+  ['01','Útil antes que complejo','Cada pantalla debe ayudar a ejecutar o decidir, no demostrar cuántas funciones existen.'],
+  ['02','Contexto compartido','Activo, trabajo, mantenimiento y documentación deben hablar entre sí.'],
+  ['03','Tecnología con criterio','El software acompaña al técnico; no sustituye la realidad de la instalación.'],
+  ['04','Evolución por módulos','IsiVoltPro puede crecer sin convertir cada nueva necesidad en un sistema independiente.']
+];
 ---
-<PlaceholderPage kicker="Marca" title="Empresa" description="Propósito, filosofía de producto e ingeniería detrás de IsiVoltPro." />
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Conoce la visión y los principios de producto detrás de IsiVoltPro, un ecosistema digital para mantenimiento e instalaciones técnicas." />
+    <meta name="theme-color" content="#f7f9fc" />
+    <title>Empresa · IsiVoltPro</title>
+  </head>
+  <body>
+    <SiteHeader />
+    <main class="content-page">
+      <section class="content-hero">
+        <div class="shell content-hero-grid">
+          <div data-reveal><p class="kicker">IsiVoltPro</p><h1>Ingeniería.<br /><span>Producto. Contexto.</span></h1></div>
+          <p data-reveal>IsiVoltPro nace para ordenar el trabajo técnico alrededor de la instalación real: equipos, personas, procesos y evidencias conectados sin añadir complejidad innecesaria.</p>
+        </div>
+      </section>
+
+      <section class="company-principles">
+        <div class="shell principles-grid">
+          {principles.map((item,index) => (
+            <article class="principle" data-reveal style={`--delay:${index * 70}ms`}><span>{item[0]}</span><h2>{item[1]}</h2><p>{item[2]}</p></article>
+          ))}
+        </div>
+      </section>
+
+      <section class="company-statement">
+        <div class="shell" data-reveal>
+          <p class="kicker">Nuestra dirección</p>
+          <blockquote>“No queremos una colección de aplicaciones. Queremos <span>un sistema que conecte el trabajo técnico.</span>”</blockquote>
+          <p>La V2 de la web sigue la misma filosofía: menos elementos, mensajes más claros y profundidad disponible solo cuando el visitante decide explorar.</p>
+        </div>
+      </section>
+
+      <section class="content-dark-band">
+        <div class="shell content-dark-grid" data-reveal>
+          <h2>Construido por fases.<br /><span>Validado paso a paso.</span></h2>
+          <p>La plataforma, las aplicaciones y esta propia web evolucionan de forma modular. Cada pieza se valida antes de integrarse para mantener una arquitectura controlable y reversible.</p>
+        </div>
+      </section>
+    </main>
+    <SiteFooter />
+    <Motion />
+  </body>
+</html>
