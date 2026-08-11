@@ -1,4 +1,105 @@
 ---
-import PlaceholderPage from '../components/PlaceholderPage.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Motion from '../components/Motion.astro';
+import '../styles/global.css';
+import '../styles/aplicaciones.css';
+
+const products = [
+  { n:'01', state:'Operativa', kind:'tools', title:'Herramientas QR/NFC', text:'Inventario, identificación, responsables, préstamos, devoluciones e historial de movimientos.' },
+  { n:'02', state:'Operativa', kind:'ot', title:'IsiVoltPro OT', text:'Clientes, instalaciones, órdenes de trabajo, técnicos, estados y seguimiento operativo.' },
+  { n:'03', state:'Beta', kind:'bt', title:'Preinspecciones BT', text:'Flujo guiado, mediciones, evidencias y preparación estructurada de preinspecciones.' }
+];
+
+const roadmap = [
+  ['▣','Activos','Identidad técnica y contexto del equipo.','En desarrollo'],
+  ['▦','Inventario','Materiales, repuestos, consumibles y stock.','En desarrollo'],
+  ['⌁','Mantenimiento','Planificación preventiva y correctiva.','En desarrollo'],
+  ['≈','RITE','Instalaciones térmicas y climatización.','Roadmap'],
+  ['◇','PCI','Protección contra incendios y revisiones.','Roadmap'],
+  ['◌','Legionella','Controles, registros y seguimiento del agua.','Roadmap'],
+  ['▤','Documentación','Planos, manuales, evidencias y versiones.','Roadmap'],
+  ['✦','Cálculos y utilidades','Herramientas técnicas especializadas.','Roadmap']
+];
 ---
-<PlaceholderPage kicker="Producto" title="Aplicaciones" description="Herramientas QR/NFC, IsiVoltPro OT, Preinspecciones BT y los próximos módulos del ecosistema." />
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Aplicaciones de IsiVoltPro para herramientas, órdenes de trabajo, preinspecciones BT, activos, inventario y mantenimiento técnico." />
+    <meta name="theme-color" content="#f7f9fc" />
+    <title>Aplicaciones · IsiVoltPro</title>
+  </head>
+  <body>
+    <SiteHeader />
+    <main class="apps-page">
+      <section class="apps-hero">
+        <div class="shell apps-hero-grid">
+          <div data-reveal>
+            <p class="kicker">Plataforma IsiVoltPro</p>
+            <h1>Aplicaciones.<br /><span>Conectadas.</span></h1>
+            <p>Soluciones especializadas para digitalizar procesos técnicos sin convertir cada necesidad en una plataforma aislada.</p>
+          </div>
+          <div class="apps-visual-cloud" data-reveal aria-hidden="true">
+            <div class="apps-chip"><strong>QR</strong><span>Herramientas</span></div>
+            <div class="apps-chip"><strong>OT</strong><span>Operaciones</span></div>
+            <div class="apps-chip"><strong>BT</strong><span>Preinspección</span></div>
+            <div class="apps-chip"><strong>+</strong><span>Roadmap</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="apps-featured">
+        <div class="shell">
+          <div class="apps-head" data-reveal>
+            <div><p class="kicker">Disponibles ahora</p><h2>Productos prioritarios</h2></div>
+            <p>Los paneles visuales son conceptuales durante esta fase de diseño. Antes de publicar, se sustituirán por capturas reales verificadas de cada aplicación.</p>
+          </div>
+          <div class="apps-featured-grid">
+            {products.map((product,index) => (
+              <article class:list={['app-feature',`is-${product.kind}`]} data-reveal style={`--delay:${index * 80}ms`}>
+                <div class="app-feature-top">
+                  <span class="concept-label">Vista conceptual</span>
+                  <div class="device-shell">
+                    <div class="device-top"><i></i><i></i><i></i></div>
+                    <div class="device-body">
+                      {product.kind === 'tools' && <><div class="visual-qr"></div><div class="visual-lines"><i></i><i></i><i></i></div></>}
+                      {product.kind === 'ot' && <><div class="visual-sidebar"></div><div class="visual-board"><i></i><i></i><i></i><i></i></div></>}
+                      {product.kind === 'bt' && <><div class="visual-progress"></div><div class="visual-checks"><i></i><i></i><i></i><i></i></div></>}
+                    </div>
+                  </div>
+                </div>
+                <div class="app-feature-copy">
+                  <div class="app-feature-meta"><span>{product.n}</span><b class:list={[product.state === 'Beta' && 'beta']}>{product.state}</b></div>
+                  <h3>{product.title}</h3><p>{product.text}</p><a href="#roadmap">Ver alcance <span>→</span></a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="apps-roadmap" id="roadmap">
+        <div class="shell">
+          <div class="apps-roadmap-head" data-reveal>
+            <div><p class="kicker">Un ecosistema que crece por módulos</p><h2>Lo siguiente,<br /><span>sin perder simplicidad.</span></h2></div>
+            <p>El roadmap se presenta separado de las aplicaciones operativas para que el visitante sepa siempre qué existe hoy y qué forma parte de la evolución de IsiVoltPro.</p>
+          </div>
+          <div class="apps-roadmap-grid">
+            {roadmap.map((item,index) => <article class="roadmap-app" data-reveal style={`--delay:${index * 50}ms`}><i>{item[0]}</i><h3>{item[1]}</h3><p>{item[2]}</p><small>{item[3]}</small></article>)}
+          </div>
+        </div>
+      </section>
+
+      <section class="apps-note">
+        <div class="shell apps-note-inner" data-reveal>
+          <div><p class="kicker">Principio de producto</p><h2>Una aplicación resuelve.<br />El ecosistema conecta.</h2></div>
+          <div><p>Cada módulo debe ser sencillo por sí mismo y aportar contexto al resto. Esa es la diferencia entre acumular herramientas y construir una plataforma coherente.</p></div>
+        </div>
+      </section>
+    </main>
+    <SiteFooter />
+    <Motion />
+  </body>
+</html>
