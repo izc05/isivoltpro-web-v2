@@ -23,6 +23,10 @@ Construir una experiencia web premium, simple y muy clara para presentar IsiVolt
 - `docs/IMAGE-STRATEGY.md`
 - `docs/LIGHTING-SYSTEM.md`
 
+## Publicación
+
+GitHub Pages se despliega desde `main` mediante GitHub Actions.
+
 ## Flujo de trabajo
 
 `main` se mantiene estable. El desarrollo visual se realiza en ramas feature y mediante pull requests.
