@@ -2,8 +2,10 @@
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import Motion from '../components/Motion.astro';
+import EcosystemCutaway from '../components/ecosystem/EcosystemCutaway.astro';
 import '../styles/global.css';
 import '../styles/ecosistema.css';
+import '../styles/ecosystem-cutaway.css';
 
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const withBase = (href: string) => href === '/' ? base : `${base}${href.replace(/^\/+/, '')}`;
@@ -54,14 +56,8 @@ const outcomes = [
             <p>IsiVoltPro organiza la instalación física, el trabajo y la información alrededor de una arquitectura común. La Home enseña la idea; aquí explicamos cómo se relaciona todo.</p>
           </div>
 
-          <div class="eco-map" data-reveal aria-label="Mapa resumido del ecosistema IsiVoltPro">
-            <div class="eco-core"><strong>ISIVOLT<span>PRO</span></strong></div>
-            <div class="eco-orbit"><small>Contexto</small><strong>Instalaciones</strong></div>
-            <div class="eco-orbit"><small>Operación</small><strong>OT</strong></div>
-            <div class="eco-orbit"><small>Control</small><strong>Mantenimiento</strong></div>
-            <div class="eco-orbit"><small>Recursos</small><strong>Herramientas</strong></div>
-            <div class="eco-orbit"><small>Ingeniería</small><strong>Preinspecciones</strong></div>
-            <div class="eco-orbit"><small>Base</small><strong>Activos</strong></div>
+          <div data-reveal>
+            <EcosystemCutaway />
           </div>
         </div>
       </section>
