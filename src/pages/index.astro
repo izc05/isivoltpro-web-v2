@@ -3,6 +3,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import Motion from '../components/Motion.astro';
 import HeroSection from '../components/home/HeroSection.astro';
+import IntroCinematic from '../components/home/IntroCinematic.astro';
 import '../styles/global.css';
 import '../styles/home-sections.css';
 
@@ -44,6 +45,7 @@ const sectors = [
     <title>IsiVoltPro · Toda tu instalación. Un solo sistema.</title>
   </head>
   <body>
+    <IntroCinematic base={base} />
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
     <SiteHeader />
 
