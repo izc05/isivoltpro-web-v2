@@ -1,5 +1,6 @@
 ---
 import '../../styles/intro-cinematic.css';
+import '../../styles/intro-hotfix.css';
 
 interface Props {
   base: string;
@@ -59,13 +60,14 @@ const imageUrl = `${base}images/intro-cinematic/intro.webp`;
       const revealSite = () => {
         if (leaving) return;
         leaving = true;
-        sessionStorage.setItem('isivoltpro-intro-seen', '1');
+        try { sessionStorage.setItem('isivoltpro-intro-seen', '1'); } catch (_) {}
         intro.classList.add('is-leaving');
         document.documentElement.classList.remove('intro-active');
         window.setTimeout(() => intro.remove(), reduced ? 50 : 900);
       };
 
-      const seen = sessionStorage.getItem('isivoltpro-intro-seen') === '1';
+      let seen = false;
+      try { seen = sessionStorage.getItem('isivoltpro-intro-seen') === '1'; } catch (_) {}
       if (seen) {
         intro.remove();
         return;

@@ -1,0 +1,37 @@
+/* Hotfix for browsers that place negative z-index children behind the isolated intro background. */
+.intro-cinematic {
+  background: #050b12;
+}
+
+.intro-image {
+  z-index: 0 !important;
+  background-image: url('https://images.pexels.com/photos/5953729/pexels-photo-5953729.jpeg?auto=compress&cs=tinysrgb&w=2400') !important;
+  opacity: 1 !important;
+}
+
+.intro-depth { z-index: 1 !important; }
+.intro-shade { z-index: 2 !important; }
+.intro-lights { z-index: 3 !important; }
+.intro-machinery { z-index: 4 !important; }
+
+.intro-brand,
+.intro-copy,
+.intro-scroll {
+  z-index: 6 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.intro-enter {
+  position: relative;
+  z-index: 7;
+}
+
+/* Even if the image is slow or unavailable, never show an empty black screen. */
+.intro-cinematic::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(90deg, #050b12 0%, #07111d 48%, #0a1625 100%);
+}
