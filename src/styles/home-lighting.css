@@ -1,0 +1,234 @@
+.hero--lit .hero-lighting {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero--lit .hero-light {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  transform-origin: center;
+  will-change: opacity, transform;
+  mix-blend-mode: screen;
+}
+
+.hero-light--plant {
+  left: 61%;
+  top: 35%;
+  width: clamp(220px, 22vw, 420px);
+  aspect-ratio: 1.7;
+  background: radial-gradient(ellipse at center,
+    rgba(255, 232, 194, .22) 0%,
+    rgba(255, 221, 164, .12) 36%,
+    rgba(255, 216, 151, 0) 72%);
+  filter: blur(18px);
+  animation: heroLightBreath 7.4s ease-in-out -1.2s infinite;
+}
+
+.hero-light--room {
+  left: 75%;
+  top: 21%;
+  width: clamp(150px, 16vw, 300px);
+  aspect-ratio: 1.45;
+  background: radial-gradient(ellipse at center,
+    rgba(255, 239, 208, .19) 0%,
+    rgba(255, 226, 180, .10) 38%,
+    rgba(255, 226, 180, 0) 74%);
+  filter: blur(15px);
+  animation: heroLightDim 11.8s ease-in-out -3.6s infinite;
+}
+
+.hero-light--service {
+  left: 81%;
+  top: 57%;
+  width: clamp(140px, 14vw, 270px);
+  aspect-ratio: 1.35;
+  background: radial-gradient(ellipse at center,
+    rgba(255, 236, 199, .18) 0%,
+    rgba(255, 219, 164, .08) 43%,
+    rgba(255, 219, 164, 0) 75%);
+  filter: blur(16px);
+  animation: heroLightBreath 9.2s ease-in-out -5s infinite reverse;
+}
+
+.hero-light--cool {
+  left: 65%;
+  top: 52%;
+  width: clamp(110px, 10vw, 190px);
+  aspect-ratio: 1.25;
+  background: radial-gradient(circle at center,
+    rgba(82, 157, 255, .12) 0%,
+    rgba(54, 132, 255, .055) 42%,
+    rgba(54, 132, 255, 0) 72%);
+  filter: blur(13px);
+  animation: heroTechGlow 6.8s ease-in-out -2.3s infinite;
+}
+
+.hero-monitor {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(92, 159, 255, .78);
+  box-shadow: 0 0 8px rgba(67, 141, 255, .45), 0 0 20px rgba(67, 141, 255, .16);
+  animation: heroMonitorPulse 5.6s ease-in-out infinite;
+}
+
+.hero-monitor--a {
+  left: 68.5%;
+  top: 50.5%;
+  animation-delay: -1.4s;
+}
+
+.hero-monitor--b {
+  left: 86%;
+  top: 47%;
+  animation-delay: -3.9s;
+}
+
+.closing-lighting {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.closing-light {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  will-change: opacity, transform;
+}
+
+.closing-light--a {
+  left: 67%;
+  top: 31%;
+  width: clamp(220px, 24vw, 430px);
+  aspect-ratio: 1.7;
+  background: radial-gradient(ellipse at center,
+    rgba(255, 232, 196, .16) 0%,
+    rgba(255, 217, 160, .07) 40%,
+    rgba(255, 217, 160, 0) 74%);
+  filter: blur(20px);
+  animation: closingLightBreath 10.8s ease-in-out -2.6s infinite;
+}
+
+.closing-light--b {
+  left: 82%;
+  top: 56%;
+  width: clamp(130px, 14vw, 260px);
+  aspect-ratio: 1.35;
+  background: radial-gradient(ellipse at center,
+    rgba(104, 168, 255, .105) 0%,
+    rgba(68, 139, 255, .035) 44%,
+    rgba(68, 139, 255, 0) 75%);
+  filter: blur(15px);
+  animation: closingLightBreath 13.4s ease-in-out -7.2s infinite reverse;
+}
+
+.closing-monitor {
+  position: absolute;
+  left: 78%;
+  top: 49%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(100, 165, 255, .72);
+  box-shadow: 0 0 9px rgba(73, 145, 255, .38), 0 0 18px rgba(73, 145, 255, .10);
+  animation: closingMonitor 8.2s ease-in-out -4s infinite;
+}
+
+@keyframes heroLightBreath {
+  0%, 100% { opacity: .62; transform: scale(.985); }
+  48% { opacity: .93; transform: scale(1.018); }
+  68% { opacity: .84; transform: scale(1.006); }
+}
+
+@keyframes heroLightDim {
+  0%, 18%, 100% { opacity: .82; transform: scale(1); }
+  44% { opacity: .32; transform: scale(.99); }
+  66% { opacity: .70; transform: scale(1.008); }
+}
+
+@keyframes heroTechGlow {
+  0%, 100% { opacity: .45; transform: scale(.98); }
+  52% { opacity: .78; transform: scale(1.02); }
+}
+
+@keyframes heroMonitorPulse {
+  0%, 100% { opacity: .38; transform: scale(.85); }
+  46% { opacity: .95; transform: scale(1.08); }
+  58% { opacity: .70; transform: scale(1); }
+}
+
+@keyframes closingLightBreath {
+  0%, 100% { opacity: .48; transform: scale(.99); }
+  50% { opacity: .70; transform: scale(1.012); }
+}
+
+@keyframes closingMonitor {
+  0%, 100% { opacity: .30; transform: scale(.9); }
+  52% { opacity: .72; transform: scale(1.04); }
+}
+
+@media (max-width: 1050px) {
+  .hero-light--service,
+  .hero-monitor--b { display: none; }
+
+  .hero-light--plant { left: 58%; top: 37%; opacity: .72; }
+  .hero-light--room { left: 72%; top: 24%; }
+
+  .closing-light--b,
+  .closing-monitor { display: none; }
+}
+
+@media (max-width: 760px), (pointer: coarse) {
+  .hero-light--room,
+  .hero-light--service,
+  .hero-monitor { display: none; }
+
+  .hero-light--plant {
+    left: 52%;
+    top: 39%;
+    width: min(320px, 52vw);
+    filter: blur(15px);
+    animation-duration: 9.5s;
+  }
+
+  .hero-light--cool {
+    left: 67%;
+    top: 54%;
+    width: min(160px, 29vw);
+    animation-duration: 9s;
+  }
+
+  .closing-light--a {
+    left: 57%;
+    top: 35%;
+    width: min(340px, 58vw);
+    animation-duration: 13s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero--lit .hero-light,
+  .hero--lit .hero-monitor,
+  .closing-light,
+  .closing-monitor {
+    animation: none !important;
+  }
+
+  .hero-light--plant { opacity: .70; transform: none; }
+  .hero-light--room { opacity: .62; transform: none; }
+  .hero-light--service { opacity: .56; transform: none; }
+  .hero-light--cool { opacity: .48; transform: none; }
+  .hero-monitor { opacity: .55; transform: none; }
+  .closing-light--a { opacity: .54; transform: none; }
+  .closing-light--b { opacity: .38; transform: none; }
+  .closing-monitor { opacity: .45; transform: none; }
+}

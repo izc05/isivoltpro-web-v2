@@ -1,0 +1,100 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Motion from '../components/Motion.astro';
+import '../styles/global.css';
+import '../styles/mantenimiento.css';
+
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const withBase = (href: string) => href === '/' ? base : `${base}${href.replace(/^\/+/, '')}`;
+const maintImage = 'https://images.pexels.com/photos/31257317/pexels-photo-31257317.jpeg?auto=compress&cs=tinysrgb&w=2200';
+
+const modes = [
+  { icon:'!', label:'Respuesta', title:'Correctivo', text:'Gestiona incidencias y actuaciones sin perder el contexto del activo ni la trazabilidad del trabajo.', items:['Incidencia vinculada al activo','Asignación y seguimiento','Evidencias y cierre'] },
+  { icon:'↻', label:'Planificación', title:'Preventivo', text:'Convierte revisiones periódicas en una rutina clara, verificable y conectada con la instalación.', items:['Planes y periodicidades','Próximas tareas','Histórico de cumplimiento'] },
+  { icon:'✓', label:'Cumplimiento', title:'Reglamentario', text:'Estructura comprobaciones, mediciones y evidencias que requieren una metodología técnica consistente.', items:['Checklists específicos','Mediciones y documentos','Trazabilidad de revisión'] }
+];
+
+const cycle = [
+  ['01','Detectar','La necesidad aparece en una instalación o activo concreto.'],
+  ['02','Planificar','Se decide prioridad, responsable y siguiente actuación.'],
+  ['03','Ejecutar','El técnico recibe contexto suficiente para trabajar.'],
+  ['04','Documentar','El cierre alimenta el histórico y la próxima decisión.']
+];
+
+const roles = [
+  ['Coordinación','Prioriza, asigna y supervisa la operación.'],
+  ['Técnicos','Reciben trabajo, contexto y registran evidencias.'],
+  ['Responsables','Consultan estado, histórico y cumplimiento.'],
+  ['Especialistas','Intervienen con información técnica específica.']
+];
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Mantenimiento correctivo, preventivo y reglamentario conectado con activos, técnicos, evidencias e histórico en IsiVoltPro." />
+    <meta name="theme-color" content="#07111d" />
+    <title>Mantenimiento · IsiVoltPro</title>
+  </head>
+  <body>
+    <SiteHeader />
+    <main class="maint-page">
+      <section class="maint-hero" style={`--maint-image:url('${maintImage}')`}>
+        <div class="maint-hero-media" aria-hidden="true"></div>
+        <div class="shell maint-hero-inner">
+          <div class="maint-hero-copy" data-reveal>
+            <p class="kicker">Mantenimiento</p>
+            <h1>Actuar con contexto.<span>Mantener con control.</span></h1>
+            <p>Correctivo, preventivo y reglamentario comparten activos, técnicos, evidencias e histórico. IsiVoltPro conecta esas piezas sin obligarte a navegar por sistemas aislados.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="maint-modes">
+        <div class="shell">
+          <div class="maint-modes-head" data-reveal>
+            <div><p class="kicker">Tres formas de trabajo</p><h2>Una operación.<br /><span>Tres necesidades.</span></h2></div>
+            <p>No todo mantenimiento empieza igual. La V2 presenta cada modo con claridad y conserva el mismo contexto técnico alrededor del activo.</p>
+          </div>
+          <div class="maint-mode-grid">
+            {modes.map((mode,index) => (
+              <article class="maint-mode" data-reveal style={`--delay:${index * 80}ms`}>
+                <i>{mode.icon}</i><small>{mode.label}</small><h3>{mode.title}</h3><p>{mode.text}</p>
+                <ul>{mode.items.map((item) => <li>{item}</li>)}</ul>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="maint-cycle">
+        <div class="shell">
+          <div class="maint-cycle-head" data-reveal><p class="kicker">Ciclo operativo</p><h2>Detectar → Planificar → Ejecutar → Documentar</h2></div>
+          <div class="maint-cycle-grid">
+            {cycle.map((item,index) => <article class="maint-step" data-reveal style={`--delay:${index * 65}ms`}><span>{item[0]}</span><h3>{item[1]}</h3><p>{item[2]}</p></article>)}
+          </div>
+        </div>
+      </section>
+
+      <section class="maint-roles">
+        <div class="shell maint-roles-grid">
+          <div data-reveal><p class="kicker">Personas conectadas</p><h2>Cada rol ve lo que necesita.<br /><span>El contexto sigue siendo común.</span></h2></div>
+          <div class="role-list">
+            {roles.map((role,index) => <article class="role" data-reveal style={`--delay:${index * 65}ms`}><small>Rol</small><h3>{role[0]}</h3><p>{role[1]}</p></article>)}
+          </div>
+        </div>
+      </section>
+
+      <section class="maint-cta">
+        <div class="shell maint-cta-inner" data-reveal>
+          <div><p class="kicker">Del mantenimiento a la operación</p><h2>Conoce <span>IsiVoltPro OT.</span></h2></div>
+          <div><p>Las órdenes de trabajo son una de las piezas operativas que conectan coordinación y campo dentro del ecosistema.</p><a class="button button-primary" href={withBase('/aplicaciones')}>Ver aplicaciones <span>→</span></a></div>
+        </div>
+      </section>
+    </main>
+    <SiteFooter />
+    <Motion />
+  </body>
+</html>

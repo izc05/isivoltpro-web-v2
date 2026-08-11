@@ -1,0 +1,329 @@
+.eco-cutaway {
+  position: relative;
+  min-height: 560px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.11);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 70% 22%, rgba(49,118,255,.15), transparent 28%),
+    linear-gradient(155deg, rgba(8,19,32,.94), rgba(11,26,43,.84));
+  box-shadow: 0 34px 90px rgba(0,0,0,.27);
+}
+
+.eco-cutaway::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: .12;
+  background-image:
+    linear-gradient(rgba(255,255,255,.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.13) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(90deg, transparent, black 24%, black 82%, transparent);
+}
+
+.eco-cutaway-label {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 8;
+  padding: 7px 10px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 999px;
+  background: rgba(7,17,29,.6);
+  color: rgba(255,255,255,.58);
+  backdrop-filter: blur(10px);
+  font-size: 9px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.eco-building {
+  position: relative;
+  z-index: 2;
+  width: min(91%, 670px);
+  height: 420px;
+  padding: 18px;
+  display: grid;
+  grid-template-rows: .8fr 1fr 1fr;
+  gap: 8px;
+  perspective: 1200px;
+  transform: rotateX(2deg) rotateY(-5deg);
+}
+
+.eco-building-shell {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(164,193,234,.25);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255,255,255,.035), rgba(255,255,255,.008));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.025), 0 22px 75px rgba(0,0,0,.28);
+}
+
+.eco-floor {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 8px;
+  z-index: 1;
+}
+
+.eco-floor + .eco-floor::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  right: -3px;
+  top: -5px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(148,177,217,.24), transparent);
+}
+
+.eco-room {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(21,39,59,.66), rgba(7,18,31,.7));
+  box-shadow: inset 0 0 22px rgba(0,0,0,.15);
+}
+
+.eco-room-name {
+  position: absolute;
+  z-index: 5;
+  left: 12px;
+  bottom: 10px;
+  color: rgba(233,241,252,.68);
+  font-size: 9px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.eco-equipment {
+  position: absolute;
+  z-index: 3;
+  display: block;
+  border: 1px solid rgba(147,179,220,.25);
+  background: linear-gradient(145deg, #23364d, #111f30);
+  box-shadow: 0 10px 24px rgba(0,0,0,.28);
+}
+
+.eco-equipment--uta {
+  right: 18%;
+  top: 24%;
+  width: 38%;
+  height: 34%;
+  border-radius: 6px;
+}
+
+.eco-equipment--uta::after {
+  content: '';
+  position: absolute;
+  inset: 28% 10%;
+  border-top: 1px solid rgba(163,195,237,.3);
+  border-bottom: 1px solid rgba(163,195,237,.18);
+}
+
+.eco-equipment--panel {
+  right: 18%;
+  top: 17%;
+  width: 22%;
+  height: 57%;
+  border-radius: 4px;
+}
+
+.eco-equipment--panel::after {
+  content: '';
+  position: absolute;
+  inset: 10%;
+  background: repeating-linear-gradient(0deg, rgba(118,157,210,.20) 0 2px, transparent 2px 8px);
+}
+
+.eco-equipment--pump {
+  top: 34%;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+}
+
+.eco-equipment--pump::before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: -28px;
+  width: 13px;
+  height: 30px;
+  border-left: 4px solid #344b64;
+  border-right: 4px solid #344b64;
+}
+
+.eco-equipment--pump-a { right: 39%; }
+.eco-equipment--pump-b { right: 18%; }
+
+.eco-asset-chip {
+  position: absolute;
+  top: 26%;
+  left: 18%;
+  z-index: 4;
+  padding: 9px 12px;
+  border: 1px solid rgba(102,160,255,.28);
+  border-radius: 9px;
+  background: rgba(21,61,123,.33);
+  color: #8eb7ff;
+  font-size: 11px;
+  font-weight: 760;
+  letter-spacing: .08em;
+}
+
+.eco-light-mask {
+  position: absolute;
+  z-index: 2;
+  border-radius: 45%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: opacity, transform;
+}
+
+.eco-light-mask--hvac {
+  right: 9%;
+  top: 2%;
+  width: 66%;
+  height: 80%;
+  background: radial-gradient(ellipse, rgba(255,236,202,.19), rgba(255,220,165,.07) 45%, transparent 73%);
+  filter: blur(10px);
+  animation: ecoLightBreath 7.8s ease-in-out -2.1s infinite;
+}
+
+.eco-light-mask--services {
+  inset: 8% 8% 18%;
+  background: radial-gradient(ellipse, rgba(255,239,211,.12), rgba(255,223,179,.04) 50%, transparent 76%);
+  filter: blur(12px);
+  animation: ecoLightDim 12.6s ease-in-out -5.2s infinite;
+}
+
+.eco-light-mask--electrical {
+  right: 2%;
+  top: 5%;
+  width: 58%;
+  height: 82%;
+  background: radial-gradient(ellipse, rgba(105,170,255,.15), rgba(50,122,239,.045) 46%, transparent 74%);
+  filter: blur(10px);
+  animation: ecoTechPulse 5.6s ease-in-out -1.7s infinite;
+}
+
+.eco-light-mask--room-a,
+.eco-light-mask--room-b {
+  top: 10%;
+  bottom: 16%;
+  width: 44%;
+  background: radial-gradient(ellipse, rgba(255,238,205,.16), rgba(255,220,168,.04) 52%, transparent 77%);
+  filter: blur(11px);
+}
+
+.eco-light-mask--room-a {
+  left: 3%;
+  animation: ecoLightDim 11.2s ease-in-out -3.3s infinite;
+}
+
+.eco-light-mask--room-b {
+  right: 3%;
+  animation: ecoLightBreath 9.4s ease-in-out -6.1s infinite reverse;
+}
+
+.eco-light-mask--water {
+  right: 6%;
+  top: 9%;
+  width: 72%;
+  height: 76%;
+  background: radial-gradient(ellipse, rgba(255,233,196,.15), rgba(255,218,160,.045) 48%, transparent 75%);
+  filter: blur(11px);
+  animation: ecoLightBreath 6.7s ease-in-out -4.2s infinite;
+}
+
+.eco-monitor-dot {
+  position: absolute;
+  z-index: 7;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #75a8ff;
+  box-shadow: 0 0 8px rgba(90,153,255,.58), 0 0 22px rgba(57,128,255,.18);
+  animation: ecoMonitor 5.8s ease-in-out infinite;
+}
+
+.eco-monitor-dot--hvac { left: 72%; top: 24%; animation-delay: -1.4s; }
+.eco-monitor-dot--electrical { left: 57%; top: 50%; animation-delay: -3.7s; }
+.eco-monitor-dot--water { left: 71%; top: 72%; animation-delay: -5.1s; }
+
+.eco-cutaway-legend {
+  position: absolute;
+  left: 22px;
+  bottom: 18px;
+  z-index: 8;
+  display: flex;
+  gap: 18px;
+  color: rgba(255,255,255,.48);
+  font-size: 9px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.eco-cutaway-legend span { display: flex; align-items: center; gap: 7px; }
+.eco-cutaway-legend i { width: 6px; height: 6px; border-radius: 50%; }
+.eco-cutaway-legend .is-live { background: #d8bd8c; }
+.eco-cutaway-legend .is-linked { background: #70a4ff; box-shadow: 0 0 9px rgba(70,139,255,.48); }
+
+@keyframes ecoLightBreath {
+  0%,100% { opacity: .56; transform: scale(.985); }
+  48% { opacity: .94; transform: scale(1.018); }
+  70% { opacity: .80; transform: scale(1.004); }
+}
+
+@keyframes ecoLightDim {
+  0%,17%,100% { opacity: .83; }
+  43% { opacity: .22; }
+  68% { opacity: .68; }
+}
+
+@keyframes ecoTechPulse {
+  0%,100% { opacity: .42; transform: scale(.98); }
+  47% { opacity: .82; transform: scale(1.015); }
+}
+
+@keyframes ecoMonitor {
+  0%,100% { opacity: .35; transform: scale(.84); }
+  48% { opacity: .95; transform: scale(1.10); }
+}
+
+html[data-page-hidden='true'] .eco-light-mask,
+html[data-page-hidden='true'] .eco-monitor-dot { animation-play-state: paused !important; }
+
+@media (max-width: 900px) {
+  .eco-cutaway { min-height: 500px; }
+  .eco-building { width: 96%; height: 390px; transform: rotateX(1deg) rotateY(-2deg); }
+  .eco-monitor-dot--water { display: none; }
+}
+
+@media (max-width: 620px), (pointer: coarse) {
+  .eco-cutaway { min-height: 430px; }
+  .eco-building { height: 330px; padding: 11px; gap: 5px; transform: none; }
+  .eco-floor { gap: 5px; }
+  .eco-room-name { font-size: 7px; left: 8px; bottom: 7px; }
+  .eco-light-mask--services,
+  .eco-light-mask--room-a,
+  .eco-monitor-dot { display: none; }
+  .eco-light-mask--hvac,
+  .eco-light-mask--water { animation-duration: 10s; }
+  .eco-light-mask--electrical { animation-duration: 8.5s; }
+  .eco-cutaway-legend { left: 14px; bottom: 12px; gap: 11px; font-size: 7px; }
+  .eco-equipment--pump { width: 32px; height: 32px; }
+  .eco-equipment--pump::before { left: 10px; top: -20px; width: 10px; height: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eco-light-mask,
+  .eco-monitor-dot { animation: none !important; }
+  .eco-light-mask { opacity: .6; transform: none; }
+  .eco-monitor-dot { opacity: .55; transform: none; }
+}

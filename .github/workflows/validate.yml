@@ -1,0 +1,38 @@
+name: Validar Web V2
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v5
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Instalar dependencias
+        run: npm install --no-audit --no-fund
+
+      - name: Revisar vulnerabilidades
+        run: npm audit --audit-level=high
+
+      - name: Validar y construir
+        run: npm run check
+
+      - name: Guardar preview validada
+        uses: actions/upload-artifact@v4
+        with:
+          name: isivoltpro-web-v2-preview
+          path: dist
+          if-no-files-found: error
+          retention-days: 3
+          include-hidden-files: true
