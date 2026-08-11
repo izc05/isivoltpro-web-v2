@@ -27,3 +27,12 @@ jobs:
 
       - name: Validar y construir
         run: npm run check
+
+      - name: Guardar preview validada
+        uses: actions/upload-artifact@v4
+        with:
+          name: isivoltpro-web-v2-preview
+          path: dist
+          if-no-files-found: error
+          retention-days: 3
+          include-hidden-files: true
