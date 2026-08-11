@@ -4,6 +4,7 @@ import '../../styles/home-cinematic.css';
 import '../../styles/home-hero-reference.css';
 import '../../styles/home-hero-lighting-v2.css';
 import '../../styles/home-hero-fallback.css';
+import '../../styles/home-hero-premium.css';
 
 interface Props {
   image: string;
@@ -12,9 +13,14 @@ interface Props {
 
 const { contactHref } = Astro.props;
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-const heroImage = `${base}images/hero/hero-main.avif`;
+const heroImage = 'https://images.pexels.com/photos/5953729/pexels-photo-5953729.jpeg?auto=compress&cs=tinysrgb&w=3200&dpr=1';
+const heroFallback = `${base}images/hero/hero-main.avif`;
 ---
-<section class="hero hero--lit hero--cinematic hero--reference" data-hero-motion style={`--hero-image: url('${heroImage}')`}>
+<section
+  class="hero hero--lit hero--cinematic hero--reference hero--premium"
+  data-hero-motion
+  style={`--hero-image: url('${heroImage}'); --hero-fallback-image: url('${heroFallback}')`}
+>
   <div class="hero-media" aria-hidden="true"></div>
   <div class="hero-shade" aria-hidden="true"></div>
 
@@ -31,6 +37,14 @@ const heroImage = `${base}images/hero/hero-main.avif`;
     <span class="hero-light hero-light--middle-b"></span>
     <span class="hero-light hero-light--lower-a"></span>
     <span class="hero-light hero-light--technical"></span>
+
+    <span class="hero-blackout hero-blackout--upper"></span>
+    <span class="hero-blackout hero-blackout--middle"></span>
+    <span class="hero-blackout hero-blackout--lower"></span>
+
+    <span class="hero-flicker hero-flicker--a"></span>
+    <span class="hero-flicker hero-flicker--b"></span>
+
     <span class="hero-monitor hero-monitor--a"></span>
     <span class="hero-monitor hero-monitor--b"></span>
     <span class="hero-monitor hero-monitor--c"></span>
