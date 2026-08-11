@@ -1,4 +1,122 @@
 ---
-import PlaceholderPage from '../components/PlaceholderPage.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Motion from '../components/Motion.astro';
+import '../styles/global.css';
+import '../styles/ecosistema.css';
+
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const withBase = (href: string) => href === '/' ? base : `${base}${href.replace(/^\/+/, '')}`;
+
+const flow = [
+  ['01','Cliente','Marco comercial y organizativo.'],
+  ['02','Instalación','El lugar físico que quieres controlar.'],
+  ['03','Activo','Equipo identificado y contextualizado.'],
+  ['04','Incidencia','Necesidad detectada y priorizada.'],
+  ['05','OT','Trabajo asignado y trazable.'],
+  ['06','Mantenimiento','Planificación y ejecución.'],
+  ['07','Histórico','Contexto para decidir mejor.']
+];
+
+const modules = [
+  ['⌁','Herramientas','Equipos, préstamos, responsables e historial.'],
+  ['▦','Inventario','Materiales, repuestos, stock y ubicación.'],
+  ['✓','Preinspecciones BT','Trabajo guiado, mediciones y evidencias.'],
+  ['◎','Recursos','Personas, capacidades y apoyo operativo.'],
+  ['▤','Documentación','Manuales, planos, registros y evidencias.']
+];
+
+const outcomes = [
+  ['◉','Visión completa','Toda la operación conectada en un marco común.'],
+  ['↗','Respuesta más rápida','Menos fricción para detectar, asignar y actuar.'],
+  ['◇','Control','Trazabilidad clara de cada paso importante.'],
+  ['▥','Decisiones con contexto','Histórico y datos para priorizar mejor.'],
+  ['▣','Escalable','Nuevos módulos sin perder la arquitectura común.']
+];
 ---
-<PlaceholderPage kicker="Arquitectura conectada" title="Ecosistema IsiVoltPro" description="Cliente, instalación, activos, trabajo, mantenimiento y especialidades conectados en una arquitectura común." />
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Conoce la arquitectura del ecosistema IsiVoltPro: instalaciones, activos, órdenes de trabajo, mantenimiento, herramientas y especialidades conectadas." />
+    <meta name="theme-color" content="#07111d" />
+    <title>Ecosistema IsiVoltPro · Arquitectura conectada</title>
+  </head>
+  <body>
+    <SiteHeader />
+    <main class="eco-page">
+      <section class="eco-hero">
+        <div class="shell eco-hero-inner">
+          <div class="eco-hero-copy" data-reveal>
+            <p class="kicker">Ecosistema</p>
+            <h1>Un sistema técnico.<span>Todo conectado.</span></h1>
+            <p>IsiVoltPro organiza la instalación física, el trabajo y la información alrededor de una arquitectura común. La Home enseña la idea; aquí explicamos cómo se relaciona todo.</p>
+          </div>
+
+          <div class="eco-map" data-reveal aria-label="Mapa resumido del ecosistema IsiVoltPro">
+            <div class="eco-core"><strong>ISIVOLT<span>PRO</span></strong></div>
+            <div class="eco-orbit"><small>Contexto</small><strong>Instalaciones</strong></div>
+            <div class="eco-orbit"><small>Operación</small><strong>OT</strong></div>
+            <div class="eco-orbit"><small>Control</small><strong>Mantenimiento</strong></div>
+            <div class="eco-orbit"><small>Recursos</small><strong>Herramientas</strong></div>
+            <div class="eco-orbit"><small>Ingeniería</small><strong>Preinspecciones</strong></div>
+            <div class="eco-orbit"><small>Base</small><strong>Activos</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="eco-architecture">
+        <div class="shell">
+          <div class="eco-intro" data-reveal>
+            <div><p class="kicker">Arquitectura conectada</p><h2>Una secuencia clara.<br /><span>Un sistema unificado.</span></h2></div>
+            <p>Cada módulo tiene una función concreta, pero comparte contexto con los demás. Así la información deja de vivir en herramientas aisladas.</p>
+          </div>
+
+          <div class="eco-flow">
+            {flow.map((item, index) => (
+              <article data-reveal style={`--delay:${index * 55}ms`}>
+                <span>{item[0]}</span><h3>{item[1]}</h3><p>{item[2]}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="eco-modules">
+        <div class="shell">
+          <div class="eco-modules-head" data-reveal>
+            <div><p class="kicker">Capas especializadas</p><h2>Más módulos.<br />Mismo contexto.</h2></div>
+            <p>No todo debe aparecer en la Home. Herramientas, inventario, BT, recursos y documentación amplían la operación sin convertir la portada en un catálogo interminable.</p>
+          </div>
+          <div class="eco-modules-grid">
+            {modules.map((item, index) => (
+              <a class="eco-module" href={withBase('/aplicaciones')} data-reveal style={`--delay:${index * 65}ms`}>
+                <i>{item[0]}</i><h3>{item[1]}</h3><p>{item[2]}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="eco-outcomes">
+        <div class="shell eco-outcomes-grid">
+          {outcomes.map((item, index) => (
+            <article class="eco-outcome" data-reveal style={`--delay:${index * 65}ms`}>
+              <i>{item[0]}</i><h3>{item[1]}</h3><p>{item[2]}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="eco-cta">
+        <div class="shell eco-cta-inner" data-reveal>
+          <div><p class="kicker">Del mapa al trabajo real</p><h2>Descubre las <span>aplicaciones.</span></h2></div>
+          <div><p>Empieza por los productos que ya están operativos o en beta y entiende cómo encajan dentro de esta arquitectura.</p><a class="button button-primary" href={withBase('/aplicaciones')}>Ver aplicaciones <span>→</span></a></div>
+        </div>
+      </section>
+    </main>
+    <SiteFooter />
+    <Motion />
+  </body>
+</html>
