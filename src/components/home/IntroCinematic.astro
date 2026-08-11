@@ -84,10 +84,10 @@ const chunkBase = `${base}images/intro-cinematic/`;
       window.addEventListener('wheel', onWheel, { passive: true, once: true });
       window.addEventListener('keydown', onKey, { once: true });
 
-      // The generated WebP is stored as small text chunks so the site can own the asset.
-      // They are assembled once in the browser and converted into a local Blob URL.
+      // The generated WebP is kept inside the repository as two small text chunks.
+      // They are assembled once in the browser and converted to a local Blob URL.
       const chunkBase = intro.dataset.chunkBase;
-      const parts = Array.from({ length: 8 }, (_, i) => `${chunkBase}part-${String(i + 1).padStart(2, '0')}.txt`);
+      const parts = Array.from({ length: 2 }, (_, i) => `${chunkBase}part-${String(i + 1).padStart(2, '0')}.txt`);
       Promise.all(parts.map((url) => fetch(url).then((response) => {
         if (!response.ok) throw new Error(`intro asset ${response.status}`);
         return response.text();
