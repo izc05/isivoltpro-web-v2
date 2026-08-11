@@ -15,6 +15,13 @@ Construir una experiencia web premium, simple y muy clara para presentar IsiVolt
 - Capturas reales para aplicaciones operativas.
 - Azul IsiVoltPro como acento.
 - Movimiento sutil y funcional.
+- Iluminación arquitectónica viva en Hero y cierre, con versión reducida en móvil.
+
+## Documentación de diseño
+
+- `docs/WEB-V2-BLUEPRINT.md`
+- `docs/IMAGE-STRATEGY.md`
+- `docs/LIGHTING-SYSTEM.md`
 
 ## Flujo de trabajo
 
