@@ -1,4 +1,56 @@
 ---
-import PlaceholderPage from '../components/PlaceholderPage.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Motion from '../components/Motion.astro';
+import '../styles/global.css';
+import '../styles/content-pages.css';
+
+const resources = [
+  ['Mantenimiento','Del aviso al histórico: cómo estructurar la trazabilidad'],
+  ['Activos','Qué información merece acompañar siempre a un activo'],
+  ['Operación','Órdenes de trabajo: contexto suficiente sin saturar al técnico'],
+  ['Digitalización','Del papel disperso a una operación conectada'],
+  ['Inspecciones','Evidencias, mediciones y revisión técnica en campo'],
+  ['Plataforma','Cómo crece un ecosistema modular sin perder simplicidad']
+];
 ---
-<PlaceholderPage kicker="Conocimiento" title="Recursos" description="Guías, documentación y contenido técnico para acompañar el trabajo y la evolución del ecosistema." />
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Recursos, guías y contenido técnico sobre mantenimiento, activos, órdenes de trabajo, inspecciones y digitalización con IsiVoltPro." />
+    <meta name="theme-color" content="#f7f9fc" />
+    <title>Recursos · IsiVoltPro</title>
+  </head>
+  <body>
+    <SiteHeader />
+    <main class="content-page">
+      <section class="content-hero">
+        <div class="shell content-hero-grid">
+          <div data-reveal><p class="kicker">Centro de conocimiento</p><h1>Recursos que<br /><span>aportan contexto.</span></h1></div>
+          <p data-reveal>Contenido para responsables, técnicos y equipos que quieren entender mejor sus instalaciones y digitalizar procesos con criterio.</p>
+        </div>
+      </section>
+
+      <section class="resources-section">
+        <div class="shell resources-grid">
+          {resources.map((item,index) => (
+            <article class="resource-card" data-reveal style={`--delay:${index * 60}ms`}>
+              <small>{item[0]}</small><h2>{item[1]}</h2><p>Base editorial de IsiVoltPro. Esta pieza se desarrollará con referencias y revisión técnica antes de considerarse guía definitiva.</p><span>Leer próximamente →</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="content-dark-band">
+        <div class="shell content-dark-grid" data-reveal>
+          <h2>Menos ruido.<br /><span>Más criterio técnico.</span></h2>
+          <p>El objetivo de Recursos no es publicar por publicar. Cada contenido debe ayudar a comprender una decisión, un proceso o una parte de la instalación y conectarlo con el trabajo real.</p>
+        </div>
+      </section>
+    </main>
+    <SiteFooter />
+    <Motion />
+  </body>
+</html>
