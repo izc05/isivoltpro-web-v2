@@ -1,6 +1,7 @@
 ---
 import '../../styles/home-lighting.css';
 import '../../styles/home-cinematic.css';
+import '../../styles/home-hero-reference.css';
 
 interface Props {
   image: string;
@@ -9,43 +10,49 @@ interface Props {
 
 const { image, contactHref } = Astro.props;
 ---
-<section class="hero hero--lit hero--cinematic" data-hero-motion style={`--hero-image: url('${image}')`}>
+<section class="hero hero--lit hero--cinematic hero--reference" data-hero-motion style={`--hero-image: url('${image}')`}>
   <div class="hero-media" aria-hidden="true"></div>
   <div class="hero-shade" aria-hidden="true"></div>
 
   <div class="hero-atmosphere" aria-hidden="true">
     <span class="hero-haze hero-haze--a"></span>
     <span class="hero-haze hero-haze--b"></span>
-    <span class="hero-beam hero-beam--a"></span>
     <span class="hero-reflection"></span>
   </div>
 
   <div class="hero-lighting" aria-hidden="true">
-    <span class="hero-light hero-light--plant"></span>
-    <span class="hero-light hero-light--room"></span>
-    <span class="hero-light hero-light--service"></span>
-    <span class="hero-light hero-light--cool"></span>
+    <span class="hero-light hero-light--upper-a"></span>
+    <span class="hero-light hero-light--upper-b"></span>
+    <span class="hero-light hero-light--middle-a"></span>
+    <span class="hero-light hero-light--middle-b"></span>
+    <span class="hero-light hero-light--lower-a"></span>
+    <span class="hero-light hero-light--technical"></span>
     <span class="hero-monitor hero-monitor--a"></span>
     <span class="hero-monitor hero-monitor--b"></span>
+    <span class="hero-monitor hero-monitor--c"></span>
   </div>
 
   <div class="shell hero-inner">
-    <div class="hero-copy">
-      <p class="kicker hero-kicker" data-reveal>Plataforma para instalaciones técnicas</p>
+    <div class="hero-copy hero-copy--reference">
+      <p class="kicker hero-kicker" data-reveal>CONTROL TOTAL. RENDIMIENTO REAL.</p>
       <h1 class="hero-title" data-reveal>
         <span>Toda tu instalación.</span>
         <strong>Un solo sistema.</strong>
       </h1>
-      <p class="hero-lead" data-reveal>Activos, órdenes de trabajo, mantenimiento y recursos técnicos conectados con una visión clara de la operación.</p>
+      <p class="hero-lead" data-reveal>Supervisa, optimiza y controla cada parte de tu instalación desde una única plataforma inteligente.</p>
       <div class="hero-actions" data-reveal>
-        <a class="button button-primary" href={contactHref}>Solicitar demo <span>↗</span></a>
-        <a class="button button-ghost" href="#como-funciona">Explorar plataforma <span>→</span></a>
+        <a class="button button-primary" href={contactHref}>Solicitar demo <span>→</span></a>
       </div>
-      <div class="hero-pillars" data-reveal aria-label="Áreas principales">
-        <span>Activos</span><i></i><span>OT</span><i></i><span>Mantenimiento</span><i></i><span>Herramientas</span>
+    </div>
+
+    <div class="hero-reference-meta" data-reveal aria-label="Posicionamiento de IsiVoltPro">
+      <i></i>
+      <div>
+        <strong>PLATAFORMA INTEGRAL</strong>
+        <span>PARA INSTALACIONES INDUSTRIALES</span>
       </div>
     </div>
   </div>
 
-  <a class="scroll-cue" href="#como-funciona" aria-label="Bajar a cómo funciona"><span>Scroll</span><i></i></a>
+  <a class="scroll-cue" href="#como-funciona" aria-label="Descubrir IsiVoltPro"><span>Descubrir</span><i></i></a>
 </section>
