@@ -1,0 +1,93 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Motion from '../components/Motion.astro';
+import '../styles/global.css';
+
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const withBase = (href: string) => href === '/' ? base : `${base}${href.replace(/^\/+/, '')}`;
+const heroImage = 'https://images.pexels.com/photos/5953729/pexels-photo-5953729.jpeg?auto=compress&cs=tinysrgb&w=2400';
+
+const flow = [
+  { n: '01', icon: '▣', title: 'Activo', text: 'Identifica y centraliza el contexto técnico de cada equipo.' },
+  { n: '02', icon: '△', title: 'Incidencia', text: 'Registra, clasifica y prioriza lo que requiere actuación.' },
+  { n: '03', icon: '↗', title: 'OT', text: 'Convierte la necesidad en trabajo asignado y trazable.' },
+  { n: '04', icon: '▥', title: 'Histórico', text: 'Conserva evidencias, tiempos y decisiones para el futuro.' }
+];
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="IsiVoltPro conecta activos, órdenes de trabajo, mantenimiento y recursos técnicos en un único ecosistema." />
+    <meta name="theme-color" content="#07111d" />
+    <title>IsiVoltPro · Toda tu instalación. Un solo sistema.</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <SiteHeader />
+
+    <main id="contenido">
+      <section class="hero" style={`--hero-image: url('${heroImage}')`}>
+        <div class="hero-media" aria-hidden="true"></div>
+        <div class="hero-shade" aria-hidden="true"></div>
+        <div class="shell hero-inner">
+          <div class="hero-copy">
+            <p class="kicker hero-kicker" data-reveal>Plataforma para instalaciones técnicas</p>
+            <h1 class="hero-title" data-reveal>
+              <span>Toda tu instalación.</span>
+              <strong>Un solo sistema.</strong>
+            </h1>
+            <p class="hero-lead" data-reveal>Activos, órdenes de trabajo, mantenimiento y recursos técnicos conectados con una visión clara de la operación.</p>
+            <div class="hero-actions" data-reveal>
+              <a class="button button-primary" href={withBase('/contacto')}>Solicitar demo <span>↗</span></a>
+              <a class="button button-ghost" href="#como-funciona">Explorar plataforma <span>→</span></a>
+            </div>
+            <div class="hero-pillars" data-reveal aria-label="Áreas principales">
+              <span>Activos</span><i></i><span>OT</span><i></i><span>Mantenimiento</span><i></i><span>Herramientas</span>
+            </div>
+          </div>
+        </div>
+        <a class="scroll-cue" href="#como-funciona" aria-label="Bajar a cómo funciona"><span>Scroll</span><i></i></a>
+      </section>
+
+      <section class="flow-section" id="como-funciona">
+        <div class="shell">
+          <div class="section-intro" data-reveal>
+            <div>
+              <p class="kicker">Todo conectado. Todo trazable.</p>
+              <h2>Del activo al histórico,<br /><span>en una secuencia clara.</span></h2>
+            </div>
+            <p>IsiVoltPro conecta la operación diaria con la información que necesitas para entender qué ocurrió, qué se hizo y qué viene después.</p>
+          </div>
+
+          <div class="flow-grid">
+            {flow.map((item, index) => (
+              <article class="flow-card" data-reveal style={`--delay:${index * 80}ms`}>
+                <div class="flow-icon"><span>{item.icon}</span></div>
+                <span class="flow-number">{item.n}</span>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+                {index < flow.length - 1 && <span class="flow-arrow" aria-hidden="true">→</span>}
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="v2-next-section">
+        <div class="shell v2-next-card" data-reveal>
+          <div>
+            <p class="kicker">Siguiente fase</p>
+            <h2>Tres productos reales.<br />Un mismo ecosistema.</h2>
+          </div>
+          <p>Herramientas QR/NFC, IsiVoltPro OT y Preinspecciones BT serán el siguiente bloque visual. Aquí utilizaremos capturas reales del producto, no interfaces ficticias.</p>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+    <Motion />
+  </body>
+</html>
