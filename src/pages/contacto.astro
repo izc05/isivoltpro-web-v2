@@ -1,4 +1,75 @@
 ---
-import PlaceholderPage from '../components/PlaceholderPage.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Motion from '../components/Motion.astro';
+import '../styles/global.css';
+import '../styles/content-pages.css';
 ---
-<PlaceholderPage kicker="Contacto" title="Solicitar demo" description="Cuéntanos qué instalación o proceso quieres controlar y prepararemos el siguiente paso de IsiVoltPro." />
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Contacta con IsiVoltPro para solicitar una demo o estudiar un piloto de mantenimiento e instalaciones técnicas." />
+    <meta name="theme-color" content="#f7f9fc" />
+    <title>Contacto · IsiVoltPro</title>
+  </head>
+  <body>
+    <SiteHeader />
+    <main class="content-page">
+      <section class="content-hero">
+        <div class="shell content-hero-grid">
+          <div data-reveal><p class="kicker">Contacto</p><h1>Hablemos de<br /><span>tu instalación.</span></h1></div>
+          <p data-reveal>Cuéntanos qué quieres controlar, digitalizar o conectar. La primera conversación debe servir para entender el problema, no para venderte una lista de funciones.</p>
+        </div>
+      </section>
+
+      <section class="contact-section">
+        <div class="shell contact-grid">
+          <div class="contact-panel" data-reveal>
+            <h2>Solicitar demo o piloto</h2>
+            <form class="contact-form" data-contact-form>
+              <label>Nombre<input required name="name" autocomplete="name" /></label>
+              <label>Empresa / organización<input name="company" autocomplete="organization" /></label>
+              <label>Correo electrónico<input required type="email" name="email" autocomplete="email" /></label>
+              <label>¿Qué necesitas controlar o mejorar?<textarea required name="message"></textarea></label>
+              <button class="button button-primary" type="submit">Preparar correo <span>→</span></button>
+            </form>
+            <p class="contact-note">Este formulario no envía ni almacena datos en un servidor. Prepara un correo en tu aplicación de email para que puedas revisarlo antes de enviarlo.</p>
+          </div>
+
+          <aside class="contact-panel contact-meta" data-reveal>
+            <article><small>Correo</small><h3>isivoltpro@gmail.com</h3><p>Canal general para demos, pilotos y consultas sobre la plataforma.</p></article>
+            <article><small>Qué nos ayuda</small><h3>Un caso concreto</h3><p>Tipo de instalación, problema actual, quién trabaja con el proceso y qué información necesitas conservar.</p></article>
+            <article><small>Enfoque</small><h3>Empezar pequeño</h3><p>Preferimos validar un flujo útil antes de desplegar un ecosistema completo alrededor de un problema mal definido.</p></article>
+          </aside>
+        </div>
+      </section>
+
+      <section class="content-dark-band">
+        <div class="shell content-dark-grid" data-reveal>
+          <h2>Una conversación.<br /><span>Un problema concreto.</span></h2>
+          <p>IsiVoltPro crece a partir de necesidades reales de mantenimiento e instalaciones. Cuanto más claro sea el caso de uso, más fácil es diseñar una solución que aporte valor.</p>
+        </div>
+      </section>
+    </main>
+    <SiteFooter />
+    <Motion />
+
+    <script is:inline>
+      document.querySelector('[data-contact-form]')?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (!(form instanceof HTMLFormElement)) return;
+        const data = new FormData(form);
+        const name = String(data.get('name') || '');
+        const company = String(data.get('company') || '');
+        const email = String(data.get('email') || '');
+        const message = String(data.get('message') || '');
+        const subject = `Solicitud IsiVoltPro · ${company || name}`;
+        const body = `Nombre: ${name}\nEmpresa: ${company}\nCorreo: ${email}\n\nNecesidad:\n${message}`;
+        window.location.href = `mailto:isivoltpro@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      });
+    </script>
+  </body>
+</html>
