@@ -1,0 +1,87 @@
+---
+import '../../styles/intro-cinematic.css';
+
+interface Props {
+  base: string;
+}
+
+const { base } = Astro.props;
+const imageUrl = `${base}images/intro-cinematic/intro.webp`;
+---
+<section class="intro-cinematic" data-intro aria-label="Portada de IsiVoltPro">
+  <div class="intro-image" style={`background-image:url('${imageUrl}')`} aria-hidden="true"></div>
+  <div class="intro-depth" aria-hidden="true"></div>
+  <div class="intro-shade" aria-hidden="true"></div>
+
+  <div class="intro-lights" aria-hidden="true">
+    <span class="intro-light intro-light--roof-a"></span>
+    <span class="intro-light intro-light--roof-b"></span>
+    <span class="intro-light intro-light--middle-a"></span>
+    <span class="intro-light intro-light--middle-b"></span>
+    <span class="intro-light intro-light--plant"></span>
+    <span class="intro-monitor intro-monitor--a"></span>
+    <span class="intro-monitor intro-monitor--b"></span>
+  </div>
+
+  <div class="intro-machinery" aria-hidden="true">
+    <span class="intro-rotor intro-rotor--a"><i></i></span>
+    <span class="intro-rotor intro-rotor--b"><i></i></span>
+    <span class="intro-haze"></span>
+  </div>
+
+  <div class="intro-brand" aria-hidden="true">
+    <span class="intro-brand-mark"><i></i><i></i><i></i></span>
+    <strong>ISIVOLTPRO</strong>
+  </div>
+
+  <div class="intro-copy">
+    <p>CONTROL TOTAL. RENDIMIENTO REAL.</p>
+    <h1>Toda tu instalación.<br /><strong>Un solo sistema.</strong></h1>
+    <span>Supervisa, optimiza y controla tu instalación desde una única plataforma técnica.</span>
+    <button class="intro-enter" type="button" data-intro-enter>
+      Entrar en IsiVoltPro <i>→</i>
+    </button>
+  </div>
+
+  <button class="intro-scroll" type="button" data-intro-enter aria-label="Entrar en IsiVoltPro">
+    <i></i><span>Desliza para descubrir</span>
+  </button>
+
+  <script is:inline>
+    (() => {
+      const intro = document.querySelector('[data-intro]');
+      if (!intro) return;
+
+      const buttons = intro.querySelectorAll('[data-intro-enter]');
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let leaving = false;
+
+      const revealSite = () => {
+        if (leaving) return;
+        leaving = true;
+        sessionStorage.setItem('isivoltpro-intro-seen', '1');
+        intro.classList.add('is-leaving');
+        document.documentElement.classList.remove('intro-active');
+        window.setTimeout(() => intro.remove(), reduced ? 50 : 900);
+      };
+
+      const seen = sessionStorage.getItem('isivoltpro-intro-seen') === '1';
+      if (seen) {
+        intro.remove();
+        return;
+      }
+
+      document.documentElement.classList.add('intro-active');
+      buttons.forEach((button) => button.addEventListener('click', revealSite));
+
+      const onWheel = (event) => {
+        if (Math.abs(event.deltaY) > 14) revealSite();
+      };
+      const onKey = (event) => {
+        if (['ArrowDown', 'PageDown', ' ', 'Enter'].includes(event.key)) revealSite();
+      };
+      window.addEventListener('wheel', onWheel, { passive: true, once: true });
+      window.addEventListener('keydown', onKey, { once: true });
+    })();
+  </script>
+</section>
