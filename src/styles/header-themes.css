@@ -1,0 +1,9 @@
+.site-header.is-light { color:#101722; }
+.site-header.is-light .main-nav { color:#4f5d70; }
+.site-header.is-light .main-nav a:hover { color:#101722; }
+.site-header.is-light .menu-toggle { color:#101722; }
+.site-header.is-light:not(.is-scrolled) { background:rgba(255,255,255,.78); border-bottom-color:rgba(18,34,54,.06); backdrop-filter:blur(14px); }
+.site-header.is-light.is-scrolled { color:white; background:rgba(7,17,29,.9); border-bottom-color:rgba(255,255,255,.08); }
+.site-header.is-light.is-scrolled .main-nav { color:rgba(255,255,255,.76); }
+.site-header.is-light.is-scrolled .menu-toggle { color:white; }
+@media(max-width:1100px){.site-header.is-light .main-nav { color:rgba(255,255,255,.78); }}
