@@ -6,9 +6,9 @@ interface Props {
 }
 
 const { base } = Astro.props;
-const chunkBase = `${base}images/intro-cinematic/`;
+const imageUrl = `${base}images/intro-cinematic/intro.webp`;
 ---
-<section class="intro-cinematic" data-intro data-chunk-base={chunkBase} aria-label="Portada de IsiVoltPro">
+<section class="intro-cinematic" data-intro style={`--intro-image: url('${imageUrl}')`} aria-label="Portada de IsiVoltPro">
   <div class="intro-image" data-intro-image aria-hidden="true"></div>
   <div class="intro-depth" aria-hidden="true"></div>
   <div class="intro-shade" aria-hidden="true"></div>
@@ -52,7 +52,6 @@ const chunkBase = `${base}images/intro-cinematic/`;
       const intro = document.querySelector('[data-intro]');
       if (!intro) return;
 
-      const image = intro.querySelector('[data-intro-image]');
       const buttons = intro.querySelectorAll('[data-intro-enter]');
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       let leaving = false;
@@ -83,25 +82,6 @@ const chunkBase = `${base}images/intro-cinematic/`;
       };
       window.addEventListener('wheel', onWheel, { passive: true, once: true });
       window.addEventListener('keydown', onKey, { once: true });
-
-      // The generated WebP is kept inside the repository as two small text chunks.
-      // They are assembled once in the browser and converted to a local Blob URL.
-      const chunkBase = intro.dataset.chunkBase;
-      const parts = Array.from({ length: 2 }, (_, i) => `${chunkBase}part-${String(i + 1).padStart(2, '0')}.txt`);
-      Promise.all(parts.map((url) => fetch(url).then((response) => {
-        if (!response.ok) throw new Error(`intro asset ${response.status}`);
-        return response.text();
-      }))).then((chunks) => {
-        const encoded = chunks.join('').replace(/\s/g, '');
-        const bytes = Uint8Array.from(atob(encoded), (char) => char.charCodeAt(0));
-        const blobUrl = URL.createObjectURL(new Blob([bytes], { type: 'image/webp' }));
-        if (image) {
-          image.style.backgroundImage = `url('${blobUrl}')`;
-          intro.classList.add('is-image-ready');
-        }
-      }).catch(() => {
-        // Keep the photographic fallback if an asset chunk cannot be loaded.
-      });
     })();
   </script>
 </section>
