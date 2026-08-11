@@ -1,8 +1,13 @@
 <style is:global>
   html.is-page-hidden .hero-light,
   html.is-page-hidden .hero-monitor,
+  html.is-page-hidden .hero-haze,
+  html.is-page-hidden .hero-beam,
+  html.is-page-hidden .hero-reflection,
   html.is-page-hidden .closing-light,
-  html.is-page-hidden .closing-monitor {
+  html.is-page-hidden .closing-monitor,
+  html.is-page-hidden .eco-light-mask,
+  html.is-page-hidden .eco-monitor-dot {
     animation-play-state: paused !important;
   }
 </style>
@@ -14,6 +19,8 @@
     const header = document.querySelector('[data-header]');
     const toggle = document.querySelector('[data-menu-toggle]');
     const menu = document.querySelector('[data-menu]');
+    const hero = document.querySelector('[data-hero-motion]');
+    const cutaway = document.querySelector('[data-cutaway]');
 
     const setMenu = (open) => {
       menu?.classList.toggle('is-open', open);
@@ -43,6 +50,32 @@
 
     if (reduced) document.documentElement.dataset.reducedMotion = 'true';
 
+    const setPointerDepth = (element, event, prefix, maxX, maxY) => {
+      if (!element || reduced || coarse) return;
+      const rect = element.getBoundingClientRect();
+      const nx = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+      const ny = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+      element.style.setProperty(`--${prefix}-pan-x`, `${(nx * maxX).toFixed(2)}px`);
+      element.style.setProperty(`--${prefix}-pan-y`, `${(ny * maxY).toFixed(2)}px`);
+      element.style.setProperty(`--${prefix}-tilt-x`, `${(nx * 1.25).toFixed(2)}deg`);
+      element.style.setProperty(`--${prefix}-tilt-y`, `${(ny * -0.8).toFixed(2)}deg`);
+    };
+
+    const resetPointerDepth = (element, prefix) => {
+      if (!element) return;
+      element.style.setProperty(`--${prefix}-pan-x`, '0px');
+      element.style.setProperty(`--${prefix}-pan-y`, '0px');
+      element.style.setProperty(`--${prefix}-tilt-x`, '0deg');
+      element.style.setProperty(`--${prefix}-tilt-y`, '0deg');
+    };
+
+    if (!reduced && !coarse) {
+      hero?.addEventListener('pointermove', (event) => setPointerDepth(hero, event, 'hero', 10, 6), { passive: true });
+      hero?.addEventListener('pointerleave', () => resetPointerDepth(hero, 'hero'));
+      cutaway?.addEventListener('pointermove', (event) => setPointerDepth(cutaway, event, 'eco', 7, 5), { passive: true });
+      cutaway?.addEventListener('pointerleave', () => resetPointerDepth(cutaway, 'eco'));
+    }
+
     let ticking = false;
     const onScroll = () => {
       if (ticking) return;
@@ -52,6 +85,13 @@
         header?.classList.toggle('is-scrolled', y > 22);
         if (!reduced && !coarse) {
           document.documentElement.style.setProperty('--hero-shift', `${Math.min(y * 0.08, 38)}px`);
+          const cutawayRect = cutaway?.getBoundingClientRect();
+          if (cutaway && cutawayRect) {
+            const viewportCenter = window.innerHeight / 2;
+            const cutawayCenter = cutawayRect.top + cutawayRect.height / 2;
+            const normalized = Math.max(-1, Math.min(1, (cutawayCenter - viewportCenter) / window.innerHeight));
+            cutaway.style.setProperty('--eco-scroll-y', `${(-normalized * 7).toFixed(2)}px`);
+          }
         }
         ticking = false;
       });
