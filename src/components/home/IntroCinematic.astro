@@ -1,51 +1,27 @@
 ---
 import '../../styles/intro-cinematic.css';
-import '../../styles/intro-hotfix.css';
-
-interface Props {
-  base: string;
-}
-
-const { base } = Astro.props;
-const imageUrl = `${base}images/intro-cinematic/intro.webp`;
 ---
-<section class="intro-cinematic" data-intro aria-label="Portada de IsiVoltPro">
-  <div class="intro-image" style={`background-image:url('${imageUrl}')`} aria-hidden="true"></div>
-  <div class="intro-depth" aria-hidden="true"></div>
-  <div class="intro-shade" aria-hidden="true"></div>
+<section class="intro-cinematic" data-intro aria-label="Entrada a IsiVoltPro">
+  <div class="intro-grid" aria-hidden="true"></div>
+  <div class="intro-glow intro-glow--a" aria-hidden="true"></div>
+  <div class="intro-glow intro-glow--b" aria-hidden="true"></div>
+  <div class="intro-line intro-line--a" aria-hidden="true"></div>
+  <div class="intro-line intro-line--b" aria-hidden="true"></div>
 
-  <div class="intro-lights" aria-hidden="true">
-    <span class="intro-light intro-light--roof-a"></span>
-    <span class="intro-light intro-light--roof-b"></span>
-    <span class="intro-light intro-light--middle-a"></span>
-    <span class="intro-light intro-light--middle-b"></span>
-    <span class="intro-light intro-light--plant"></span>
-    <span class="intro-monitor intro-monitor--a"></span>
-    <span class="intro-monitor intro-monitor--b"></span>
-  </div>
-
-  <div class="intro-machinery" aria-hidden="true">
-    <span class="intro-rotor intro-rotor--a"><i></i></span>
-    <span class="intro-rotor intro-rotor--b"><i></i></span>
-    <span class="intro-haze"></span>
-  </div>
-
-  <div class="intro-brand" aria-hidden="true">
-    <span class="intro-brand-mark"><i></i><i></i><i></i></span>
-    <strong>ISIVOLTPRO</strong>
-  </div>
-
-  <div class="intro-copy">
-    <p>CONTROL TOTAL. RENDIMIENTO REAL.</p>
-    <h1>Toda tu instalación.<br /><strong>Un solo sistema.</strong></h1>
-    <span>Supervisa, optimiza y controla tu instalación desde una única plataforma técnica.</span>
+  <div class="intro-center">
+    <div class="intro-brand">
+      <span class="intro-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <strong>ISIVOLTPRO</strong>
+    </div>
+    <p class="intro-eyebrow">OPERACIÓN · MANTENIMIENTO · TRAZABILIDAD</p>
+    <h1>Una única visión<br /><span>para toda tu instalación.</span></h1>
     <button class="intro-enter" type="button" data-intro-enter>
       Entrar en IsiVoltPro <i>→</i>
     </button>
   </div>
 
   <button class="intro-scroll" type="button" data-intro-enter aria-label="Entrar en IsiVoltPro">
-    <i></i><span>Desliza para descubrir</span>
+    <i></i><span>Desliza para entrar</span>
   </button>
 
   <script is:inline>
@@ -55,7 +31,6 @@ const imageUrl = `${base}images/intro-cinematic/intro.webp`;
 
       const buttons = intro.querySelectorAll('[data-intro-enter]');
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const finePointer = window.matchMedia('(pointer: fine)').matches;
       const forceIntro = new URLSearchParams(window.location.search).get('intro') === '1';
       let leaving = false;
 
@@ -78,7 +53,7 @@ const imageUrl = `${base}images/intro-cinematic/intro.webp`;
           window.history.replaceState({}, '', cleanUrl);
         }
 
-        window.setTimeout(() => intro.remove(), reduced ? 50 : 900);
+        window.setTimeout(() => intro.remove(), reduced ? 50 : 950);
       };
 
       const seen = storageGet('isivoltpro-intro-seen') === '1';
@@ -91,29 +66,13 @@ const imageUrl = `${base}images/intro-cinematic/intro.webp`;
       requestAnimationFrame(() => intro.classList.add('is-ready'));
       buttons.forEach((button) => button.addEventListener('click', revealSite));
 
-      const onWheel = (event) => {
+      window.addEventListener('wheel', (event) => {
         if (Math.abs(event.deltaY) > 14) revealSite();
-      };
-      const onKey = (event) => {
-        if (['ArrowDown', 'PageDown', ' ', 'Enter', 'Escape'].includes(event.key)) revealSite();
-      };
-      window.addEventListener('wheel', onWheel, { passive: true, once: true });
-      window.addEventListener('keydown', onKey, { once: true });
+      }, { passive: true, once: true });
 
-      if (!reduced && finePointer) {
-        let frame = 0;
-        intro.addEventListener('pointermove', (event) => {
-          if (frame) cancelAnimationFrame(frame);
-          frame = requestAnimationFrame(() => {
-            const x = (event.clientX / window.innerWidth - 0.5) * 2;
-            const y = (event.clientY / window.innerHeight - 0.5) * 2;
-            intro.style.setProperty('--intro-pan-x', `${x * 0.7}%`);
-            intro.style.setProperty('--intro-pan-y', `${y * 0.5}%`);
-            intro.style.setProperty('--intro-tilt-x', `${x * 3}px`);
-            intro.style.setProperty('--intro-tilt-y', `${y * 2}px`);
-          });
-        }, { passive: true });
-      }
+      window.addEventListener('keydown', (event) => {
+        if (['ArrowDown', 'PageDown', ' ', 'Enter', 'Escape'].includes(event.key)) revealSite();
+      }, { once: true });
     })();
   </script>
 </section>
