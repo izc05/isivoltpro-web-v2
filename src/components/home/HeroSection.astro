@@ -1,5 +1,6 @@
 ---
 import '../../styles/home-lighting.css';
+import '../../styles/home-cinematic.css';
 
 interface Props {
   image: string;
@@ -8,9 +9,16 @@ interface Props {
 
 const { image, contactHref } = Astro.props;
 ---
-<section class="hero hero--lit" style={`--hero-image: url('${image}')`}>
+<section class="hero hero--lit hero--cinematic" data-hero-motion style={`--hero-image: url('${image}')`}>
   <div class="hero-media" aria-hidden="true"></div>
   <div class="hero-shade" aria-hidden="true"></div>
+
+  <div class="hero-atmosphere" aria-hidden="true">
+    <span class="hero-haze hero-haze--a"></span>
+    <span class="hero-haze hero-haze--b"></span>
+    <span class="hero-beam hero-beam--a"></span>
+    <span class="hero-reflection"></span>
+  </div>
 
   <div class="hero-lighting" aria-hidden="true">
     <span class="hero-light hero-light--plant"></span>

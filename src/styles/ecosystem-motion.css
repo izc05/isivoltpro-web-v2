@@ -1,0 +1,98 @@
+.eco-cutaway {
+  --eco-pan-x: 0px;
+  --eco-pan-y: 0px;
+  --eco-tilt-x: 0deg;
+  --eco-tilt-y: 0deg;
+  --eco-scroll-y: 0px;
+  isolation: isolate;
+}
+
+.eco-cutaway::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  width: 48%;
+  height: 58%;
+  right: 2%;
+  top: 5%;
+  border-radius: 50%;
+  opacity: .13;
+  filter: blur(34px);
+  background: radial-gradient(ellipse, rgba(69,142,255,.22), rgba(40,101,210,.045) 48%, transparent 73%);
+  animation: ecoAmbientDrift 18s ease-in-out -7s infinite alternate;
+  pointer-events: none;
+}
+
+.eco-cutaway .eco-building {
+  transform:
+    translate3d(var(--eco-pan-x), calc(var(--eco-scroll-y) + var(--eco-pan-y)), 0)
+    rotateX(calc(2deg + var(--eco-tilt-y)))
+    rotateY(calc(-5deg + var(--eco-tilt-x)));
+  transition: transform 900ms cubic-bezier(.2,.7,.2,1);
+  will-change: transform;
+}
+
+.eco-cutaway .eco-building-shell {
+  overflow: hidden;
+}
+
+.eco-cutaway .eco-building-shell::after {
+  content: '';
+  position: absolute;
+  inset: -30% -10%;
+  opacity: .12;
+  background: linear-gradient(112deg, transparent 39%, rgba(127,183,255,.18) 48%, rgba(255,255,255,.06) 52%, transparent 61%);
+  transform: translateX(-48%);
+  animation: ecoGlassSweep 16s cubic-bezier(.3,.1,.25,1) -9s infinite;
+}
+
+.eco-cutaway .eco-room {
+  transition: border-color 650ms ease, background 650ms ease, box-shadow 650ms ease;
+}
+
+.eco-cutaway:hover .eco-room {
+  border-color: rgba(150,187,237,.14);
+}
+
+.eco-cutaway .eco-asset-chip {
+  box-shadow: 0 0 0 0 rgba(72,140,255,0);
+  animation: ecoAssetPresence 7.8s ease-in-out -2.8s infinite;
+}
+
+@keyframes ecoAmbientDrift {
+  0% { opacity: .08; transform: translate3d(-14px, 8px, 0) scale(.98); }
+  50% { opacity: .14; }
+  100% { opacity: .10; transform: translate3d(18px, -12px, 0) scale(1.025); }
+}
+
+@keyframes ecoGlassSweep {
+  0%, 56% { opacity: 0; transform: translateX(-52%); }
+  63% { opacity: .12; }
+  78% { opacity: .08; transform: translateX(42%); }
+  84%, 100% { opacity: 0; transform: translateX(52%); }
+}
+
+@keyframes ecoAssetPresence {
+  0%,100% { box-shadow: 0 0 0 0 rgba(72,140,255,0); border-color: rgba(102,160,255,.28); }
+  52% { box-shadow: 0 0 24px 2px rgba(72,140,255,.08); border-color: rgba(111,168,255,.38); }
+}
+
+@media (max-width: 900px) {
+  .eco-cutaway .eco-building {
+    transform: translate3d(0, var(--eco-scroll-y), 0) rotateX(1deg) rotateY(-2deg);
+  }
+}
+
+@media (max-width: 620px), (pointer: coarse) {
+  .eco-cutaway::after { opacity: .08; animation-duration: 24s; }
+  .eco-cutaway .eco-building { transform: none; transition: none; }
+  .eco-cutaway .eco-building-shell::after { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eco-cutaway::after,
+  .eco-cutaway .eco-building-shell::after,
+  .eco-cutaway .eco-asset-chip { animation: none !important; }
+  .eco-cutaway .eco-building { transform: none !important; transition: none !important; }
+  .eco-cutaway::after { opacity: .07; transform: none; }
+}
