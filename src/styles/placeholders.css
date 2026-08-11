@@ -1,0 +1,5 @@
+.placeholder-main { min-height: calc(100svh - 96px); background: var(--ink); color: white; }
+.placeholder-hero { min-height: 78svh; display: grid; align-items: center; padding: 150px 0 90px; background: radial-gradient(circle at 72% 24%,rgba(23,105,255,.18),transparent 30%),linear-gradient(145deg,#07111d,#0b1624 70%,#0f1d2d); }
+.placeholder-hero h1 { margin: 0; max-width: 980px; font-size: clamp(58px,8vw,118px); line-height: .92; letter-spacing: -.055em; font-weight: 560; }
+.placeholder-hero > .shell > p:not(.kicker) { max-width: 720px; margin: 30px 0 38px; font-size: clamp(18px,1.5vw,23px); line-height: 1.6; color: rgba(255,255,255,.68); }
+@media (max-width:760px) { .placeholder-hero { min-height: 82svh; padding-top: 120px; } .placeholder-hero h1 { font-size: clamp(50px,15vw,74px); } }
