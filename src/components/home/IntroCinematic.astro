@@ -8,8 +8,8 @@ interface Props {
 const { base } = Astro.props;
 const imageUrl = `${base}images/intro-cinematic/intro.webp`;
 ---
-<section class="intro-cinematic" data-intro style={`--intro-image: url('${imageUrl}')`} aria-label="Portada de IsiVoltPro">
-  <div class="intro-image" data-intro-image aria-hidden="true"></div>
+<section class="intro-cinematic" data-intro aria-label="Portada de IsiVoltPro">
+  <div class="intro-image" style={`background-image:url('${imageUrl}')`} aria-hidden="true"></div>
   <div class="intro-depth" aria-hidden="true"></div>
   <div class="intro-shade" aria-hidden="true"></div>
 
