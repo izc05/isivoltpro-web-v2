@@ -2,7 +2,9 @@
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import Motion from '../components/Motion.astro';
+import HeroSection from '../components/home/HeroSection.astro';
 import '../styles/global.css';
+import '../styles/home-sections.css';
 
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const withBase = (href: string) => href === '/' ? base : `${base}${href.replace(/^\/+/, '')}`;
@@ -46,28 +48,7 @@ const sectors = [
     <SiteHeader />
 
     <main id="contenido">
-      <section class="hero" style={`--hero-image: url('${heroImage}')`}>
-        <div class="hero-media" aria-hidden="true"></div>
-        <div class="hero-shade" aria-hidden="true"></div>
-        <div class="shell hero-inner">
-          <div class="hero-copy">
-            <p class="kicker hero-kicker" data-reveal>Plataforma para instalaciones técnicas</p>
-            <h1 class="hero-title" data-reveal>
-              <span>Toda tu instalación.</span>
-              <strong>Un solo sistema.</strong>
-            </h1>
-            <p class="hero-lead" data-reveal>Activos, órdenes de trabajo, mantenimiento y recursos técnicos conectados con una visión clara de la operación.</p>
-            <div class="hero-actions" data-reveal>
-              <a class="button button-primary" href={withBase('/contacto')}>Solicitar demo <span>↗</span></a>
-              <a class="button button-ghost" href="#como-funciona">Explorar plataforma <span>→</span></a>
-            </div>
-            <div class="hero-pillars" data-reveal aria-label="Áreas principales">
-              <span>Activos</span><i></i><span>OT</span><i></i><span>Mantenimiento</span><i></i><span>Herramientas</span>
-            </div>
-          </div>
-        </div>
-        <a class="scroll-cue" href="#como-funciona" aria-label="Bajar a cómo funciona"><span>Scroll</span><i></i></a>
-      </section>
+      <HeroSection image={heroImage} contactHref={withBase('/contacto')} />
 
       <section class="flow-section" id="como-funciona">
         <div class="shell">
