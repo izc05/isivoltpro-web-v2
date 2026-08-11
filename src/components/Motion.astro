@@ -1,3 +1,12 @@
+<style is:global>
+  html.is-page-hidden .hero-light,
+  html.is-page-hidden .hero-monitor,
+  html.is-page-hidden .closing-light,
+  html.is-page-hidden .closing-monitor {
+    animation-play-state: paused !important;
+  }
+</style>
+
 <script is:inline>
   (() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
