@@ -1,5 +1,7 @@
 # IsiVoltPro Web V2 — Blueprint de producto, imagen y motion
 
+> Estado actual: la arquitectura principal está montada en `feat/home-v2-premium`. El sistema de iluminación viva del Hero y del cierre está implementado y documentado en `docs/LIGHTING-SYSTEM.md`.
+
 ## 1. Objetivo
 
 La Home no intenta explicar todo IsiVoltPro. Su trabajo es producir tres sensaciones en menos de 10 segundos:
@@ -63,12 +65,14 @@ Solicitud de demo/piloto y contacto técnico.
 - CTA: aparece después del titular.
 - Scroll cue: punto azul que recorre una línea vertical.
 - Parallax posterior: máximo 70 px; únicamente pointer fine.
+- Iluminación viva: respiración cálida, una zona con reducción lenta de intensidad, reflejo técnico y puntos de monitorización.
 
 **Móvil:**
 - Sin parallax.
 - Imagen reencuadrada hacia equipos.
 - Titular máximo ~17vw.
 - CTA apiladas.
+- Iluminación reducida a las capas esenciales.
 
 ### Escena 02 — OSCURO → CLARO
 **Mensaje:** `Del activo al histórico, en una secuencia clara.`
@@ -147,6 +151,11 @@ Sectores:
 - Solicitar demo.
 - Explorar ecosistema.
 
+**Motion actual:**
+- Dos respiraciones de luz muy lentas.
+- Un punto técnico.
+- Menor intensidad que el Hero para transmitir calma.
+
 ---
 
 ## 4. Paleta
@@ -174,6 +183,7 @@ Regla: **oscuro para impacto, claro para explicación, oscuro para cierre**.
 6. `prefers-reduced-motion` siempre produce versión estática completa.
 7. Evitar Three.js/WebGL en fase 1.
 8. Si más adelante añadimos WebGL, debe existir fallback de imagen estática.
+9. Las animaciones ambientales se pausan cuando la pestaña no está visible.
 
 ---
 
@@ -189,7 +199,7 @@ Regla: **oscuro para impacto, claro para explicación, oscuro para cierre**.
 - screenshots reales de Herramientas, OT y BT.
 
 ### Prioridad B — subpáginas
-- Cutaway técnico del ecosistema.
+- Cutaway técnico del ecosistema diseñado específicamente para máscaras de iluminación.
 - Activo real con etiqueta QR/NFC.
 - Técnico usando móvil/tablet (solo si aporta credibilidad).
 - Cuadro eléctrico / UTA / bombas / PCI / ACS.
