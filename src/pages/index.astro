@@ -6,13 +6,30 @@ import '../styles/global.css';
 
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const withBase = (href: string) => href === '/' ? base : `${base}${href.replace(/^\/+/, '')}`;
+
 const heroImage = 'https://images.pexels.com/photos/5953729/pexels-photo-5953729.jpeg?auto=compress&cs=tinysrgb&w=2400';
+const closingImage = 'https://images.pexels.com/photos/31257317/pexels-photo-31257317.jpeg?auto=compress&cs=tinysrgb&w=2200';
 
 const flow = [
   { n: '01', icon: '▣', title: 'Activo', text: 'Identifica y centraliza el contexto técnico de cada equipo.' },
   { n: '02', icon: '△', title: 'Incidencia', text: 'Registra, clasifica y prioriza lo que requiere actuación.' },
   { n: '03', icon: '↗', title: 'OT', text: 'Convierte la necesidad en trabajo asignado y trazable.' },
   { n: '04', icon: '▥', title: 'Histórico', text: 'Conserva evidencias, tiempos y decisiones para el futuro.' }
+];
+
+const products = [
+  { n: '01', state: 'Operativa', kind: 'tools', title: 'Herramientas QR/NFC', text: 'Inventario, identificación, responsables, préstamos, devoluciones e historial.', href: '/aplicaciones' },
+  { n: '02', state: 'Operativa', kind: 'ot', title: 'IsiVoltPro OT', text: 'Clientes, instalaciones, órdenes de trabajo, técnicos, estados y seguimiento.', href: '/aplicaciones' },
+  { n: '03', state: 'Beta', kind: 'bt', title: 'Preinspecciones BT', text: 'Trabajo guiado, mediciones, evidencias y preparación estructurada de la preinspección.', href: '/aplicaciones' }
+];
+
+const ecosystem = ['Activos', 'OT', 'Mantenimiento', 'Herramientas', 'Inventario', 'Especialidades'];
+
+const sectors = [
+  { title: 'Hospitales', image: 'https://images.pexels.com/photos/5203594/pexels-photo-5203594.jpeg?auto=compress&cs=tinysrgb&w=1200' },
+  { title: 'Industria', image: 'https://images.pexels.com/photos/5953729/pexels-photo-5953729.jpeg?auto=compress&cs=tinysrgb&w=1200' },
+  { title: 'Edificios', image: 'https://images.pexels.com/photos/16370914/pexels-photo-16370914.jpeg?auto=compress&cs=tinysrgb&w=1200' },
+  { title: 'Infraestructura', image: 'https://images.pexels.com/photos/17387403/pexels-photo-17387403.jpeg?auto=compress&cs=tinysrgb&w=1200' }
 ];
 ---
 <!doctype html>
@@ -76,13 +93,79 @@ const flow = [
         </div>
       </section>
 
-      <section class="v2-next-section">
-        <div class="shell v2-next-card" data-reveal>
-          <div>
-            <p class="kicker">Siguiente fase</p>
-            <h2>Tres productos reales.<br />Un mismo ecosistema.</h2>
+      <section class="products-section" id="productos">
+        <div class="shell">
+          <div class="product-heading" data-reveal>
+            <p class="kicker">Producto real, presentación clara</p>
+            <h2>Tres aplicaciones.<br /><span>Un mismo estándar.</span></h2>
+            <p>Esta V2 separa lo operativo de lo que todavía está en desarrollo. Las capturas definitivas se sustituirán por imágenes reales de cada aplicación.</p>
           </div>
-          <p>Herramientas QR/NFC, IsiVoltPro OT y Preinspecciones BT serán el siguiente bloque visual. Aquí utilizaremos capturas reales del producto, no interfaces ficticias.</p>
+
+          <div class="product-grid">
+            {products.map((product, index) => (
+              <article class="product-card" data-reveal style={`--delay:${index * 90}ms`}>
+                <div class:list={['product-visual', `is-${product.kind}`]} aria-label={`Vista conceptual de ${product.title}`}>
+                  <span class="concept-label">Vista conceptual</span>
+                  <div class="device-shell">
+                    <div class="device-top"><i></i><i></i><i></i></div>
+                    <div class="device-body">
+                      {product.kind === 'tools' && <><div class="visual-qr"></div><div class="visual-lines"><i></i><i></i><i></i></div></>}
+                      {product.kind === 'ot' && <><div class="visual-sidebar"></div><div class="visual-board"><i></i><i></i><i></i><i></i></div></>}
+                      {product.kind === 'bt' && <><div class="visual-progress"></div><div class="visual-checks"><i></i><i></i><i></i><i></i></div></>}
+                    </div>
+                  </div>
+                </div>
+                <div class="product-copy">
+                  <div class="product-meta"><span>{product.n}</span><b class:list={[product.state === 'Beta' && 'is-beta']}>{product.state}</b></div>
+                  <h3>{product.title}</h3>
+                  <p>{product.text}</p>
+                  <a href={withBase(product.href)}>Conocer producto <span>→</span></a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="ecosystem-band">
+        <div class="shell ecosystem-inner" data-reveal>
+          <div class="ecosystem-copy">
+            <p class="kicker">Un ecosistema que sigue creciendo</p>
+            <h2>Todo lo que tu instalación necesita.<br /><span>En un solo lugar.</span></h2>
+          </div>
+          <div class="ecosystem-list">
+            {ecosystem.map((item, index) => <a href={withBase('/ecosistema')}><span>{String(index + 1).padStart(2,'0')}</span><strong>{item}</strong><i>→</i></a>)}
+          </div>
+        </div>
+      </section>
+
+      <section class="sectors-section">
+        <div class="shell">
+          <div class="sector-heading" data-reveal>
+            <p class="kicker">Diseñado para cada entorno</p>
+            <h2>Un mismo estándar,<br /><span>en cada sector.</span></h2>
+          </div>
+          <div class="sector-grid">
+            {sectors.map((sector, index) => (
+              <a class="sector-card" href={withBase('/mantenimiento')} style={`--sector-image:url('${sector.image}');--delay:${index * 80}ms`} data-reveal>
+                <span>{sector.title}</span><i>↗</i>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="closing-section" style={`--closing-image:url('${closingImage}')`}>
+        <div class="closing-media" aria-hidden="true"></div>
+        <div class="closing-shade" aria-hidden="true"></div>
+        <div class="shell closing-inner" data-reveal>
+          <p class="kicker">Una visión más clara de tu operación</p>
+          <h2>Tu instalación.<br /><span>Bajo control.</span></h2>
+          <p>Menos información dispersa. Más contexto para decidir, actuar y mantener.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href={withBase('/contacto')}>Solicitar demo <span>↗</span></a>
+            <a class="button button-ghost" href={withBase('/ecosistema')}>Explorar ecosistema <span>→</span></a>
+          </div>
         </div>
       </section>
     </main>
