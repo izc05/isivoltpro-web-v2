@@ -55,35 +55,65 @@ const imageUrl = `${base}images/intro-cinematic/intro.webp`;
 
       const buttons = intro.querySelectorAll('[data-intro-enter]');
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
+      const forceIntro = new URLSearchParams(window.location.search).get('intro') === '1';
       let leaving = false;
+
+      const storageGet = (key) => {
+        try { return sessionStorage.getItem(key); } catch (_) { return null; }
+      };
+      const storageSet = (key, value) => {
+        try { sessionStorage.setItem(key, value); } catch (_) {}
+      };
 
       const revealSite = () => {
         if (leaving) return;
         leaving = true;
-        try { sessionStorage.setItem('isivoltpro-intro-seen', '1'); } catch (_) {}
+        storageSet('isivoltpro-intro-seen', '1');
         intro.classList.add('is-leaving');
         document.documentElement.classList.remove('intro-active');
+
+        if (forceIntro) {
+          const cleanUrl = `${window.location.pathname}${window.location.hash || ''}`;
+          window.history.replaceState({}, '', cleanUrl);
+        }
+
         window.setTimeout(() => intro.remove(), reduced ? 50 : 900);
       };
 
-      let seen = false;
-      try { seen = sessionStorage.getItem('isivoltpro-intro-seen') === '1'; } catch (_) {}
-      if (seen) {
+      const seen = storageGet('isivoltpro-intro-seen') === '1';
+      if (seen && !forceIntro) {
         intro.remove();
         return;
       }
 
       document.documentElement.classList.add('intro-active');
+      requestAnimationFrame(() => intro.classList.add('is-ready'));
       buttons.forEach((button) => button.addEventListener('click', revealSite));
 
       const onWheel = (event) => {
         if (Math.abs(event.deltaY) > 14) revealSite();
       };
       const onKey = (event) => {
-        if (['ArrowDown', 'PageDown', ' ', 'Enter'].includes(event.key)) revealSite();
+        if (['ArrowDown', 'PageDown', ' ', 'Enter', 'Escape'].includes(event.key)) revealSite();
       };
       window.addEventListener('wheel', onWheel, { passive: true, once: true });
       window.addEventListener('keydown', onKey, { once: true });
+
+      if (!reduced && finePointer) {
+        let frame = 0;
+        intro.addEventListener('pointermove', (event) => {
+          if (frame) cancelAnimationFrame(frame);
+          frame = requestAnimationFrame(() => {
+            const x = (event.clientX / window.innerWidth - 0.5) * 2;
+            const y = (event.clientY / window.innerHeight - 0.5) * 2;
+            intro.style.setProperty('--intro-pan-x', `${x * 0.7}%`);
+            intro.style.setProperty('--intro-pan-y', `${y * 0.5}%`);
+            intro.style.setProperty('--intro-tilt-x', `${x * 3}px`);
+            intro.style.setProperty('--intro-tilt-y', `${y * 2}px`);
+          });
+        }, { passive: true });
+      }
     })();
   </script>
 </section>
