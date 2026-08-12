@@ -2,6 +2,7 @@
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import Motion from '../components/Motion.astro';
+import IntroGate from '../components/home/IntroGate.astro';
 import HeroSection from '../components/home/HeroSection.astro';
 import '../styles/global.css';
 import '../styles/home-sections.css';
@@ -10,6 +11,7 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 const withBase = (href: string) => href === '/' ? base : `${base}${href.replace(/^\/+/, '')}`;
 
 const heroImage = 'https://images.pexels.com/photos/5953729/pexels-photo-5953729.jpeg?auto=compress&cs=tinysrgb&w=2400';
+const heroVideo = `${base}video/hero-home.mp4`;
 const closingImage = 'https://images.pexels.com/photos/31257317/pexels-photo-31257317.jpeg?auto=compress&cs=tinysrgb&w=2200';
 
 const flow = [
@@ -43,12 +45,13 @@ const sectors = [
     <meta name="theme-color" content="#07111d" />
     <title>IsiVoltPro · Toda tu instalación. Un solo sistema.</title>
   </head>
-  <body>
+  <body class="has-intro">
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <IntroGate />
     <SiteHeader />
 
     <main id="contenido">
-      <HeroSection image={heroImage} contactHref={withBase('/contacto')} />
+      <HeroSection image={heroImage} video={heroVideo} contactHref={withBase('/contacto')} />
 
       <section class="flow-section" id="como-funciona">
         <div class="shell">
