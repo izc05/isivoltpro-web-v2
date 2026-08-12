@@ -1,32 +1,21 @@
 # IsiVoltPro Web V2
 
-Nueva web pública de IsiVoltPro.
+Sitio corporativo de IsiVoltPro construido con Astro y desplegado en GitHub Pages.
 
-## Objetivo
+## Desarrollo
 
-Construir una experiencia web premium, simple y muy clara para presentar IsiVoltPro como ecosistema técnico conectado.
+```bash
+npm install
+npm run dev
+```
 
-## Dirección visual
+## Validación
 
-- Hero oscuro de alto impacto.
-- Secciones claras para explicar.
-- Fotografía industrial premium.
-- Renders conceptuales solo donde aportan algo que una fotografía real no puede mostrar.
-- Capturas reales para aplicaciones operativas.
-- Azul IsiVoltPro como acento.
-- Movimiento sutil y funcional.
-- Iluminación arquitectónica viva en Hero y cierre, con versión reducida en móvil.
+```bash
+npm run check
+npm run build
+```
 
-## Documentación de diseño
+## Despliegue
 
-- `docs/WEB-V2-BLUEPRINT.md`
-- `docs/IMAGE-STRATEGY.md`
-- `docs/LIGHTING-SYSTEM.md`
-
-## Publicación
-
-GitHub Pages se despliega desde `main` mediante GitHub Actions.
-
-## Flujo de trabajo
-
-`main` se mantiene estable. El desarrollo visual se realiza en ramas feature y mediante pull requests.
+GitHub Pages publica la versión de revisión desde la rama configurada para preview. La rama `main` se mantiene como base estable hasta aprobación visual.
