@@ -1,153 +1,80 @@
-/* Hero estable: primero visibilidad y conversión, después efectos. */
-.hero--sales-v5 {
+/* Hero exacto: usa literalmente la composición aprobada por el usuario. */
+body.home-exact .site-header {
+  display: none;
+}
+
+.hero-exact {
   position: relative;
-  min-height: 100svh;
-  display: grid;
-  align-items: center;
+  width: 100%;
   overflow: hidden;
-  isolation: isolate;
   background: #020812;
-  color: #fff;
 }
 
-.hero--sales-v5 .sales-visual {
-  position: absolute;
-  z-index: -3;
-  inset: 0;
-  background-image: var(--hero-sales-image);
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  transform: scale(1.015);
-  animation: heroBreath 16s ease-in-out infinite alternate;
+.hero-exact-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center top;
 }
 
-.hero--sales-v5 .sales-shade {
+.hero-exact-hotspots {
   position: absolute;
-  z-index: -2;
   inset: 0;
-  background:
-    linear-gradient(90deg, rgba(2,8,18,.96) 0%, rgba(2,8,18,.78) 28%, rgba(2,8,18,.28) 54%, rgba(2,8,18,.04) 76%),
-    linear-gradient(180deg, rgba(2,8,18,.36), transparent 22%, transparent 72%, rgba(2,8,18,.44));
   pointer-events: none;
 }
 
-.hero--sales-v5 .sales-copy--visible {
-  position: relative;
+.hero-exact .hotspot {
+  position: absolute;
   z-index: 3;
-  width: var(--shell);
-  margin-inline: auto;
-  padding-top: 118px;
-  padding-bottom: 92px;
+  display: block;
+  pointer-events: auto;
+  border-radius: 8px;
+  outline: 1px solid transparent;
+  transition: background .2s ease, box-shadow .2s ease, outline-color .2s ease;
 }
 
-.hero--sales-v5 .sales-eyebrow {
-  margin: 0 0 22px;
-  color: #3f8bff;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: .2em;
+.hero-exact .hotspot:hover,
+.hero-exact .hotspot:focus-visible {
+  background: rgba(31,116,255,.08);
+  outline-color: rgba(115,177,255,.28);
+  box-shadow: 0 0 26px rgba(31,116,255,.18);
 }
 
-.hero--sales-v5 .sales-copy h1 {
-  margin: 0;
-  max-width: 700px;
-  font-size: clamp(58px, 6.3vw, 105px);
-  line-height: .94;
-  letter-spacing: -.055em;
-  font-weight: 520;
-  text-shadow: 0 8px 30px rgba(0,0,0,.36);
-}
+.hero-exact .hotspot-ecosistema { left: 29.2%; top: 1.4%; width: 7.1%; height: 6.5%; }
+.hero-exact .hotspot-aplicaciones { left: 37.3%; top: 1.4%; width: 7.4%; height: 6.5%; }
+.hero-exact .hotspot-mantenimiento { left: 45.3%; top: 1.4%; width: 9.5%; height: 6.5%; }
+.hero-exact .hotspot-recursos { left: 54.8%; top: 1.4%; width: 6.6%; height: 6.5%; }
+.hero-exact .hotspot-empresa { left: 61.6%; top: 1.4%; width: 6.4%; height: 6.5%; }
+.hero-exact .hotspot-demo { right: 1.5%; top: 1.5%; width: 10%; height: 6.2%; }
+.hero-exact .hotspot-explorar { left: 1.6%; top: 52.9%; width: 15%; height: 6.3%; }
 
-.hero--sales-v5 .sales-copy h1 strong {
-  display: inline-block;
-  margin-top: 4px;
-  color: #83aaff;
-  font-weight: 560;
-}
-
-.hero--sales-v5 .sales-copy > p:not(.sales-eyebrow) {
-  margin: 30px 0 0;
-  max-width: 610px;
-  color: rgba(245,249,255,.82);
-  font-size: clamp(16px,1.3vw,20px);
-  line-height: 1.6;
-  text-shadow: 0 4px 20px rgba(0,0,0,.4);
-}
-
-.hero--sales-v5 .sales-actions {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-top: 34px;
-}
-
-.hero--sales-v5 .sales-proof {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-  margin-top: 34px;
-  color: rgba(242,247,255,.72);
-  font-size: 12px;
-}
-
-.hero--sales-v5 .sales-proof span {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.hero--sales-v5 .sales-proof i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #43e98c;
-  box-shadow: 0 0 12px rgba(67,233,140,.58);
-}
-
-.hero--sales-v5 .sales-scroll-cue {
-  z-index: 5;
-}
-
-@keyframes heroBreath {
-  from { transform: scale(1.015); filter: brightness(.96) saturate(.98); }
-  to { transform: scale(1.035); filter: brightness(1.03) saturate(1.04); }
+@media (min-width: 761px) {
+  .hero-exact {
+    min-height: 0;
+  }
 }
 
 @media (max-width: 760px) {
-  .hero--sales-v5 .sales-visual {
-    background-position: 62% center;
+  body.home-exact .site-header {
+    display: block;
   }
 
-  .hero--sales-v5 .sales-shade {
-    background:
-      linear-gradient(90deg, rgba(2,8,18,.97), rgba(2,8,18,.76) 70%, rgba(2,8,18,.48)),
-      linear-gradient(180deg, rgba(2,8,18,.35), transparent 30%, rgba(2,8,18,.76));
+  .hero-exact {
+    min-height: 92svh;
   }
 
-  .hero--sales-v5 .sales-copy--visible {
-    padding-top: 112px;
-    padding-bottom: 84px;
+  .hero-exact-image {
+    width: auto;
+    max-width: none;
+    height: 92svh;
+    min-height: 720px;
+    object-fit: cover;
+    object-position: 64% center;
+    transform: translateX(-29%);
   }
 
-  .hero--sales-v5 .sales-copy h1 {
-    max-width: 520px;
-    font-size: clamp(50px,14vw,72px);
+  .hero-exact-hotspots {
+    display: none;
   }
-
-  .hero--sales-v5 .sales-actions {
-    display: grid;
-    width: min(100%, 350px);
-  }
-
-  .hero--sales-v5 .sales-proof {
-    display: grid;
-    gap: 10px;
-  }
-
-  .hero--sales-v5 .sales-scroll-cue { display:none; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero--sales-v5 .sales-visual { animation:none; transform:none; }
 }
