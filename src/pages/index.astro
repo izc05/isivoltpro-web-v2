@@ -3,15 +3,13 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import Motion from '../components/Motion.astro';
 import HeroSection from '../components/home/HeroSection.astro';
-import IntroCinematic from '../components/home/IntroCinematic.astro';
 import '../styles/global.css';
 import '../styles/home-sections.css';
 import '../styles/home-design-v4.css';
 
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const withBase = (href: string) => href === '/' ? base : `${base}${href.replace(/^\/+/, '')}`;
-
-const heroImage = 'https://images.pexels.com/photos/5953729/pexels-photo-5953729.jpeg?auto=compress&cs=tinysrgb&w=2400';
+const heroSalesImage = `${base}images/hero/hero-isivoltpro-sales.webp`;
 const closingImage = 'https://images.pexels.com/photos/31257317/pexels-photo-31257317.jpeg?auto=compress&cs=tinysrgb&w=2200';
 
 const flow = [
@@ -41,17 +39,17 @@ const sectors = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="IsiVoltPro conecta activos, órdenes de trabajo, mantenimiento y recursos técnicos en un único ecosistema." />
-    <meta name="theme-color" content="#07111d" />
+    <meta name="description" content="IsiVoltPro centraliza activos, mantenimiento, órdenes de trabajo, QR/NFC, inventario e histórico técnico para darte una visión única de toda tu instalación." />
+    <meta name="theme-color" content="#020812" />
+    <link rel="preload" as="image" href={heroSalesImage} type="image/webp" fetchpriority="high" />
     <title>IsiVoltPro · Toda tu instalación. Un solo sistema.</title>
   </head>
   <body>
-    <IntroCinematic base={base} />
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
     <SiteHeader />
 
     <main id="contenido">
-      <HeroSection image={heroImage} contactHref={withBase('/contacto')} />
+      <HeroSection contactHref={withBase('/contacto')} />
 
       <section class="operations-section" id="como-funciona">
         <div class="shell operations-layout">
@@ -75,8 +73,8 @@ const sectors = [
             </div>
 
             <div class="operations-track">
-              {flow.map((item, index) => (
-                <article class="operation-stage" style={`--delay:${index * 70}ms`}>
+              {flow.map((item) => (
+                <article class="operation-stage">
                   <span class="operation-index">{item.n}</span>
                   <div class="operation-main">
                     <div class="operation-meta"><i></i><span>{item.signal}</span></div>

@@ -7,75 +7,59 @@ import '../../styles/home-hero-fallback.css';
 import '../../styles/home-rebuild-approved.css';
 import '../../styles/home-hero-depth-v3.css';
 import '../../styles/home-ecosystem-approved.css';
+import '../../styles/home-hero-sales-v5.css';
 
 interface Props {
-  image: string;
   contactHref: string;
 }
 
+const { contactHref } = Astro.props;
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-const heroImage = `${base}images/hero/hero-approved.avif`;
+const heroImage = `${base}images/hero/hero-isivoltpro-sales.webp`;
 ---
-<section class="hero hero--lit hero--cinematic hero--reference hero--approved" data-hero-motion style={`--hero-image: url('${heroImage}')`}>
-  <div class="hero-media" aria-hidden="true"></div>
+<section class="hero hero--sales-v5" data-hero-motion style={`--hero-sales-image:url('${heroImage}')`} aria-labelledby="hero-sales-title">
+  <div class="sales-backdrop" aria-hidden="true"></div>
 
-  <div class="hero-depth" aria-hidden="true">
-    <span class="hero-depth-plane hero-depth-plane--far"></span>
-    <span class="hero-depth-plane hero-depth-plane--mid"></span>
-    <span class="hero-depth-plane hero-depth-plane--near"></span>
-    <span class="hero-depth-glass"></span>
-    <span class="hero-depth-scan"></span>
-    <span class="hero-depth-pulse hero-depth-pulse--a"></span>
-    <span class="hero-depth-pulse hero-depth-pulse--b"></span>
-  </div>
+  <div class="sales-stage">
+    <div class="sales-visual" aria-hidden="true"></div>
 
-  <div class="hero-shade" aria-hidden="true"></div>
-
-  <div class="hero-atmosphere" aria-hidden="true">
-    <span class="hero-haze hero-haze--a"></span>
-    <span class="hero-haze hero-haze--b"></span>
-    <span class="hero-reflection"></span>
-  </div>
-
-  <div class="hero-lighting" aria-hidden="true">
-    <span class="hero-light hero-light--upper-a"></span>
-    <span class="hero-light hero-light--upper-b"></span>
-    <span class="hero-light hero-light--middle-a"></span>
-    <span class="hero-light hero-light--middle-b"></span>
-    <span class="hero-light hero-light--lower-a"></span>
-    <span class="hero-light hero-light--technical"></span>
-
-    <span class="hero-blackout hero-blackout--upper"></span>
-    <span class="hero-blackout hero-blackout--middle"></span>
-    <span class="hero-flicker hero-flicker--a"></span>
-    <span class="hero-flicker hero-flicker--b"></span>
-
-    <span class="hero-monitor hero-monitor--a"></span>
-    <span class="hero-monitor hero-monitor--b"></span>
-    <span class="hero-monitor hero-monitor--c"></span>
-  </div>
-
-  <div class="shell hero-inner">
-    <div class="hero-copy hero-copy--reference">
-      <p class="kicker hero-kicker" data-reveal>CONTROL TOTAL. RENDIMIENTO REAL.</p>
-      <h1 class="hero-title" data-reveal>
-        <span>Toda tu instalación.</span>
-        <strong>Un solo sistema.</strong>
-      </h1>
-      <p class="hero-lead" data-reveal>Supervisa, optimiza y controla cada parte de tu instalación desde una única plataforma inteligente.</p>
-      <div class="hero-actions" data-reveal>
-        <a class="button button-primary" href="#como-funciona">Explorar plataforma <span>→</span></a>
-      </div>
+    <div class="sales-life" aria-hidden="true">
+      <span class="sales-glow sales-glow--control"></span>
+      <span class="sales-glow sales-glow--pipes"></span>
+      <span class="sales-glow sales-glow--hvac"></span>
+      <span class="sales-glow sales-glow--pumps"></span>
+      <span class="sales-glow sales-glow--acs"></span>
+      <span class="sales-glow sales-glow--water"></span>
+      <span class="sales-glow sales-glow--electrical"></span>
+      <span class="sales-glow sales-glow--technical"></span>
+      <span class="sales-glow sales-glow--warehouse"></span>
+      <span class="sales-scan"></span>
+      <span class="sales-pipe-flow"></span>
+      <span class="sales-reflection"></span>
+      <span class="sales-status sales-status--a"></span>
+      <span class="sales-status sales-status--b"></span>
+      <span class="sales-status sales-status--c"></span>
     </div>
 
-    <div class="hero-reference-meta" data-reveal aria-label="Posicionamiento de IsiVoltPro">
-      <i></i>
-      <div>
-        <strong>PLATAFORMA INTEGRAL</strong>
-        <span>PARA INSTALACIONES TÉCNICAS</span>
-      </div>
+    <a class="sales-hotspot sales-hotspot--explore" href="#como-funciona" aria-label="Explorar la plataforma IsiVoltPro">
+      <span>Explorar plataforma</span>
+    </a>
+  </div>
+
+  <div class="shell sales-copy">
+    <p class="sales-eyebrow">CONTROL TOTAL. RENDIMIENTO REAL.</p>
+    <h1 id="hero-sales-title">Toda tu instalación.<br /><strong>Un solo sistema.</strong></h1>
+    <p>Supervisa, optimiza y controla activos, mantenimiento y órdenes de trabajo desde una única plataforma inteligente.</p>
+    <div class="sales-actions">
+      <a class="button button-primary" href="#como-funciona">Explorar plataforma <span>→</span></a>
+      <a class="button button-ghost" href={contactHref}>Solicitar demo <span>↗</span></a>
+    </div>
+    <div class="sales-proof" aria-label="Ventajas principales">
+      <span><i></i>Monitorización y trazabilidad</span>
+      <span><i></i>Operación conectada</span>
+      <span><i></i>Histórico técnico único</span>
     </div>
   </div>
 
-  <a class="scroll-cue" href="#como-funciona" aria-label="Descubrir IsiVoltPro"><span>Descubrir</span><i></i></a>
+  <a class="scroll-cue sales-scroll-cue" href="#como-funciona" aria-label="Descubrir cómo funciona IsiVoltPro"><span>Descubrir</span><i></i></a>
 </section>
