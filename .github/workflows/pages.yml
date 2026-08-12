@@ -30,6 +30,19 @@ jobs:
         with:
           node-version: '22'
       - run: npm install --no-audit --no-fund
+      - name: Restaurar vídeo Hero
+        run: |
+          mkdir -p public/video
+          cat \
+            build-assets/hero-home-deploy/part-00.b64 \
+            build-assets/hero-home-deploy/part-01.b64 \
+            build-assets/hero-home-deploy/part-02-03.b64 \
+            build-assets/hero-home-deploy/part-04-05.b64 \
+            build-assets/hero-home-deploy/part-06-07.b64 \
+            build-assets/hero-home-deploy/part-08-09.b64 \
+            | base64 --decode > public/video/hero-home.mp4
+          test "$(wc -c < public/video/hero-home.mp4)" -eq 653417
+          echo "74893dc8505bce7de756e976658685423e2d8615f707f1425690ceddebe68c1b  public/video/hero-home.mp4" | sha256sum -c -
       - run: npm run check
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
