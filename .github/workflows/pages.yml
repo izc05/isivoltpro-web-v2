@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - feat/home-v2-premium
       - feat/home-rebuild-approved
   workflow_dispatch:
 
