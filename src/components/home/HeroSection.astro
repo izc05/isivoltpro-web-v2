@@ -14,11 +14,10 @@ const { image, video, contactHref } = Astro.props;
   <video
     class="hero-video"
     data-hero-video
-    autoplay
     muted
     loop
     playsinline
-    preload="metadata"
+    preload="auto"
     poster={image}
     aria-hidden="true"
   >
