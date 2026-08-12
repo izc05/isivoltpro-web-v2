@@ -103,3 +103,72 @@ const heroImage = `${base}images/hero/hero-approved.avif`;
 
   <a class="scroll-cue" href="#como-funciona" aria-label="Descubrir IsiVoltPro"><span>Descubrir</span><i></i></a>
 </section>
+
+<script is:inline>
+  (() => {
+    const hero = document.querySelector('[data-hero-motion]');
+    if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let visible = false;
+    let scheduleTimer = 0;
+    let eventTimer = 0;
+    let firstVisibleRun = true;
+
+    const clearTimers = () => {
+      window.clearTimeout(scheduleTimer);
+      window.clearTimeout(eventTimer);
+      scheduleTimer = 0;
+      eventTimer = 0;
+    };
+
+    const scheduleNext = (first = false) => {
+      window.clearTimeout(scheduleTimer);
+      if (!visible || document.hidden) return;
+      const delay = first ? 7600 : 30000 + Math.random() * 16000;
+      scheduleTimer = window.setTimeout(runEvent, delay);
+    };
+
+    const runEvent = () => {
+      if (!visible || document.hidden) {
+        scheduleNext(false);
+        return;
+      }
+
+      hero.classList.remove('is-power-event');
+      void hero.offsetWidth;
+      hero.classList.add('is-power-event');
+
+      eventTimer = window.setTimeout(() => {
+        hero.classList.remove('is-power-event');
+        scheduleNext(false);
+      }, 6600);
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      const nextVisible = Boolean(entry?.isIntersecting && entry.intersectionRatio >= .42);
+      if (nextVisible === visible) return;
+      visible = nextVisible;
+
+      if (!visible) {
+        clearTimers();
+        hero.classList.remove('is-power-event');
+        return;
+      }
+
+      scheduleNext(firstVisibleRun);
+      firstVisibleRun = false;
+    }, { threshold: [0, .42, .7] });
+
+    observer.observe(hero);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        clearTimers();
+        hero.classList.remove('is-power-event');
+      } else if (visible) {
+        scheduleNext(true);
+      }
+    });
+  })();
+</script>
