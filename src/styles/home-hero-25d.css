@@ -1,0 +1,349 @@
+/* Fase 4A · Hero 2,5D interactivo
+   Profundidad ligera, vida técnica y movimiento desacoplado del contenido. */
+
+.hero.hero--25d {
+  --hero-bg-x: 0px;
+  --hero-bg-y: 0px;
+  --hero-atmo-x: 0px;
+  --hero-atmo-y: 0px;
+  --hero-light-x: 0px;
+  --hero-light-y: 0px;
+  --hero-energy-x: 0px;
+  --hero-energy-y: 0px;
+  --hero-ui-x: 0px;
+  --hero-ui-y: 0px;
+  --hero-tilt-x: 0deg;
+  --hero-tilt-y: 0deg;
+  --hero-pointer-x: 72%;
+  --hero-pointer-y: 47%;
+  --hero-pointer-opacity: 0;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.hero.hero--25d .hero-media {
+  transform-origin: 73% 48%;
+  transform:
+    perspective(1400px)
+    translate3d(var(--hero-bg-x), calc(var(--hero-shift) + var(--hero-bg-y)), 0)
+    rotateX(var(--hero-tilt-x))
+    rotateY(var(--hero-tilt-y))
+    scale(1.025);
+  transition: filter .45s ease;
+  will-change: transform;
+}
+
+.hero.hero--25d .hero-shade {
+  z-index: -4;
+}
+
+.hero-pointer-glow {
+  position: absolute;
+  z-index: -3;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--hero-pointer-opacity);
+  background:
+    radial-gradient(circle at var(--hero-pointer-x) var(--hero-pointer-y),
+      rgba(79,151,255,.13) 0,
+      rgba(43,118,235,.055) 9%,
+      transparent 23%);
+  mix-blend-mode: screen;
+  transition: opacity .45s ease;
+}
+
+.hero.hero--25d .hero-atmosphere {
+  transform: translate3d(var(--hero-atmo-x), var(--hero-atmo-y), 0);
+  will-change: transform;
+}
+
+.hero.hero--25d .hero-lighting {
+  transform: translate3d(var(--hero-light-x), var(--hero-light-y), 0);
+  will-change: transform;
+}
+
+.hero-energy-layer,
+.hero-control-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+
+.hero-energy-layer {
+  z-index: -2;
+  transform: translate3d(var(--hero-energy-x), var(--hero-energy-y), 0);
+  will-change: transform;
+}
+
+.hero-control-layer {
+  z-index: -1;
+  transform: translate3d(var(--hero-ui-x), var(--hero-ui-y), 0);
+  will-change: transform;
+}
+
+/* Corriente sugerida: pulsos muy finos sobre líneas técnicas de la escena. */
+.hero-energy-line {
+  position: absolute;
+  display: block;
+  height: 2px;
+  border-radius: 999px;
+  opacity: .23;
+  overflow: hidden;
+  background: rgba(53,128,246,.035);
+  box-shadow: 0 0 12px rgba(48,128,255,.045);
+  transform-origin: left center;
+}
+
+.hero-energy-line i {
+  position: absolute;
+  inset: 0 auto 0 -45%;
+  width: 46%;
+  border-radius: inherit;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(72,157,255,.08) 22%,
+    rgba(101,177,255,.72) 54%,
+    rgba(63,145,255,.12) 78%,
+    transparent);
+  filter: blur(.25px);
+  animation: heroEnergyTravel 7.8s cubic-bezier(.45,.02,.55,.98) -2.1s infinite;
+}
+
+.hero-energy-line--pump {
+  left: 78.2%;
+  top: 55.2%;
+  width: 15.3%;
+  transform: rotate(-.4deg);
+}
+
+.hero-energy-line--controls {
+  left: 72.7%;
+  top: 72.7%;
+  width: 17.8%;
+  opacity: .16;
+  animation-delay: -4s;
+}
+
+.hero-energy-line--controls i {
+  animation-duration: 10.8s;
+  animation-delay: -6.2s;
+}
+
+.hero-energy-node {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #77b8ff;
+  box-shadow:
+    0 0 8px rgba(88,167,255,.72),
+    0 0 24px rgba(54,137,255,.18);
+  opacity: .32;
+  animation: heroEnergyNode 6.4s ease-in-out infinite;
+}
+
+.hero-energy-node--a { left: 79.1%; top: 55%; animation-delay: -1.8s; }
+.hero-energy-node--b { left: 89.7%; top: 72.5%; animation-delay: -4.1s; }
+
+/* Pantallas reales de la escena: glow, scanline y barras de actividad. */
+.hero-control-screen {
+  position: absolute;
+  display: block;
+  width: clamp(13px, 1.18vw, 23px);
+  aspect-ratio: 1.28;
+  overflow: hidden;
+  border: 1px solid rgba(123,192,255,.24);
+  border-radius: 1px;
+  background:
+    linear-gradient(180deg, rgba(77,162,255,.22), rgba(24,86,160,.11)),
+    rgba(4,18,32,.46);
+  box-shadow:
+    inset 0 0 8px rgba(86,171,255,.13),
+    0 0 6px rgba(70,151,255,.22);
+  mix-blend-mode: screen;
+  opacity: .67;
+  animation: heroScreenLive 8.6s ease-in-out infinite;
+}
+
+.hero-control-screen::before {
+  content: '';
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  height: 1px;
+  top: -2px;
+  background: rgba(151,209,255,.63);
+  box-shadow: 0 0 4px rgba(91,174,255,.45);
+  animation: heroScreenScan 3.8s linear infinite;
+}
+
+.hero-control-screen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: .22;
+  background: repeating-linear-gradient(180deg,
+    transparent 0 2px,
+    rgba(116,189,255,.17) 2px 3px);
+}
+
+.hero-control-screen i,
+.hero-control-screen b {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  left: 2px;
+  height: 1px;
+  border-radius: 1px;
+  transform-origin: left center;
+  background: rgba(159,213,255,.78);
+  box-shadow: 0 0 3px rgba(77,161,255,.34);
+}
+
+.hero-control-screen i { top: 3px; width: 37%; animation: heroScreenBarA 4.7s ease-in-out infinite; }
+.hero-control-screen b:nth-of-type(1) { top: 6px; width: 72%; animation: heroScreenBarB 5.6s ease-in-out -1.4s infinite; }
+.hero-control-screen b:nth-of-type(2) { top: 9px; width: 49%; animation: heroScreenBarA 6.3s ease-in-out -3.3s infinite; }
+.hero-control-screen b:nth-of-type(3) { top: 12px; width: 62%; animation: heroScreenBarB 4.9s ease-in-out -2.1s infinite; }
+
+.hero-control-screen--a {
+  left: 57.4%;
+  top: 56.2%;
+  animation-delay: -2.8s;
+}
+
+.hero-control-screen--b {
+  left: 77.4%;
+  top: 72.2%;
+  animation: heroScreenReboot 19s ease-in-out -8s infinite;
+}
+
+.hero-control-screen--c {
+  left: 83.6%;
+  top: 72.1%;
+  animation-delay: -5.2s;
+}
+
+.hero-status-led {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #75b8ff;
+  box-shadow: 0 0 6px rgba(76,157,255,.78);
+  opacity: .46;
+  animation: heroStatusLed 3.7s steps(1,end) infinite;
+}
+
+.hero-status-led--a { left: 71.8%; top: 72.7%; animation-delay: -.9s; }
+.hero-status-led--b { left: 81.2%; top: 72.7%; animation-delay: -2.3s; }
+.hero-status-led--c { left: 87.1%; top: 72.7%; animation-delay: -3.1s; }
+
+@keyframes heroEnergyTravel {
+  0%, 11% { transform: translateX(0); opacity: 0; }
+  20% { opacity: .75; }
+  70% { opacity: .64; }
+  89%,100% { transform: translateX(315%); opacity: 0; }
+}
+
+@keyframes heroEnergyNode {
+  0%,100% { opacity: .18; transform: scale(.82); }
+  46% { opacity: .72; transform: scale(1.14); }
+  66% { opacity: .36; transform: scale(.94); }
+}
+
+@keyframes heroScreenLive {
+  0%,100% { opacity: .55; filter: brightness(.92); }
+  44% { opacity: .78; filter: brightness(1.17); }
+  67% { opacity: .64; filter: brightness(1.02); }
+}
+
+@keyframes heroScreenReboot {
+  0%,46%,100% { opacity: .66; filter: brightness(1); }
+  50% { opacity: .63; }
+  51.2% { opacity: .06; filter: brightness(.46); }
+  52.1% { opacity: .18; }
+  53% { opacity: .03; }
+  54.2% { opacity: .78; filter: brightness(1.28); }
+  58% { opacity: .65; filter: brightness(1); }
+}
+
+@keyframes heroScreenScan {
+  0% { transform: translateY(0); opacity: 0; }
+  12% { opacity: .55; }
+  82% { opacity: .35; }
+  100% { transform: translateY(17px); opacity: 0; }
+}
+
+@keyframes heroScreenBarA {
+  0%,100% { transform: scaleX(.52); opacity:.48; }
+  48% { transform: scaleX(1); opacity:.86; }
+}
+
+@keyframes heroScreenBarB {
+  0%,100% { transform: scaleX(.88); opacity:.64; }
+  54% { transform: scaleX(.38); opacity:.38; }
+}
+
+@keyframes heroStatusLed {
+  0%,55%,100% { opacity:.22; }
+  56%,72% { opacity:.88; }
+  73%,78% { opacity:.14; }
+  79%,86% { opacity:.68; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero.hero--25d:hover .hero-media {
+    filter: saturate(1) contrast(1.055) brightness(.94);
+  }
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  .hero.hero--25d .hero-media {
+    transform: scale(1.025);
+  }
+
+  .hero-pointer-glow,
+  .hero-energy-line--controls,
+  .hero-control-screen--a,
+  .hero-control-screen--c,
+  .hero-status-led--a,
+  .hero-status-led--c {
+    display: none;
+  }
+
+  .hero-control-screen--b {
+    left: 76.8%;
+    top: 72%;
+  }
+
+  .hero-energy-line--pump {
+    opacity: .13;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero.hero--25d .hero-media,
+  .hero.hero--25d .hero-atmosphere,
+  .hero.hero--25d .hero-lighting,
+  .hero-energy-layer,
+  .hero-control-layer {
+    transform: none !important;
+  }
+
+  .hero-pointer-glow { display:none !important; }
+
+  .hero-energy-line i,
+  .hero-energy-node,
+  .hero-control-screen,
+  .hero-control-screen::before,
+  .hero-control-screen i,
+  .hero-control-screen b,
+  .hero-status-led {
+    animation: none !important;
+  }
+
+  .hero-energy-line i { opacity:.18; transform:translateX(160%); }
+  .hero-control-screen { opacity:.55; }
+  .hero-status-led { opacity:.42; }
+}

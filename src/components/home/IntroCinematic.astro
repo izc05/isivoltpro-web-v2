@@ -1,0 +1,79 @@
+---
+import '../../styles/intro-cinematic.css';
+---
+<section class="intro-cinematic" data-intro aria-label="Entrada a IsiVoltPro">
+  <div class="intro-grid" aria-hidden="true"></div>
+  <div class="intro-glow intro-glow--a" aria-hidden="true"></div>
+  <div class="intro-glow intro-glow--b" aria-hidden="true"></div>
+  <div class="intro-line intro-line--a" aria-hidden="true"></div>
+  <div class="intro-line intro-line--b" aria-hidden="true"></div>
+
+  <div class="intro-center">
+    <div class="intro-brand">
+      <span class="intro-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <strong>ISIVOLTPRO</strong>
+    </div>
+    <p class="intro-eyebrow">OPERACIÓN · MANTENIMIENTO · TRAZABILIDAD</p>
+    <h1>Una única visión.<br /><span>Todo bajo control.</span></h1>
+    <p class="intro-description">Un ecosistema técnico conectado para entender, mantener y gestionar cada instalación.</p>
+    <button class="intro-enter" type="button" data-intro-enter>
+      Entrar en IsiVoltPro <i>→</i>
+    </button>
+  </div>
+
+  <button class="intro-scroll" type="button" data-intro-enter aria-label="Entrar en IsiVoltPro">
+    <i></i><span>Desliza para entrar</span>
+  </button>
+
+  <script is:inline>
+    (() => {
+      const intro = document.querySelector('[data-intro]');
+      if (!intro) return;
+
+      const buttons = intro.querySelectorAll('[data-intro-enter]');
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const forceIntro = new URLSearchParams(window.location.search).get('intro') === '1';
+      let leaving = false;
+
+      const storageGet = (key) => {
+        try { return sessionStorage.getItem(key); } catch (_) { return null; }
+      };
+      const storageSet = (key, value) => {
+        try { sessionStorage.setItem(key, value); } catch (_) {}
+      };
+
+      const revealSite = () => {
+        if (leaving) return;
+        leaving = true;
+        storageSet('isivoltpro-intro-seen', '1');
+        intro.classList.add('is-leaving');
+        document.documentElement.classList.remove('intro-active');
+
+        if (forceIntro) {
+          const cleanUrl = `${window.location.pathname}${window.location.hash || ''}`;
+          window.history.replaceState({}, '', cleanUrl);
+        }
+
+        window.setTimeout(() => intro.remove(), reduced ? 50 : 950);
+      };
+
+      const seen = storageGet('isivoltpro-intro-seen') === '1';
+      if (seen && !forceIntro) {
+        intro.remove();
+        return;
+      }
+
+      document.documentElement.classList.add('intro-active');
+      requestAnimationFrame(() => intro.classList.add('is-ready'));
+      buttons.forEach((button) => button.addEventListener('click', revealSite));
+
+      window.addEventListener('wheel', (event) => {
+        if (Math.abs(event.deltaY) > 14) revealSite();
+      }, { passive: true, once: true });
+
+      window.addEventListener('keydown', (event) => {
+        if (['ArrowDown', 'PageDown', ' ', 'Enter', 'Escape'].includes(event.key)) revealSite();
+      }, { once: true });
+    })();
+  </script>
+</section>

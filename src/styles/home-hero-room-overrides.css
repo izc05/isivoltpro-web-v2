@@ -1,0 +1,48 @@
+/* Fase 4D · Prioridad visual a habitaciones reales. */
+
+/* Desactivamos los antiguos halos y apagados globales: la nueva capa por salas
+   se encarga de iluminar y oscurecer cada estancia. */
+.hero.hero--room-lighting .hero-lighting > .hero-light,
+.hero.hero--room-lighting .hero-lighting > .hero-blackout {
+  display: none !important;
+}
+
+/* La atmósfera sigue existiendo, pero deja de lavar la fachada. */
+.hero.hero--room-lighting .hero-haze--a {
+  opacity: .065;
+  filter: blur(44px);
+}
+
+.hero.hero--room-lighting .hero-haze--b {
+  opacity: .045;
+  filter: blur(42px);
+}
+
+.hero.hero--room-lighting .hero-reflection {
+  opacity: .055;
+}
+
+/* Glow del cursor casi imperceptible: la escena se mueve poco y las salas mandan. */
+.hero.hero--room-lighting .hero-pointer-glow {
+  opacity: calc(var(--hero-pointer-opacity) * .28);
+}
+
+/* Microparpadeos y monitores quedan por encima de la luz de sala. */
+.hero.hero--room-lighting .hero-flicker,
+.hero.hero--room-lighting .hero-monitor {
+  z-index: 2;
+}
+
+/* Un poco más de definición en la fotografía para que los límites de cada sala
+   sean legibles cuando su luz cambia. */
+.hero.hero--room-lighting .hero-media {
+  filter: saturate(.98) contrast(1.07) brightness(.89);
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  .hero.hero--room-lighting .hero-haze--a,
+  .hero.hero--room-lighting .hero-haze--b,
+  .hero.hero--room-lighting .hero-reflection {
+    display: none !important;
+  }
+}

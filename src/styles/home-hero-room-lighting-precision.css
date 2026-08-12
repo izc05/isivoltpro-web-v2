@@ -1,0 +1,167 @@
+/* Fase 4E · Ajuste de precisión sobre la fotografía aprobada 1920×1080.
+   Las máscaras siguen vigas, forjados y huecos reales del edificio. */
+
+.hero.hero--room-lighting-precision .hero-room {
+  border-radius: 1px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,244,224,.14),
+    inset 0 -10px 15px rgba(255,190,105,.025);
+  filter: none;
+}
+
+.hero.hero--room-lighting-precision .hero-room::before {
+  inset: 3% 2.5% 5%;
+  border-color: rgba(255,238,210,.025);
+  box-shadow: inset 0 0 14px rgba(255,214,155,.025);
+  opacity: .42;
+}
+
+/* Planta superior izquierda: bahía técnica bajo cubierta inclinada. */
+.hero.hero--room-lighting-precision .hero-room--upper-left {
+  left: 45.2%;
+  top: 33.4%;
+  width: 22.9%;
+  height: 13.8%;
+  clip-path: polygon(0 24%, 100% 0, 100% 88%, 0 100%);
+  opacity: .55;
+}
+
+/* Planta superior derecha: gran sala de tuberías. La cubierta sube hacia la derecha. */
+.hero.hero--room-lighting-precision .hero-room--upper-right {
+  left: 67.1%;
+  top: 22.3%;
+  width: 31.3%;
+  height: 21.4%;
+  clip-path: polygon(0 47%, 92% 0, 100% 12%, 100% 88%, 0 100%);
+  opacity: .57;
+}
+
+/* Planta media izquierda: sala de servicio/equipos. */
+.hero.hero--room-lighting-precision .hero-room--middle-left {
+  left: 44.6%;
+  top: 48.3%;
+  width: 20.8%;
+  height: 14.1%;
+  clip-path: polygon(0 6%, 100% 0, 100% 95%, 0 100%);
+  opacity: .46;
+}
+
+/* Planta media derecha: sala de bombeo principal. Luz ambiente cálida,
+   la maquinaria azul se mantiene en la capa técnica independiente. */
+.hero.hero--room-lighting-precision .hero-room--middle-right {
+  left: 65.2%;
+  top: 43.9%;
+  width: 33.2%;
+  height: 18.3%;
+  --room-glow: rgba(255, 218, 163, .15);
+  --room-core: rgba(255, 239, 207, .075);
+  --room-edge: rgba(255, 199, 119, .025);
+  clip-path: polygon(0 8%, 100% 0, 100% 96%, 0 100%);
+  opacity: .44;
+}
+
+/* Planta inferior izquierda: depósitos y acceso. */
+.hero.hero--room-lighting-precision .hero-room--lower-left {
+  left: 44.7%;
+  top: 64.1%;
+  width: 20.2%;
+  height: 14.2%;
+  clip-path: polygon(0 2%, 100% 0, 100% 98%, 0 100%);
+  opacity: .31;
+}
+
+/* Planta inferior central: cuadros eléctricos y pantallas. */
+.hero.hero--room-lighting-precision .hero-room--lower-middle {
+  left: 64.8%;
+  top: 63.7%;
+  width: 25.6%;
+  height: 14.7%;
+  --room-glow: rgba(116, 183, 255, .105);
+  --room-core: rgba(91, 166, 255, .055);
+  --room-edge: rgba(64, 141, 242, .018);
+  clip-path: polygon(0 2%, 100% 0, 100% 98%, 0 100%);
+  opacity: .34;
+}
+
+/* Planta inferior derecha: acceso/servicio final. */
+.hero.hero--room-lighting-precision .hero-room--lower-right {
+  left: 90.0%;
+  top: 63.4%;
+  width: 8.4%;
+  height: 14.8%;
+  clip-path: polygon(0 1%, 100% 0, 100% 99%, 0 100%);
+  opacity: .38;
+}
+
+/* Luminarias alineadas con los techos visibles. */
+.hero.hero--room-lighting-precision .hero-room-lamp {
+  height: 1.5px;
+  box-shadow:
+    0 0 4px rgba(255,230,188,.34),
+    0 0 10px rgba(255,205,137,.075);
+}
+
+.hero.hero--room-lighting-precision .hero-room-lamp--a {
+  left: 57.8%; top: 35.2%; width: 4.2%;
+}
+.hero.hero--room-lighting-precision .hero-room-lamp--b {
+  left: 83.6%; top: 26.0%; width: 4.8%;
+}
+.hero.hero--room-lighting-precision .hero-room-lamp--c {
+  left: 57.4%; top: 50.4%; width: 3.9%;
+}
+.hero.hero--room-lighting-precision .hero-room-lamp--d {
+  left: 83.0%; top: 46.7%; width: 4.4%;
+  background: rgba(255,240,213,.66);
+  box-shadow: 0 0 5px rgba(255,226,177,.32), 0 0 12px rgba(255,199,123,.075);
+}
+.hero.hero--room-lighting-precision .hero-room-lamp--e {
+  left: 55.0%; top: 66.2%; width: 3.5%;
+}
+.hero.hero--room-lighting-precision .hero-room-lamp--f {
+  left: 78.0%; top: 65.8%; width: 4.0%;
+}
+
+/* El ratón deja de ser protagonista. */
+.hero.hero--room-lighting-precision .hero-pointer-glow {
+  opacity: 0 !important;
+}
+
+/* Conservamos maquinaria/monitorización, pero reducimos atmósfera difusa. */
+.hero.hero--room-lighting-precision .hero-haze {
+  opacity: .045 !important;
+}
+.hero.hero--room-lighting-precision .hero-reflection {
+  opacity: .035 !important;
+}
+
+/* Los monitores y energía sí pueden destacar porque pertenecen a equipos reales. */
+.hero.hero--room-lighting-precision .hero-control-screen {
+  filter: brightness(1.16) saturate(1.06);
+}
+.hero.hero--room-lighting-precision .hero-status-led {
+  filter: brightness(1.18);
+}
+.hero.hero--room-lighting-precision .hero-energy-line--pump {
+  opacity: .42;
+}
+
+/* La caída de tensión se nota dentro de cada estancia, sin oscurecer todo el edificio. */
+.hero.hero--room-lighting-precision.is-power-event .hero-room::after {
+  mix-blend-mode: multiply;
+}
+
+@media (max-width: 1100px) {
+  .hero.hero--room-lighting-precision .hero-room--upper-left { left:43.8%; width:24.5%; }
+  .hero.hero--room-lighting-precision .hero-room--upper-right { left:66.0%; width:33.0%; }
+  .hero.hero--room-lighting-precision .hero-room--middle-left { left:43.5%; width:21.8%; }
+  .hero.hero--room-lighting-precision .hero-room--middle-right { left:64.2%; width:34.7%; }
+  .hero.hero--room-lighting-precision .hero-room--lower-left { left:43.5%; width:21.6%; }
+  .hero.hero--room-lighting-precision .hero-room--lower-middle { left:64.0%; width:26.5%; }
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  .hero.hero--room-lighting-precision .hero-room-lighting {
+    display: none !important;
+  }
+}

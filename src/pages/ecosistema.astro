@@ -6,6 +6,7 @@ import EcosystemCutaway from '../components/ecosystem/EcosystemCutaway.astro';
 import '../styles/global.css';
 import '../styles/ecosistema.css';
 import '../styles/ecosystem-cutaway.css';
+import '../styles/ecosystem-motion.css';
 
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const withBase = (href: string) => href === '/' ? base : `${base}${href.replace(/^\/+/, '')}`;
@@ -56,9 +57,7 @@ const outcomes = [
             <p>IsiVoltPro organiza la instalación física, el trabajo y la información alrededor de una arquitectura común. La Home enseña la idea; aquí explicamos cómo se relaciona todo.</p>
           </div>
 
-          <div data-reveal>
-            <EcosystemCutaway />
-          </div>
+          <EcosystemCutaway />
         </div>
       </section>
 

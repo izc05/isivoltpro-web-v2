@@ -1,11 +1,48 @@
 ---
 import '../styles/home-sections.css';
 const year = new Date().getFullYear();
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const replayHref = `${base}?intro=1`;
 ---
 <footer class="site-footer">
   <div class="shell footer-inner">
     <span class="footer-brand">ISIVOLT<span>PRO</span></span>
     <p>Plataforma técnica para activos, operaciones y mantenimiento.</p>
+    <button class="footer-intro-replay" type="button" data-intro-replay data-href={replayHref}>↻ Ver portada de nuevo</button>
     <small>© {year} IsiVoltPro</small>
   </div>
+
+  <script is:inline>
+    (() => {
+      const button = document.querySelector('[data-intro-replay]');
+      if (!button) return;
+      button.addEventListener('click', () => {
+        try { sessionStorage.removeItem('isivoltpro-intro-seen'); } catch (_) {}
+        const href = button.getAttribute('data-href');
+        if (href) window.location.assign(href);
+      });
+    })();
+  </script>
+
+  <style>
+    .footer-intro-replay {
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: rgba(225, 234, 245, .62);
+      font: inherit;
+      font-size: .78rem;
+      cursor: pointer;
+      transition: color .2s ease, transform .2s ease;
+    }
+    .footer-intro-replay:hover {
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .footer-intro-replay:focus-visible {
+      outline: 2px solid #2a8cff;
+      outline-offset: 5px;
+      border-radius: 3px;
+    }
+  </style>
 </footer>

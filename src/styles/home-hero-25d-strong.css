@@ -1,0 +1,247 @@
+/* Fase 4A.2 · Profundidad 2,5D más perceptible.
+   Duplica visualmente zonas concretas de la misma fotografía y las desplaza
+   a distinta profundidad. En móvil se desactiva para conservar rendimiento. */
+
+.hero.hero--25d-strong {
+  --hero-upper-x: 0px;
+  --hero-upper-y: 0px;
+  --hero-middle-x: 0px;
+  --hero-middle-y: 0px;
+  --hero-lower-x: 0px;
+  --hero-lower-y: 0px;
+  --hero-equipment-x: 0px;
+  --hero-equipment-y: 0px;
+  perspective: 1050px;
+}
+
+/* Reordenamos todas las capas para que el recorte físico quede entre foto y efectos. */
+.hero.hero--25d-strong .hero-media { z-index: -7; }
+.hero.hero--25d-strong .hero-depth-stack { z-index: -6; }
+.hero.hero--25d-strong .hero-shade { z-index: -5; }
+.hero.hero--25d-strong .hero-pointer-glow { z-index: -4; }
+.hero.hero--25d-strong .hero-atmosphere { z-index: -3; }
+.hero.hero--25d-strong .hero-energy-layer,
+.hero.hero--25d-strong .hero-lighting { z-index: -2; }
+.hero.hero--25d-strong .hero-control-layer { z-index: -1; }
+
+.hero-depth-stack {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.hero-depth-slice {
+  position: absolute;
+  inset: -1.4%;
+  display: block;
+  background-image: var(--hero-image);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: .97;
+  filter: saturate(1.02) contrast(1.055) brightness(.95);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Planta alta: movimiento moderado. */
+.hero-depth-slice--upper {
+  transform: translate3d(var(--hero-upper-x), var(--hero-upper-y), 32px) scale(1.035);
+  -webkit-mask-image: radial-gradient(ellipse 34% 26% at 77% 28%, #000 0 48%, rgba(0,0,0,.94) 61%, transparent 82%);
+  mask-image: radial-gradient(ellipse 34% 26% at 77% 28%, #000 0 48%, rgba(0,0,0,.94) 61%, transparent 82%);
+}
+
+/* Planta media: ya se separa claramente del fondo al mover el cursor. */
+.hero-depth-slice--middle {
+  transform: translate3d(var(--hero-middle-x), var(--hero-middle-y), 64px) scale(1.04);
+  -webkit-mask-image: radial-gradient(ellipse 37% 25% at 76% 51%, #000 0 46%, rgba(0,0,0,.94) 61%, transparent 83%);
+  mask-image: radial-gradient(ellipse 37% 25% at 76% 51%, #000 0 46%, rgba(0,0,0,.94) 61%, transparent 83%);
+}
+
+/* Planta inferior: mayor desplazamiento para reforzar profundidad. */
+.hero-depth-slice--lower {
+  transform: translate3d(var(--hero-lower-x), var(--hero-lower-y), 92px) scale(1.045);
+  -webkit-mask-image: radial-gradient(ellipse 34% 22% at 80% 72%, #000 0 46%, rgba(0,0,0,.92) 61%, transparent 82%);
+  mask-image: radial-gradient(ellipse 34% 22% at 80% 72%, #000 0 46%, rgba(0,0,0,.92) 61%, transparent 82%);
+}
+
+/* Tuberías/equipo azul de primer plano: es la capa que más “sale” de la fotografía. */
+.hero-depth-slice--equipment {
+  transform: translate3d(var(--hero-equipment-x), var(--hero-equipment-y), 128px) scale(1.052);
+  -webkit-mask-image: radial-gradient(ellipse 18% 16% at 87% 55%, #000 0 45%, rgba(0,0,0,.92) 63%, transparent 84%);
+  mask-image: radial-gradient(ellipse 18% 16% at 87% 55%, #000 0 45%, rgba(0,0,0,.92) 63%, transparent 84%);
+  filter: saturate(1.08) contrast(1.07) brightness(.98) drop-shadow(-7px 10px 17px rgba(0,0,0,.18));
+}
+
+/* El fondo se mueve menos para que la separación entre planos sea evidente. */
+.hero.hero--25d-strong .hero-media {
+  transform:
+    perspective(1050px)
+    translate3d(var(--hero-bg-x), calc(var(--hero-shift) + var(--hero-bg-y)), -24px)
+    rotateX(var(--hero-tilt-x))
+    rotateY(var(--hero-tilt-y))
+    scale(1.035);
+}
+
+.hero.hero--25d-strong .hero-pointer-glow {
+  opacity: var(--hero-pointer-opacity);
+  background:
+    radial-gradient(circle at var(--hero-pointer-x) var(--hero-pointer-y),
+      rgba(91,166,255,.21) 0,
+      rgba(41,118,235,.075) 10%,
+      transparent 26%);
+}
+
+/* Energía: más visible pero todavía integrada en la escena. */
+.hero.hero--25d-strong .hero-energy-line {
+  height: 3px;
+  opacity: .34;
+  box-shadow: 0 0 9px rgba(63,148,255,.12), 0 0 20px rgba(48,128,255,.055);
+}
+
+.hero.hero--25d-strong .hero-energy-line i {
+  width: 52%;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(89,174,255,.15) 18%,
+    rgba(143,208,255,.90) 51%,
+    rgba(73,158,255,.19) 80%,
+    transparent);
+}
+
+.hero-energy-line--lower {
+  left: 67.5%;
+  top: 76.2%;
+  width: 24%;
+  transform: rotate(.15deg);
+  opacity: .24;
+}
+
+.hero-energy-line--lower i {
+  animation-duration: 12.4s;
+  animation-delay: -8.4s;
+}
+
+.hero-energy-node--c {
+  left: 68.2%;
+  top: 75.9%;
+  animation-delay: -5.3s;
+}
+
+/* Pantallas: se ven como elementos encendidos, no como simples puntos. */
+.hero.hero--25d-strong .hero-control-screen {
+  width: clamp(18px, 1.55vw, 31px);
+  border-color: rgba(148,205,255,.42);
+  background:
+    linear-gradient(180deg, rgba(91,181,255,.34), rgba(30,96,179,.17)),
+    rgba(4,18,32,.58);
+  box-shadow:
+    inset 0 0 10px rgba(105,190,255,.20),
+    0 0 7px rgba(76,160,255,.40),
+    0 0 18px rgba(50,131,255,.12);
+  opacity: .86;
+}
+
+.hero-control-halo {
+  position: absolute;
+  width: clamp(46px, 4.2vw, 82px);
+  aspect-ratio: 1.45;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(ellipse, rgba(72,156,255,.17), rgba(42,121,238,.055) 45%, transparent 75%);
+  filter: blur(7px);
+  mix-blend-mode: screen;
+  animation: heroControlHalo 6.8s ease-in-out infinite;
+}
+
+.hero-control-halo--a { left: 55.9%; top: 54.4%; animation-delay: -1.7s; }
+.hero-control-halo--b { left: 75.8%; top: 70.4%; animation-delay: -3.9s; }
+.hero-control-halo--c { left: 82%; top: 70.3%; animation-delay: -5.1s; }
+
+.hero.hero--25d-strong .hero-status-led {
+  width: 4px;
+  height: 4px;
+  box-shadow: 0 0 7px rgba(85,170,255,.92), 0 0 16px rgba(50,129,255,.23);
+}
+
+/* Apagados: ahora hay tiempo suficiente para percibir la pérdida de alimentación. */
+.hero.hero--25d-strong .hero-blackout--upper {
+  animation: strongBlackoutUpper 20s ease-in-out -4s infinite;
+}
+
+.hero.hero--25d-strong .hero-blackout--middle {
+  animation: strongBlackoutMiddle 26s ease-in-out -13s infinite;
+}
+
+.hero.hero--25d-strong .hero-blackout--lower {
+  position: absolute;
+  left: 68.5%;
+  top: 61.5%;
+  width: clamp(300px, 29vw, 560px);
+  aspect-ratio: 2.05;
+  border-radius: 48%;
+  background: radial-gradient(ellipse, rgba(0,2,5,.96), rgba(0,4,8,.76) 43%, rgba(1,6,10,.34) 64%, transparent 84%);
+  filter: blur(10px);
+  mix-blend-mode: multiply;
+  opacity: 0;
+  animation: strongBlackoutLower 34s ease-in-out -20s infinite;
+}
+
+@keyframes heroControlHalo {
+  0%,100% { opacity:.28; transform:scale(.94); }
+  48% { opacity:.68; transform:scale(1.08); }
+  72% { opacity:.42; transform:scale(1.01); }
+}
+
+@keyframes strongBlackoutUpper {
+  0%,18%,100% { opacity:0; }
+  26% { opacity:.20; }
+  34%,48% { opacity:.86; }
+  56% { opacity:.50; }
+  65% { opacity:.10; }
+  71% { opacity:0; }
+}
+
+@keyframes strongBlackoutMiddle {
+  0%,37%,100% { opacity:0; }
+  45% { opacity:.18; }
+  52%,67% { opacity:.82; }
+  75% { opacity:.38; }
+  83% { opacity:0; }
+}
+
+@keyframes strongBlackoutLower {
+  0%,62%,100% { opacity:0; }
+  67% { opacity:.22; }
+  70% { opacity:.70; }
+  73% { opacity:.28; }
+  75% { opacity:.79; }
+  79% { opacity:.18; }
+  84% { opacity:0; }
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .hero.hero--25d-strong:hover .hero-depth-slice--equipment {
+    filter: saturate(1.11) contrast(1.075) brightness(1.01) drop-shadow(-8px 12px 20px rgba(0,0,0,.20));
+  }
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  .hero-depth-stack,
+  .hero-control-halo,
+  .hero-energy-line--lower,
+  .hero-energy-node--c,
+  .hero-blackout--lower {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-depth-stack,
+  .hero-control-halo,
+  .hero-blackout--lower {
+    display: none !important;
+  }
+}

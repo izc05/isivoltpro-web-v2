@@ -1,0 +1,131 @@
+/* Ecosistema aprobado sobre el marcado existente de la Home. */
+.ecosystem-band {
+  background: #f7f9fb !important;
+  color: #0a1622 !important;
+  padding: clamp(88px,9vw,140px) 0 !important;
+}
+
+.ecosystem-band .ecosystem-inner {
+  display: grid !important;
+  grid-template-columns: minmax(0,.8fr) minmax(520px,1.2fr) !important;
+  gap: clamp(50px,7vw,100px) !important;
+  align-items: center !important;
+}
+
+.ecosystem-band .ecosystem-copy .kicker { color: #1769ff !important; }
+.ecosystem-band .ecosystem-copy h2 {
+  color: #0a1622 !important;
+  font-size: clamp(42px,4vw,66px) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -.05em !important;
+  font-weight: 470 !important;
+}
+.ecosystem-band .ecosystem-copy h2 span { color: #718091 !important; }
+
+.ecosystem-band .ecosystem-list {
+  position: relative !important;
+  display: block !important;
+  min-height: 520px !important;
+  overflow: hidden !important;
+  border: 1px solid #dbe2e9 !important;
+  border-radius: 18px !important;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(23,105,255,.09),transparent 34%),
+    linear-gradient(#fff,#f3f6f9) !important;
+  box-shadow: 0 30px 80px rgba(22,45,70,.07) !important;
+}
+
+.ecosystem-band .ecosystem-list::before {
+  content: 'ISIVOLTPRO\A NÚCLEO TÉCNICO';
+  white-space: pre;
+  position: absolute;
+  z-index: 3;
+  left: 50%; top: 50%;
+  width: 170px; height: 170px;
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  text-align: center;
+  background: #07111d;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 750;
+  line-height: 1.8;
+  letter-spacing: .08em;
+  box-shadow: 0 25px 80px rgba(11,36,65,.20);
+}
+
+.ecosystem-band .ecosystem-list::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  left: 50%; top: 50%;
+  width: 330px; height: 330px;
+  transform: translate(-50%,-50%);
+  border: 1px solid rgba(23,105,255,.12);
+  border-radius: 50%;
+  box-shadow: 0 0 0 80px rgba(23,105,255,.018), 0 0 0 160px rgba(23,105,255,.010);
+  pointer-events: none;
+}
+
+.ecosystem-band .ecosystem-list > a {
+  position: absolute !important;
+  z-index: 4 !important;
+  width: 150px !important;
+  min-height: 72px !important;
+  display: block !important;
+  padding: 15px !important;
+  border: 1px solid #d3dce6 !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  color: #0a1622 !important;
+  box-shadow: 0 12px 35px rgba(22,45,70,.08) !important;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease !important;
+}
+.ecosystem-band .ecosystem-list > a:hover {
+  transform: translateY(-3px) !important;
+  border-color: rgba(23,105,255,.35) !important;
+  box-shadow: 0 16px 42px rgba(22,45,70,.12) !important;
+}
+.ecosystem-band .ecosystem-list > a span {
+  display: block !important;
+  margin-bottom: 6px !important;
+  color: #1769ff !important;
+  font-size: 9px !important;
+  letter-spacing: .14em !important;
+}
+.ecosystem-band .ecosystem-list > a strong {
+  display: block !important;
+  color: #0a1622 !important;
+  font-size: 14px !important;
+}
+.ecosystem-band .ecosystem-list > a i { display: none !important; }
+
+.ecosystem-band .ecosystem-list > a:nth-child(1) { left: 7% !important; top: 13% !important; }
+.ecosystem-band .ecosystem-list > a:nth-child(2) { right: 7% !important; top: 15% !important; }
+.ecosystem-band .ecosystem-list > a:nth-child(3) { right: 5% !important; bottom: 13% !important; }
+.ecosystem-band .ecosystem-list > a:nth-child(4) { left: 7% !important; bottom: 13% !important; }
+.ecosystem-band .ecosystem-list > a:nth-child(5) { left: 50% !important; top: 5% !important; transform: translateX(-50%) !important; }
+.ecosystem-band .ecosystem-list > a:nth-child(6) { left: 50% !important; bottom: 5% !important; transform: translateX(-50%) !important; }
+.ecosystem-band .ecosystem-list > a:nth-child(5):hover,
+.ecosystem-band .ecosystem-list > a:nth-child(6):hover { transform: translateX(-50%) translateY(-3px) !important; }
+
+@media (max-width: 1050px) {
+  .ecosystem-band .ecosystem-inner { grid-template-columns: 1fr !important; }
+  .ecosystem-band .ecosystem-list { min-height: 520px !important; }
+}
+
+@media (max-width: 760px) {
+  .ecosystem-band .ecosystem-list { min-height: 610px !important; }
+  .ecosystem-band .ecosystem-list::before { width: 138px; height: 138px; font-size: 13px; }
+  .ecosystem-band .ecosystem-list::after { width: 250px; height: 250px; }
+  .ecosystem-band .ecosystem-list > a { width: 128px !important; min-height: 66px !important; padding: 12px !important; }
+  .ecosystem-band .ecosystem-list > a:nth-child(1) { left: 4% !important; top: 12% !important; }
+  .ecosystem-band .ecosystem-list > a:nth-child(2) { right: 4% !important; top: 25% !important; }
+  .ecosystem-band .ecosystem-list > a:nth-child(3) { right: 4% !important; bottom: 13% !important; }
+  .ecosystem-band .ecosystem-list > a:nth-child(4) { left: 4% !important; bottom: 25% !important; }
+  .ecosystem-band .ecosystem-list > a:nth-child(5) { top: 4% !important; }
+  .ecosystem-band .ecosystem-list > a:nth-child(6) { bottom: 4% !important; }
+}

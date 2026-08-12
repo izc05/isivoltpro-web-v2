@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev --host 0.0.0.0",
-    "build": "astro build",
-    "check": "astro check && astro build",
+    "prepare:hero": "node scripts/build-approved-hero.mjs",
+    "dev": "npm run prepare:hero && astro dev --host 0.0.0.0",
+    "build": "npm run prepare:hero && astro build",
+    "check": "npm run prepare:hero && astro check && astro build",
     "preview": "astro preview --host 0.0.0.0"
   },
   "dependencies": {

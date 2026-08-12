@@ -1,0 +1,158 @@
+/* Fase 4B · Reacción localizada del Hero.
+   No crea hotspots visibles: usa proximidad del cursor para reforzar actividad
+   en zonas técnicas ya existentes dentro de la fotografía. */
+
+.hero.hero--25d-reactive {
+  --hero-react-controls: 0;
+  --hero-react-pump: 0;
+  --hero-react-upper: 0;
+  --hero-react-lower: 0;
+}
+
+/* Campo técnico en cuadros/pantallas. Solo aparece cuando el cursor se acerca. */
+.hero.hero--25d-reactive .hero-control-layer::before {
+  content: '';
+  position: absolute;
+  left: 69%;
+  top: 63.5%;
+  width: 22%;
+  aspect-ratio: 2.5;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: calc(var(--hero-react-controls) * .72);
+  background: radial-gradient(ellipse,
+    rgba(82,170,255,.28),
+    rgba(40,121,235,.09) 43%,
+    transparent 76%);
+  filter: blur(13px);
+  mix-blend-mode: screen;
+  transform: scale(calc(.90 + var(--hero-react-controls) * .18));
+  transition: opacity 140ms linear;
+}
+
+/* Las pantallas crecen muy poco y ganan brillo al pasar cerca. */
+.hero.hero--25d-reactive .hero-control-screen {
+  transform-origin: center;
+  transform: scale(calc(1 + var(--hero-react-controls) * .14));
+  filter: brightness(calc(1 + var(--hero-react-controls) * .58));
+  transition: transform 120ms linear, box-shadow 120ms linear;
+}
+
+.hero.hero--25d-reactive .hero-control-halo {
+  filter: blur(7px) brightness(calc(1 + var(--hero-react-controls) * 1.7));
+  transform-origin: center;
+}
+
+.hero.hero--25d-reactive .hero-status-led {
+  filter: brightness(calc(1 + var(--hero-react-controls) * 1.8));
+}
+
+/* Bomba / tubería azul: la energía se hace más visible por proximidad. */
+.hero.hero--25d-reactive .hero-energy-layer::before {
+  content: '';
+  position: absolute;
+  left: 76%;
+  top: 47%;
+  width: 22%;
+  aspect-ratio: 1.85;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: calc(var(--hero-react-pump) * .62);
+  background: radial-gradient(ellipse,
+    rgba(61,153,255,.25),
+    rgba(33,110,224,.075) 48%,
+    transparent 76%);
+  filter: blur(14px);
+  mix-blend-mode: screen;
+  transform: scale(calc(.92 + var(--hero-react-pump) * .20));
+}
+
+.hero.hero--25d-reactive .hero-energy-line--pump {
+  opacity: calc(.34 + var(--hero-react-pump) * .50);
+  filter: brightness(calc(1 + var(--hero-react-pump) * 1.25));
+}
+
+.hero.hero--25d-reactive .hero-energy-line--pump i {
+  animation-duration: calc(7.8s - var(--hero-react-pump) * 3.3s);
+  filter: brightness(calc(1 + var(--hero-react-pump) * 1.45));
+}
+
+.hero.hero--25d-reactive .hero-energy-node--a,
+.hero.hero--25d-reactive .hero-energy-node--b {
+  filter: brightness(calc(1 + var(--hero-react-pump) * 1.8));
+}
+
+.hero.hero--25d-reactive .hero-depth-slice--equipment {
+  filter:
+    saturate(calc(1.08 + var(--hero-react-pump) * .12))
+    contrast(1.07)
+    brightness(calc(.98 + var(--hero-react-pump) * .16))
+    drop-shadow(-7px 10px 17px rgba(0,0,0,.18));
+}
+
+/* Planta alta: respuesta cálida localizada, no un foco pegado al cursor. */
+.hero.hero--25d-reactive .hero-light--upper-a,
+.hero.hero--25d-reactive .hero-light--upper-b {
+  filter: blur(12px) brightness(calc(1 + var(--hero-react-upper) * .75));
+}
+
+.hero.hero--25d-reactive .hero-depth-slice--upper {
+  filter:
+    saturate(calc(1.02 + var(--hero-react-upper) * .055))
+    contrast(1.055)
+    brightness(calc(.95 + var(--hero-react-upper) * .08));
+}
+
+/* Planta inferior / cuadros: respuesta más fría y eléctrica. */
+.hero.hero--25d-reactive .hero-energy-line--lower,
+.hero.hero--25d-reactive .hero-energy-line--controls {
+  opacity: calc(.24 + var(--hero-react-lower) * .42);
+  filter: brightness(calc(1 + var(--hero-react-lower) * 1.15));
+}
+
+.hero.hero--25d-reactive .hero-depth-slice--lower {
+  filter:
+    saturate(calc(1.02 + var(--hero-react-lower) * .06))
+    contrast(1.055)
+    brightness(calc(.95 + var(--hero-react-lower) * .09));
+}
+
+/* Pequeña señal de diagnóstico: aparece como onda ambiental, no como botón. */
+.hero.hero--25d-reactive .hero-control-layer::after {
+  content: '';
+  position: absolute;
+  left: 75.7%;
+  top: 69.2%;
+  width: 8.5%;
+  aspect-ratio: 2.2;
+  border: 1px solid rgba(105,187,255,.40);
+  border-radius: 50%;
+  opacity: calc(var(--hero-react-controls) * .48);
+  transform: scale(calc(.78 + var(--hero-react-controls) * .45));
+  box-shadow: 0 0 18px rgba(70,156,255,.12), inset 0 0 14px rgba(65,148,255,.08);
+  filter: blur(.2px);
+  transition: opacity 120ms linear, transform 160ms ease-out;
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  .hero.hero--25d-reactive .hero-control-layer::before,
+  .hero.hero--25d-reactive .hero-control-layer::after,
+  .hero.hero--25d-reactive .hero-energy-layer::before {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero.hero--25d-reactive {
+    --hero-react-controls: 0 !important;
+    --hero-react-pump: 0 !important;
+    --hero-react-upper: 0 !important;
+    --hero-react-lower: 0 !important;
+  }
+
+  .hero.hero--25d-reactive .hero-control-layer::before,
+  .hero.hero--25d-reactive .hero-control-layer::after,
+  .hero.hero--25d-reactive .hero-energy-layer::before {
+    display: none !important;
+  }
+}
