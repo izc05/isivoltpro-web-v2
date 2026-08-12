@@ -10,6 +10,7 @@ import '../../styles/home-hero-25d.css';
 import '../../styles/home-hero-25d-strong.css';
 import '../../styles/home-hero-25d-reactive.css';
 import '../../styles/home-hero-power-cycle.css';
+import '../../styles/home-hero-room-lighting.css';
 
 interface Props {
   image: string;
@@ -19,7 +20,7 @@ interface Props {
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const heroImage = `${base}images/hero/hero-approved.avif`;
 ---
-<section class="hero hero--lit hero--cinematic hero--reference hero--approved hero--25d hero--25d-strong hero--25d-reactive hero--power-cycle" data-hero-motion style={`--hero-image: url('${heroImage}')`}>
+<section class="hero hero--lit hero--cinematic hero--reference hero--approved hero--25d hero--25d-strong hero--25d-reactive hero--power-cycle hero--room-lighting" data-hero-motion style={`--hero-image: url('${heroImage}')`}>
   <div class="hero-media" aria-hidden="true"></div>
 
   <div class="hero-depth-stack" aria-hidden="true">
@@ -65,6 +66,23 @@ const heroImage = `${base}images/hero/hero-approved.avif`;
     <span class="hero-monitor hero-monitor--a"></span>
     <span class="hero-monitor hero-monitor--b"></span>
     <span class="hero-monitor hero-monitor--c"></span>
+  </div>
+
+  <div class="hero-room-lighting" aria-hidden="true">
+    <span class="hero-room hero-room--upper-left"></span>
+    <span class="hero-room hero-room--upper-right"></span>
+    <span class="hero-room hero-room--middle-left"></span>
+    <span class="hero-room hero-room--middle-right"></span>
+    <span class="hero-room hero-room--lower-left"></span>
+    <span class="hero-room hero-room--lower-middle"></span>
+    <span class="hero-room hero-room--lower-right"></span>
+
+    <span class="hero-room-lamp hero-room-lamp--a"></span>
+    <span class="hero-room-lamp hero-room-lamp--b"></span>
+    <span class="hero-room-lamp hero-room-lamp--c"></span>
+    <span class="hero-room-lamp hero-room-lamp--d"></span>
+    <span class="hero-room-lamp hero-room-lamp--e"></span>
+    <span class="hero-room-lamp hero-room-lamp--f"></span>
   </div>
 
   <div class="hero-control-layer" aria-hidden="true">
