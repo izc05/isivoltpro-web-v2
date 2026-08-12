@@ -1,12 +1,4 @@
 ---
-import '../../styles/home-lighting.css';
-import '../../styles/home-cinematic.css';
-import '../../styles/home-hero-reference.css';
-import '../../styles/home-hero-lighting-v2.css';
-import '../../styles/home-hero-fallback.css';
-import '../../styles/home-rebuild-approved.css';
-import '../../styles/home-hero-depth-v3.css';
-import '../../styles/home-ecosystem-approved.css';
 import '../../styles/home-hero-sales-v5.css';
 
 interface Props {
@@ -15,41 +7,16 @@ interface Props {
 
 const { contactHref } = Astro.props;
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-const heroImage = `${base}images/hero/hero-isivoltpro-sales.webp`;
+const heroImage = `${base}images/hero/hero-main.avif`;
 ---
 <section class="hero hero--sales-v5" data-hero-motion style={`--hero-sales-image:url('${heroImage}')`} aria-labelledby="hero-sales-title">
-  <div class="sales-backdrop" aria-hidden="true"></div>
+  <div class="sales-visual" aria-hidden="true"></div>
+  <div class="sales-shade" aria-hidden="true"></div>
 
-  <div class="sales-stage">
-    <div class="sales-visual" aria-hidden="true"></div>
-
-    <div class="sales-life" aria-hidden="true">
-      <span class="sales-glow sales-glow--control"></span>
-      <span class="sales-glow sales-glow--pipes"></span>
-      <span class="sales-glow sales-glow--hvac"></span>
-      <span class="sales-glow sales-glow--pumps"></span>
-      <span class="sales-glow sales-glow--acs"></span>
-      <span class="sales-glow sales-glow--water"></span>
-      <span class="sales-glow sales-glow--electrical"></span>
-      <span class="sales-glow sales-glow--technical"></span>
-      <span class="sales-glow sales-glow--warehouse"></span>
-      <span class="sales-scan"></span>
-      <span class="sales-pipe-flow"></span>
-      <span class="sales-reflection"></span>
-      <span class="sales-status sales-status--a"></span>
-      <span class="sales-status sales-status--b"></span>
-      <span class="sales-status sales-status--c"></span>
-    </div>
-
-    <a class="sales-hotspot sales-hotspot--explore" href="#como-funciona" aria-label="Explorar la plataforma IsiVoltPro">
-      <span>Explorar plataforma</span>
-    </a>
-  </div>
-
-  <div class="shell sales-copy">
+  <div class="shell sales-copy sales-copy--visible">
     <p class="sales-eyebrow">CONTROL TOTAL. RENDIMIENTO REAL.</p>
     <h1 id="hero-sales-title">Toda tu instalación.<br /><strong>Un solo sistema.</strong></h1>
-    <p>Supervisa, optimiza y controla activos, mantenimiento y órdenes de trabajo desde una única plataforma inteligente.</p>
+    <p>Supervisa, optimiza y controla activos, mantenimiento, órdenes de trabajo y recursos técnicos desde una única plataforma.</p>
     <div class="sales-actions">
       <a class="button button-primary" href="#como-funciona">Explorar plataforma <span>→</span></a>
       <a class="button button-ghost" href={contactHref}>Solicitar demo <span>↗</span></a>
