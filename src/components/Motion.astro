@@ -140,6 +140,35 @@
       }
     };
 
+    /* Proximidad elíptica para que las zonas técnicas reaccionen sin hotspots visibles. */
+    const proximity = (px, py, cx, cy, rx, ry) => {
+      const dx = (px - cx) / rx;
+      const dy = (py - cy) / ry;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const linear = Math.max(0, Math.min(1, 1 - distance));
+      return linear * linear * (3 - 2 * linear);
+    };
+
+    const setReactiveZones = (px, py) => {
+      if (!hero) return;
+      const controls = proximity(px, py, .79, .72, .20, .18);
+      const pump = proximity(px, py, .86, .55, .18, .20);
+      const upper = proximity(px, py, .81, .29, .25, .23);
+      const lower = proximity(px, py, .75, .76, .24, .19);
+      hero.style.setProperty('--hero-react-controls', controls.toFixed(3));
+      hero.style.setProperty('--hero-react-pump', pump.toFixed(3));
+      hero.style.setProperty('--hero-react-upper', upper.toFixed(3));
+      hero.style.setProperty('--hero-react-lower', lower.toFixed(3));
+    };
+
+    const resetReactiveZones = () => {
+      if (!hero) return;
+      hero.style.setProperty('--hero-react-controls', '0');
+      hero.style.setProperty('--hero-react-pump', '0');
+      hero.style.setProperty('--hero-react-upper', '0');
+      hero.style.setProperty('--hero-react-lower', '0');
+    };
+
     const setHeroDepthTarget = (event) => {
       if (!hero || reduced || coarse) return;
       const rect = hero.getBoundingClientRect();
@@ -150,6 +179,7 @@
       hero.style.setProperty('--hero-pointer-x', `${(px * 100).toFixed(2)}%`);
       hero.style.setProperty('--hero-pointer-y', `${(py * 100).toFixed(2)}%`);
       hero.style.setProperty('--hero-pointer-opacity', '.22');
+      setReactiveZones(px, py);
       wakeHeroDepth();
     };
 
@@ -158,6 +188,7 @@
       heroTargetX = 0;
       heroTargetY = 0;
       hero.style.setProperty('--hero-pointer-opacity', '0');
+      resetReactiveZones();
       wakeHeroDepth();
     };
 
