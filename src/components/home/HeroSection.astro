@@ -16,8 +16,16 @@ interface Props {
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const heroImage = `${base}images/hero/hero-approved.avif`;
 ---
-<section class="hero hero--lit hero--cinematic hero--reference hero--approved hero--25d" data-hero-motion style={`--hero-image: url('${heroImage}')`}>
+<section class="hero hero--lit hero--cinematic hero--reference hero--approved hero--25d hero--25d-strong" data-hero-motion style={`--hero-image: url('${heroImage}')`}>
   <div class="hero-media" aria-hidden="true"></div>
+
+  <div class="hero-depth-stack" aria-hidden="true">
+    <span class="hero-depth-slice hero-depth-slice--upper"></span>
+    <span class="hero-depth-slice hero-depth-slice--middle"></span>
+    <span class="hero-depth-slice hero-depth-slice--lower"></span>
+    <span class="hero-depth-slice hero-depth-slice--equipment"></span>
+  </div>
+
   <div class="hero-shade" aria-hidden="true"></div>
   <div class="hero-pointer-glow" aria-hidden="true"></div>
 
@@ -30,8 +38,10 @@ const heroImage = `${base}images/hero/hero-approved.avif`;
   <div class="hero-energy-layer" aria-hidden="true">
     <span class="hero-energy-line hero-energy-line--pump"><i></i></span>
     <span class="hero-energy-line hero-energy-line--controls"><i></i></span>
+    <span class="hero-energy-line hero-energy-line--lower"><i></i></span>
     <span class="hero-energy-node hero-energy-node--a"></span>
     <span class="hero-energy-node hero-energy-node--b"></span>
+    <span class="hero-energy-node hero-energy-node--c"></span>
   </div>
 
   <div class="hero-lighting" aria-hidden="true">
@@ -44,6 +54,7 @@ const heroImage = `${base}images/hero/hero-approved.avif`;
 
     <span class="hero-blackout hero-blackout--upper"></span>
     <span class="hero-blackout hero-blackout--middle"></span>
+    <span class="hero-blackout hero-blackout--lower"></span>
     <span class="hero-flicker hero-flicker--a"></span>
     <span class="hero-flicker hero-flicker--b"></span>
 
@@ -53,6 +64,9 @@ const heroImage = `${base}images/hero/hero-approved.avif`;
   </div>
 
   <div class="hero-control-layer" aria-hidden="true">
+    <span class="hero-control-halo hero-control-halo--a"></span>
+    <span class="hero-control-halo hero-control-halo--b"></span>
+    <span class="hero-control-halo hero-control-halo--c"></span>
     <span class="hero-control-screen hero-control-screen--a"><i></i><b></b><b></b><b></b></span>
     <span class="hero-control-screen hero-control-screen--b"><i></i><b></b><b></b><b></b></span>
     <span class="hero-control-screen hero-control-screen--c"><i></i><b></b><b></b><b></b></span>
