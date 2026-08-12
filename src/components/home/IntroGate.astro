@@ -1,0 +1,55 @@
+---
+import '../../styles/home-entry.css';
+---
+<div class="intro-gate" data-intro-gate>
+  <div class="intro-grid" aria-hidden="true"></div>
+  <div class="intro-trace intro-trace--a" aria-hidden="true"></div>
+  <div class="intro-trace intro-trace--b" aria-hidden="true"></div>
+
+  <div class="intro-topbar">
+    <a class="intro-brand" href="#" aria-label="IsiVoltPro">
+      <span class="intro-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>ISIVOLT<span>PRO</span></span>
+    </a>
+    <span class="intro-status"><i></i>Sistema listo</span>
+  </div>
+
+  <div class="intro-content">
+    <p class="intro-eyebrow">ECOSISTEMA PARA INSTALACIONES TÉCNICAS</p>
+    <h1>
+      <span>Una única visión.</span>
+      <strong>Todo bajo control.</strong>
+    </h1>
+    <p class="intro-lead">Activos, mantenimiento, órdenes de trabajo y recursos conectados en una sola plataforma.</p>
+
+    <button class="intro-enter" type="button" data-intro-enter>
+      <span>Entrar en IsiVoltPro</span>
+      <i aria-hidden="true">→</i>
+    </button>
+  </div>
+
+  <div class="intro-footer" aria-hidden="true">
+    <span>ACTIVOS</span><i></i><span>OT</span><i></i><span>MANTENIMIENTO</span><i></i><span>RECURSOS</span>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const gate = document.querySelector('[data-intro-gate]');
+    const enter = document.querySelector('[data-intro-enter]');
+    if (!gate || !enter) return;
+
+    const openSite = () => {
+      gate.classList.add('is-leaving');
+      document.body.classList.remove('has-intro');
+      const video = document.querySelector('[data-hero-video]');
+      if (video instanceof HTMLVideoElement) video.play().catch(() => {});
+      window.setTimeout(() => gate.remove(), 760);
+    };
+
+    enter.addEventListener('click', openSite);
+    enter.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') openSite();
+    });
+  })();
+</script>
