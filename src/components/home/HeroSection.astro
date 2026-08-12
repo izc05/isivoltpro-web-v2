@@ -10,11 +10,10 @@ interface Props {
   contactHref: string;
 }
 
-const { contactHref } = Astro.props;
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-const heroImage = `${base}images/hero/hero-main.avif`;
+const heroImage = `${base}images/hero/hero-approved.avif`;
 ---
-<section class="hero hero--lit hero--cinematic hero--reference" data-hero-motion style={`--hero-image: url('${heroImage}')`}>
+<section class="hero hero--lit hero--cinematic hero--reference hero--approved" data-hero-motion style={`--hero-image: url('${heroImage}')`}>
   <div class="hero-media" aria-hidden="true"></div>
   <div class="hero-shade" aria-hidden="true"></div>
 
@@ -31,6 +30,12 @@ const heroImage = `${base}images/hero/hero-main.avif`;
     <span class="hero-light hero-light--middle-b"></span>
     <span class="hero-light hero-light--lower-a"></span>
     <span class="hero-light hero-light--technical"></span>
+
+    <span class="hero-blackout hero-blackout--upper"></span>
+    <span class="hero-blackout hero-blackout--middle"></span>
+    <span class="hero-flicker hero-flicker--a"></span>
+    <span class="hero-flicker hero-flicker--b"></span>
+
     <span class="hero-monitor hero-monitor--a"></span>
     <span class="hero-monitor hero-monitor--b"></span>
     <span class="hero-monitor hero-monitor--c"></span>
@@ -45,7 +50,7 @@ const heroImage = `${base}images/hero/hero-main.avif`;
       </h1>
       <p class="hero-lead" data-reveal>Supervisa, optimiza y controla cada parte de tu instalación desde una única plataforma inteligente.</p>
       <div class="hero-actions" data-reveal>
-        <a class="button button-primary" href={contactHref}>Solicitar demo <span>→</span></a>
+        <a class="button button-primary" href="#como-funciona">Explorar plataforma <span>→</span></a>
       </div>
     </div>
 
@@ -53,7 +58,7 @@ const heroImage = `${base}images/hero/hero-main.avif`;
       <i></i>
       <div>
         <strong>PLATAFORMA INTEGRAL</strong>
-        <span>PARA INSTALACIONES INDUSTRIALES</span>
+        <span>PARA INSTALACIONES TÉCNICAS</span>
       </div>
     </div>
   </div>
