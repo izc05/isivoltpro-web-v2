@@ -1,0 +1,170 @@
+/* Fase 4A: profundidad 2.5D sutil sobre el Hero aprobado. */
+
+.hero.hero--approved {
+  --hero-depth-x: 0px;
+  --hero-depth-y: 0px;
+  --hero-glint-x: 0px;
+  --hero-glint-y: 0px;
+  --hero-depth-scroll-y: 0px;
+}
+
+.hero.hero--approved .hero-depth {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.hero.hero--approved .hero-depth-plane {
+  position: absolute;
+  inset: -2.5%;
+  display: block;
+  background-image: var(--hero-image);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  will-change: transform, opacity;
+  transition: transform 1100ms cubic-bezier(.2,.7,.2,1), opacity 700ms ease;
+}
+
+.hero.hero--approved .hero-depth-plane--far {
+  opacity: .10;
+  filter: saturate(.92) contrast(1.04) brightness(.94);
+  -webkit-mask-image: radial-gradient(ellipse at 77% 27%, #000 0 24%, rgba(0,0,0,.82) 42%, transparent 67%);
+  mask-image: radial-gradient(ellipse at 77% 27%, #000 0 24%, rgba(0,0,0,.82) 42%, transparent 67%);
+  transform: scale(1.018) translate3d(var(--hero-pan-x), calc(var(--hero-depth-scroll-y) + var(--hero-pan-y)), -16px);
+}
+
+.hero.hero--approved .hero-depth-plane--mid {
+  opacity: .125;
+  filter: saturate(1.02) contrast(1.06) brightness(.98);
+  mix-blend-mode: soft-light;
+  -webkit-mask-image: radial-gradient(ellipse at 72% 51%, #000 0 21%, rgba(0,0,0,.78) 42%, transparent 68%);
+  mask-image: radial-gradient(ellipse at 72% 51%, #000 0 21%, rgba(0,0,0,.78) 42%, transparent 68%);
+  transform: scale(1.025) translate3d(var(--hero-depth-x), calc(var(--hero-depth-scroll-y) + var(--hero-depth-y)), 12px) rotateY(var(--hero-tilt-x));
+}
+
+.hero.hero--approved .hero-depth-plane--near {
+  opacity: .09;
+  filter: saturate(1.04) contrast(1.08) brightness(1.01);
+  mix-blend-mode: screen;
+  -webkit-mask-image: linear-gradient(118deg, transparent 0 52%, rgba(0,0,0,.32) 66%, #000 83%, transparent 98%);
+  mask-image: linear-gradient(118deg, transparent 0 52%, rgba(0,0,0,.32) 66%, #000 83%, transparent 98%);
+  transform: scale(1.035) translate3d(var(--hero-glint-x), calc(var(--hero-depth-scroll-y) + var(--hero-glint-y)), 34px) rotateY(var(--hero-tilt-x));
+}
+
+.hero.hero--approved .hero-depth-glass {
+  position: absolute;
+  left: calc(57% + var(--hero-glint-x));
+  top: calc(10% + var(--hero-glint-y));
+  width: 44%;
+  height: 78%;
+  display: block;
+  opacity: .12;
+  pointer-events: none;
+  background: linear-gradient(108deg, transparent 0 34%, rgba(151,196,255,.025) 44%, rgba(194,220,255,.11) 49%, rgba(89,151,238,.035) 55%, transparent 67%);
+  filter: blur(1.2px);
+  mix-blend-mode: screen;
+  transform: skewX(-8deg);
+  animation: heroDepthGlass 16s ease-in-out -5s infinite alternate;
+  will-change: left, top, opacity;
+  transition: left 1200ms cubic-bezier(.2,.7,.2,1), top 1200ms cubic-bezier(.2,.7,.2,1);
+}
+
+.hero.hero--approved .hero-depth-scan {
+  position: absolute;
+  left: 53%;
+  top: 32%;
+  width: 43%;
+  height: 1px;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(96,161,255,.16) 22%, rgba(139,193,255,.34) 58%, transparent 100%);
+  box-shadow: 0 0 14px rgba(53,126,255,.08);
+  animation: heroDepthScan 19s ease-in-out -9s infinite;
+}
+
+.hero.hero--approved .hero-depth-pulse {
+  position: absolute;
+  display: block;
+  width: 28px;
+  height: 28px;
+  margin: -14px 0 0 -14px;
+  border: 1px solid rgba(92,160,255,.28);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 0 18px rgba(62,141,255,.08);
+  animation: heroDepthPulse 8.8s ease-out infinite;
+}
+
+.hero.hero--approved .hero-depth-pulse--a {
+  left: 63%;
+  top: 49%;
+  animation-delay: -2.1s;
+}
+
+.hero.hero--approved .hero-depth-pulse--b {
+  left: 82%;
+  top: 53%;
+  animation-delay: -6.2s;
+}
+
+@keyframes heroDepthGlass {
+  0% { opacity: .055; }
+  46% { opacity: .12; }
+  100% { opacity: .075; }
+}
+
+@keyframes heroDepthScan {
+  0%, 58%, 100% { opacity: 0; transform: translateY(0); }
+  61% { opacity: .10; }
+  69% { opacity: .24; }
+  80% { opacity: .08; transform: translateY(31vh); }
+  84% { opacity: 0; transform: translateY(34vh); }
+}
+
+@keyframes heroDepthPulse {
+  0%, 72%, 100% { opacity: 0; transform: scale(.5); }
+  76% { opacity: .26; transform: scale(.72); }
+  88% { opacity: .08; transform: scale(1.55); }
+  94% { opacity: 0; transform: scale(2); }
+}
+
+@media (max-width: 1050px) {
+  .hero.hero--approved .hero-depth-plane--near { opacity: .055; }
+  .hero.hero--approved .hero-depth-glass { left: 55%; width: 48%; opacity: .07; }
+  .hero.hero--approved .hero-depth-pulse--b { display: none; }
+}
+
+@media (max-width: 760px), (pointer: coarse) {
+  .hero.hero--approved .hero-depth-plane--far,
+  .hero.hero--approved .hero-depth-plane--near,
+  .hero.hero--approved .hero-depth-scan,
+  .hero.hero--approved .hero-depth-pulse { display: none; }
+
+  .hero.hero--approved .hero-depth-plane--mid {
+    opacity: .055;
+    transform: scale(1.02);
+    transition: none;
+  }
+
+  .hero.hero--approved .hero-depth-glass {
+    left: 54%;
+    top: 16%;
+    width: 54%;
+    height: 66%;
+    opacity: .045;
+    animation-duration: 24s;
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero.hero--approved .hero-depth { display: none !important; }
+}

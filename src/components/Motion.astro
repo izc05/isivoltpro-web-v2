@@ -4,6 +4,9 @@
   html.is-page-hidden .hero-haze,
   html.is-page-hidden .hero-beam,
   html.is-page-hidden .hero-reflection,
+  html.is-page-hidden .hero-depth-glass,
+  html.is-page-hidden .hero-depth-scan,
+  html.is-page-hidden .hero-depth-pulse,
   html.is-page-hidden .closing-light,
   html.is-page-hidden .closing-monitor,
   html.is-page-hidden .eco-light-mask,
@@ -59,6 +62,13 @@
       element.style.setProperty(`--${prefix}-pan-y`, `${(ny * maxY).toFixed(2)}px`);
       element.style.setProperty(`--${prefix}-tilt-x`, `${(nx * 1.25).toFixed(2)}deg`);
       element.style.setProperty(`--${prefix}-tilt-y`, `${(ny * -0.8).toFixed(2)}deg`);
+
+      if (prefix === 'hero') {
+        element.style.setProperty('--hero-depth-x', `${(nx * 14).toFixed(2)}px`);
+        element.style.setProperty('--hero-depth-y', `${(ny * 8).toFixed(2)}px`);
+        element.style.setProperty('--hero-glint-x', `${(nx * 22).toFixed(2)}px`);
+        element.style.setProperty('--hero-glint-y', `${(ny * 12).toFixed(2)}px`);
+      }
     };
 
     const resetPointerDepth = (element, prefix) => {
@@ -67,6 +77,13 @@
       element.style.setProperty(`--${prefix}-pan-y`, '0px');
       element.style.setProperty(`--${prefix}-tilt-x`, '0deg');
       element.style.setProperty(`--${prefix}-tilt-y`, '0deg');
+
+      if (prefix === 'hero') {
+        element.style.setProperty('--hero-depth-x', '0px');
+        element.style.setProperty('--hero-depth-y', '0px');
+        element.style.setProperty('--hero-glint-x', '0px');
+        element.style.setProperty('--hero-glint-y', '0px');
+      }
     };
 
     if (!reduced && !coarse) {
@@ -85,6 +102,7 @@
         header?.classList.toggle('is-scrolled', y > 22);
         if (!reduced && !coarse) {
           document.documentElement.style.setProperty('--hero-shift', `${Math.min(y * 0.08, 38)}px`);
+          hero?.style.setProperty('--hero-depth-scroll-y', `${Math.min(y * 0.035, 16).toFixed(2)}px`);
           const cutawayRect = cutaway?.getBoundingClientRect();
           if (cutaway && cutawayRect) {
             const viewportCenter = window.innerHeight / 2;
