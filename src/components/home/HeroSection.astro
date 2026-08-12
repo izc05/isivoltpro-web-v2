@@ -1,78 +1,24 @@
 ---
-import '../../styles/home-lighting.css';
-import '../../styles/home-cinematic.css';
-import '../../styles/home-hero-reference.css';
-import '../../styles/home-hero-lighting-v2.css';
-import '../../styles/home-hero-fallback.css';
-import '../../styles/home-rebuild-approved.css';
-import '../../styles/home-hero-depth-v3.css';
-import '../../styles/home-ecosystem-approved.css';
+import '../../styles/home-hero-sales-v5.css';
 
 interface Props {
-  contactHref?: string;
+  contactHref: string;
 }
 
+const { contactHref } = Astro.props;
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-const heroImage = `${base}images/hero/hero-approved.avif`;
+const heroImage = `${base}images/hero/hero-target.avif`;
 ---
-<section class="hero hero--lit hero--cinematic hero--reference hero--approved" data-hero-motion style={`--hero-image: url('${heroImage}')`}>
-  <div class="hero-media" aria-hidden="true"></div>
+<section class="hero-exact" aria-label="IsiVoltPro · Toda tu instalación. Un solo sistema.">
+  <img class="hero-exact-image" src={heroImage} alt="IsiVoltPro: visión integral de una instalación técnica con control de climatización, bombeo, ACS, tratamiento de agua, cuadros eléctricos, sala técnica y almacenamiento." fetchpriority="high" decoding="async" />
 
-  <div class="hero-depth" aria-hidden="true">
-    <span class="hero-depth-plane hero-depth-plane--far"></span>
-    <span class="hero-depth-plane hero-depth-plane--mid"></span>
-    <span class="hero-depth-plane hero-depth-plane--near"></span>
-    <span class="hero-depth-glass"></span>
-    <span class="hero-depth-scan"></span>
-    <span class="hero-depth-pulse hero-depth-pulse--a"></span>
-    <span class="hero-depth-pulse hero-depth-pulse--b"></span>
+  <div class="hero-exact-hotspots" aria-label="Accesos del Hero">
+    <a class="hotspot hotspot-ecosistema" href={`${base}ecosistema`} aria-label="Ecosistema"></a>
+    <a class="hotspot hotspot-aplicaciones" href={`${base}aplicaciones`} aria-label="Aplicaciones"></a>
+    <a class="hotspot hotspot-mantenimiento" href={`${base}mantenimiento`} aria-label="Mantenimiento"></a>
+    <a class="hotspot hotspot-recursos" href={`${base}recursos`} aria-label="Recursos"></a>
+    <a class="hotspot hotspot-empresa" href={`${base}empresa`} aria-label="Empresa"></a>
+    <a class="hotspot hotspot-demo" href={contactHref} aria-label="Solicitar demo"></a>
+    <a class="hotspot hotspot-explorar" href="#como-funciona" aria-label="Explorar plataforma"></a>
   </div>
-
-  <div class="hero-shade" aria-hidden="true"></div>
-
-  <div class="hero-atmosphere" aria-hidden="true">
-    <span class="hero-haze hero-haze--a"></span>
-    <span class="hero-haze hero-haze--b"></span>
-    <span class="hero-reflection"></span>
-  </div>
-
-  <div class="hero-lighting" aria-hidden="true">
-    <span class="hero-light hero-light--upper-a"></span>
-    <span class="hero-light hero-light--upper-b"></span>
-    <span class="hero-light hero-light--middle-a"></span>
-    <span class="hero-light hero-light--middle-b"></span>
-    <span class="hero-light hero-light--lower-a"></span>
-    <span class="hero-light hero-light--technical"></span>
-    <span class="hero-blackout hero-blackout--upper"></span>
-    <span class="hero-blackout hero-blackout--middle"></span>
-    <span class="hero-flicker hero-flicker--a"></span>
-    <span class="hero-flicker hero-flicker--b"></span>
-    <span class="hero-monitor hero-monitor--a"></span>
-    <span class="hero-monitor hero-monitor--b"></span>
-    <span class="hero-monitor hero-monitor--c"></span>
-  </div>
-
-  <div class="shell hero-inner">
-    <div class="hero-copy hero-copy--reference">
-      <p class="kicker hero-kicker" data-reveal>CONTROL TOTAL. RENDIMIENTO REAL.</p>
-      <h1 class="hero-title" data-reveal>
-        <span>Toda tu instalación.</span>
-        <strong>Un solo sistema.</strong>
-      </h1>
-      <p class="hero-lead" data-reveal>Supervisa, optimiza y controla cada parte de tu instalación desde una única plataforma inteligente.</p>
-      <div class="hero-actions" data-reveal>
-        <a class="button button-primary" href="#como-funciona">Explorar plataforma <span>→</span></a>
-      </div>
-    </div>
-
-    <div class="hero-reference-meta" data-reveal aria-label="Posicionamiento de IsiVoltPro">
-      <i></i>
-      <div>
-        <strong>PLATAFORMA INTEGRAL</strong>
-        <span>PARA INSTALACIONES TÉCNICAS</span>
-      </div>
-    </div>
-  </div>
-
-  <a class="scroll-cue" href="#como-funciona" aria-label="Descubrir IsiVoltPro"><span>Descubrir</span><i></i></a>
 </section>
