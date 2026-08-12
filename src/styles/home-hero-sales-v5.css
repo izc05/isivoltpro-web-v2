@@ -1,5 +1,5 @@
 /* Hero exacto: usa literalmente la composición aprobada por el usuario. */
-body.home-exact .site-header {
+body:has(.hero-exact) .site-header {
   display: none;
 }
 
@@ -49,14 +49,8 @@ body.home-exact .site-header {
 .hero-exact .hotspot-demo { right: 1.5%; top: 1.5%; width: 10%; height: 6.2%; }
 .hero-exact .hotspot-explorar { left: 1.6%; top: 52.9%; width: 15%; height: 6.3%; }
 
-@media (min-width: 761px) {
-  .hero-exact {
-    min-height: 0;
-  }
-}
-
 @media (max-width: 760px) {
-  body.home-exact .site-header {
+  body:has(.hero-exact) .site-header {
     display: block;
   }
 
