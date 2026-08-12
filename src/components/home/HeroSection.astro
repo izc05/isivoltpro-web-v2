@@ -3,13 +3,27 @@ import '../../styles/home-lighting.css';
 
 interface Props {
   image: string;
+  video: string;
   contactHref: string;
 }
 
-const { image, contactHref } = Astro.props;
+const { image, video, contactHref } = Astro.props;
 ---
-<section class="hero hero--lit" style={`--hero-image: url('${image}')`}>
+<section class="hero hero--lit hero--video" style={`--hero-image: url('${image}')`}>
   <div class="hero-media" aria-hidden="true"></div>
+  <video
+    class="hero-video"
+    data-hero-video
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    poster={image}
+    aria-hidden="true"
+  >
+    <source src={video} type="video/mp4" />
+  </video>
   <div class="hero-shade" aria-hidden="true"></div>
 
   <div class="hero-lighting" aria-hidden="true">
@@ -23,21 +37,23 @@ const { image, contactHref } = Astro.props;
 
   <div class="shell hero-inner">
     <div class="hero-copy">
-      <p class="kicker hero-kicker" data-reveal>Plataforma para instalaciones técnicas</p>
+      <p class="kicker hero-kicker" data-reveal>CONTROL TOTAL. RENDIMIENTO REAL.</p>
       <h1 class="hero-title" data-reveal>
         <span>Toda tu instalación.</span>
         <strong>Un solo sistema.</strong>
       </h1>
-      <p class="hero-lead" data-reveal>Activos, órdenes de trabajo, mantenimiento y recursos técnicos conectados con una visión clara de la operación.</p>
+      <p class="hero-lead" data-reveal>Supervisa activos, mantenimiento, órdenes de trabajo y recursos técnicos desde una única plataforma conectada.</p>
       <div class="hero-actions" data-reveal>
-        <a class="button button-primary" href={contactHref}>Solicitar demo <span>↗</span></a>
-        <a class="button button-ghost" href="#como-funciona">Explorar plataforma <span>→</span></a>
+        <a class="button button-primary" href="#como-funciona">Explorar plataforma <span>→</span></a>
+        <a class="button button-ghost" href={contactHref}>Solicitar demo <span>↗</span></a>
       </div>
-      <div class="hero-pillars" data-reveal aria-label="Áreas principales">
-        <span>Activos</span><i></i><span>OT</span><i></i><span>Mantenimiento</span><i></i><span>Herramientas</span>
+      <div class="hero-value-points" data-reveal aria-label="Beneficios principales">
+        <span>Monitorización y trazabilidad</span>
+        <span>Operación conectada</span>
+        <span>Histórico técnico único</span>
       </div>
     </div>
   </div>
 
-  <a class="scroll-cue" href="#como-funciona" aria-label="Bajar a cómo funciona"><span>Scroll</span><i></i></a>
+  <a class="scroll-cue" href="#como-funciona" aria-label="Descubrir IsiVoltPro"><span>Descubrir</span><i></i></a>
 </section>
