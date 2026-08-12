@@ -1,17 +1,12 @@
 ---
 import '../../styles/home-hero-sales-v5.css';
-
-interface Props {
-  contactHref: string;
-}
-
+interface Props { contactHref: string; }
 const { contactHref } = Astro.props;
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-const heroImage = `${base}images/hero/hero-target.avif`;
+const heroImage = `${base}images/hero/hero-target-v2.avif`;
 ---
 <section class="hero-exact" aria-label="IsiVoltPro · Toda tu instalación. Un solo sistema.">
   <img class="hero-exact-image" src={heroImage} alt="IsiVoltPro: visión integral de una instalación técnica con control de climatización, bombeo, ACS, tratamiento de agua, cuadros eléctricos, sala técnica y almacenamiento." fetchpriority="high" decoding="async" />
-
   <div class="hero-exact-hotspots" aria-label="Accesos del Hero">
     <a class="hotspot hotspot-ecosistema" href={`${base}ecosistema`} aria-label="Ecosistema"></a>
     <a class="hotspot hotspot-aplicaciones" href={`${base}aplicaciones`} aria-label="Aplicaciones"></a>
