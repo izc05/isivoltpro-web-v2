@@ -6,6 +6,7 @@ import '../../styles/home-hero-lighting-v2.css';
 import '../../styles/home-hero-fallback.css';
 import '../../styles/home-rebuild-approved.css';
 import '../../styles/home-ecosystem-approved.css';
+import '../../styles/home-hero-25d.css';
 
 interface Props {
   image: string;
@@ -15,14 +16,22 @@ interface Props {
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const heroImage = `${base}images/hero/hero-approved.avif`;
 ---
-<section class="hero hero--lit hero--cinematic hero--reference hero--approved" data-hero-motion style={`--hero-image: url('${heroImage}')`}>
+<section class="hero hero--lit hero--cinematic hero--reference hero--approved hero--25d" data-hero-motion style={`--hero-image: url('${heroImage}')`}>
   <div class="hero-media" aria-hidden="true"></div>
   <div class="hero-shade" aria-hidden="true"></div>
+  <div class="hero-pointer-glow" aria-hidden="true"></div>
 
   <div class="hero-atmosphere" aria-hidden="true">
     <span class="hero-haze hero-haze--a"></span>
     <span class="hero-haze hero-haze--b"></span>
     <span class="hero-reflection"></span>
+  </div>
+
+  <div class="hero-energy-layer" aria-hidden="true">
+    <span class="hero-energy-line hero-energy-line--pump"><i></i></span>
+    <span class="hero-energy-line hero-energy-line--controls"><i></i></span>
+    <span class="hero-energy-node hero-energy-node--a"></span>
+    <span class="hero-energy-node hero-energy-node--b"></span>
   </div>
 
   <div class="hero-lighting" aria-hidden="true">
@@ -41,6 +50,15 @@ const heroImage = `${base}images/hero/hero-approved.avif`;
     <span class="hero-monitor hero-monitor--a"></span>
     <span class="hero-monitor hero-monitor--b"></span>
     <span class="hero-monitor hero-monitor--c"></span>
+  </div>
+
+  <div class="hero-control-layer" aria-hidden="true">
+    <span class="hero-control-screen hero-control-screen--a"><i></i><b></b><b></b><b></b></span>
+    <span class="hero-control-screen hero-control-screen--b"><i></i><b></b><b></b><b></b></span>
+    <span class="hero-control-screen hero-control-screen--c"><i></i><b></b><b></b><b></b></span>
+    <span class="hero-status-led hero-status-led--a"></span>
+    <span class="hero-status-led hero-status-led--b"></span>
+    <span class="hero-status-led hero-status-led--c"></span>
   </div>
 
   <div class="shell hero-inner">
