@@ -1,0 +1,295 @@
+/* Fase 4D · Iluminación focalizada por salas reales.
+   Cada estancia tiene su propia máscara, luz y caída de alimentación.
+   Evitamos halos globales para que el usuario perciba habitaciones concretas. */
+
+.hero.hero--room-lighting .hero-room-lighting {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  transform: translate3d(var(--hero-light-x), var(--hero-light-y), 0);
+  will-change: transform;
+}
+
+.hero-room {
+  --room-glow: rgba(255, 218, 164, .22);
+  --room-core: rgba(255, 239, 207, .13);
+  --room-edge: rgba(255, 201, 123, .045);
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  border-radius: 3px;
+  opacity: .72;
+  mix-blend-mode: screen;
+  background:
+    linear-gradient(180deg, var(--room-core), rgba(255,255,255,.025) 26%, transparent 66%),
+    radial-gradient(ellipse at 50% 43%, var(--room-glow), var(--room-edge) 54%, transparent 82%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,242,219,.20),
+    inset 0 -12px 18px rgba(255,190,105,.035),
+    0 0 14px rgba(255,199,122,.055);
+  filter: saturate(1.02);
+  transform-origin: center;
+  will-change: opacity, filter;
+}
+
+/* Capa oscura localizada: simula que una estancia pierde alimentación. */
+.hero-room::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(180deg, rgba(1,4,8,.18), rgba(0,2,5,.56)),
+    radial-gradient(ellipse at 50% 42%, rgba(1,4,8,.24), rgba(0,2,5,.80) 78%);
+  opacity: 0;
+  mix-blend-mode: multiply;
+  transition: opacity .4s ease;
+}
+
+/* Bordes internos suaves: refuerzan la lectura de sala sin dibujar un rectángulo. */
+.hero-room::before {
+  content: '';
+  position: absolute;
+  inset: 5% 4% 8%;
+  pointer-events: none;
+  border-radius: 2px;
+  border: 1px solid rgba(255,232,194,.045);
+  box-shadow: inset 0 0 22px rgba(255,213,151,.035);
+  opacity: .65;
+}
+
+/* Planta superior. */
+.hero-room--upper-left {
+  left: 55.8%;
+  top: 21.5%;
+  width: 18.4%;
+  height: 13.6%;
+  clip-path: polygon(4% 5%, 98% 1%, 96% 92%, 2% 97%);
+  animation: heroRoomStable 12s ease-in-out -2s infinite;
+}
+
+.hero-room--upper-right {
+  left: 76.5%;
+  top: 18.8%;
+  width: 21.0%;
+  height: 16.2%;
+  clip-path: polygon(2% 3%, 98% 0, 99% 92%, 1% 96%);
+  animation: heroRoomDim 18s ease-in-out -7s infinite;
+}
+
+/* Planta media. */
+.hero-room--middle-left {
+  left: 56.3%;
+  top: 43.0%;
+  width: 18.7%;
+  height: 14.7%;
+  --room-glow: rgba(255, 217, 157, .19);
+  --room-core: rgba(255, 233, 198, .105);
+  clip-path: polygon(2% 4%, 99% 0, 98% 95%, 1% 97%);
+  animation: heroRoomBreath 14s ease-in-out -4s infinite;
+}
+
+.hero-room--middle-right {
+  left: 77.0%;
+  top: 42.0%;
+  width: 20.2%;
+  height: 15.7%;
+  --room-glow: rgba(121, 185, 255, .16);
+  --room-core: rgba(90, 164, 255, .09);
+  --room-edge: rgba(63, 139, 255, .035);
+  box-shadow:
+    inset 0 1px 0 rgba(169,213,255,.15),
+    inset 0 -12px 18px rgba(56,130,239,.035),
+    0 0 15px rgba(63,139,255,.07);
+  clip-path: polygon(2% 2%, 98% 1%, 99% 95%, 0 98%);
+  animation: heroRoomTechnical 10.5s ease-in-out -3.2s infinite;
+}
+
+/* Planta inferior. */
+.hero-room--lower-left {
+  left: 57.1%;
+  top: 64.1%;
+  width: 18.3%;
+  height: 13.6%;
+  --room-glow: rgba(255, 210, 147, .14);
+  --room-core: rgba(255, 229, 190, .075);
+  clip-path: polygon(1% 3%, 99% 0, 98% 96%, 0 98%);
+  animation: heroRoomLow 22s ease-in-out -10s infinite;
+}
+
+.hero-room--lower-middle {
+  left: 75.6%;
+  top: 63.3%;
+  width: 10.6%;
+  height: 14.0%;
+  --room-glow: rgba(89, 166, 255, .17);
+  --room-core: rgba(72, 150, 255, .085);
+  --room-edge: rgba(54, 128, 235, .035);
+  clip-path: polygon(2% 2%, 99% 1%, 98% 96%, 0 98%);
+  animation: heroRoomTechnical 9s ease-in-out -5.4s infinite reverse;
+}
+
+.hero-room--lower-right {
+  left: 86.5%;
+  top: 63.0%;
+  width: 11.2%;
+  height: 14.4%;
+  --room-glow: rgba(255, 211, 146, .16);
+  --room-core: rgba(255, 230, 191, .08);
+  clip-path: polygon(1% 2%, 99% 1%, 99% 97%, 1% 98%);
+  animation: heroRoomDim 24s ease-in-out -15s infinite;
+}
+
+/* Micro luminarias independientes dentro de salas concretas. */
+.hero-room-lamp {
+  position: absolute;
+  display: block;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(255,243,218,.74);
+  box-shadow:
+    0 0 6px rgba(255,226,177,.38),
+    0 0 17px rgba(255,203,129,.12);
+  mix-blend-mode: screen;
+  opacity: .66;
+  filter: blur(.15px);
+}
+
+.hero-room-lamp--a { left: 61.8%; top: 24.1%; width: 3.1%; animation: heroRoomLamp 11s ease-in-out -3s infinite; }
+.hero-room-lamp--b { left: 82.8%; top: 22.2%; width: 3.7%; animation: heroRoomLampDim 17s ease-in-out -8s infinite; }
+.hero-room-lamp--c { left: 61.3%; top: 46.1%; width: 3.0%; animation: heroRoomLamp 13s ease-in-out -6s infinite reverse; }
+.hero-room-lamp--d { left: 82.4%; top: 45.4%; width: 3.5%; background:rgba(177,218,255,.68); box-shadow:0 0 7px rgba(94,168,255,.40),0 0 18px rgba(61,136,255,.12); animation:heroRoomLampTechnical 8.5s ease-in-out -2s infinite; }
+.hero-room-lamp--e { left: 62.6%; top: 66.9%; width: 2.8%; animation: heroRoomLampDim 21s ease-in-out -12s infinite; }
+.hero-room-lamp--f { left: 89.1%; top: 66.0%; width: 2.6%; animation: heroRoomLamp 15s ease-in-out -4.5s infinite; }
+
+/* Durante el evento de tensión las salas se comportan de forma coordinada,
+   pero no todas caen exactamente al mismo tiempo. */
+.hero.hero--room-lighting.is-power-event .hero-room {
+  animation: heroRoomPowerEvent 6.4s ease-in-out both !important;
+}
+
+.hero.hero--room-lighting.is-power-event .hero-room--upper-right,
+.hero.hero--room-lighting.is-power-event .hero-room--middle-right {
+  animation-delay: .12s !important;
+}
+
+.hero.hero--room-lighting.is-power-event .hero-room--lower-left,
+.hero.hero--room-lighting.is-power-event .hero-room--lower-middle,
+.hero.hero--room-lighting.is-power-event .hero-room--lower-right {
+  animation-delay: .24s !important;
+}
+
+.hero.hero--room-lighting.is-power-event .hero-room::after {
+  animation: heroRoomBlackoutEvent 6.4s ease-in-out both;
+}
+
+.hero.hero--room-lighting.is-power-event .hero-room-lamp {
+  animation: heroRoomLampPowerEvent 6.4s ease-in-out both !important;
+}
+
+@keyframes heroRoomStable {
+  0%,100% { opacity:.67; filter:brightness(.98); }
+  50% { opacity:.80; filter:brightness(1.08); }
+}
+
+@keyframes heroRoomBreath {
+  0%,100% { opacity:.58; filter:brightness(.94); }
+  48% { opacity:.76; filter:brightness(1.12); }
+  72% { opacity:.68; filter:brightness(1.02); }
+}
+
+@keyframes heroRoomDim {
+  0%,25%,100% { opacity:.70; filter:brightness(1); }
+  38% { opacity:.48; filter:brightness(.86); }
+  49%,58% { opacity:.25; filter:brightness(.68); }
+  69% { opacity:.50; filter:brightness(.88); }
+  79% { opacity:.68; filter:brightness(1.02); }
+}
+
+@keyframes heroRoomTechnical {
+  0%,100% { opacity:.49; filter:brightness(.96) saturate(1); }
+  48% { opacity:.72; filter:brightness(1.18) saturate(1.08); }
+  68% { opacity:.58; filter:brightness(1.04) saturate(1.04); }
+}
+
+@keyframes heroRoomLow {
+  0%,100% { opacity:.40; filter:brightness(.88); }
+  38% { opacity:.52; filter:brightness(.97); }
+  65% { opacity:.27; filter:brightness(.74); }
+  78% { opacity:.46; filter:brightness(.92); }
+}
+
+@keyframes heroRoomLamp {
+  0%,100% { opacity:.50; filter:brightness(.95); }
+  50% { opacity:.82; filter:brightness(1.20); }
+}
+
+@keyframes heroRoomLampDim {
+  0%,28%,100% { opacity:.65; }
+  42%,55% { opacity:.20; filter:brightness(.55); }
+  68% { opacity:.48; }
+  78% { opacity:.70; filter:brightness(1.08); }
+}
+
+@keyframes heroRoomLampTechnical {
+  0%,100% { opacity:.42; filter:brightness(.95); }
+  44% { opacity:.87; filter:brightness(1.38); }
+  61% { opacity:.58; filter:brightness(1.10); }
+}
+
+@keyframes heroRoomPowerEvent {
+  0%,10% { opacity:.70; filter:brightness(1); }
+  15% { opacity:.39; filter:brightness(.74); }
+  20% { opacity:.16; filter:brightness(.52); }
+  25%,50% { opacity:.055; filter:brightness(.34); }
+  58% { opacity:.16; filter:brightness(.51); }
+  64% { opacity:.10; }
+  70% { opacity:.48; filter:brightness(.92); }
+  73% { opacity:.24; }
+  77% { opacity:.88; filter:brightness(1.28); }
+  83% { opacity:.59; }
+  100% { opacity:.70; filter:brightness(1); }
+}
+
+@keyframes heroRoomBlackoutEvent {
+  0%,11% { opacity:0; }
+  18% { opacity:.42; }
+  24%,51% { opacity:.86; }
+  59% { opacity:.66; }
+  69% { opacity:.23; }
+  76%,100% { opacity:0; }
+}
+
+@keyframes heroRoomLampPowerEvent {
+  0%,11% { opacity:.66; }
+  14% { opacity:.25; }
+  17% { opacity:.52; }
+  19%,52% { opacity:.02; filter:brightness(.25); }
+  61% { opacity:.09; }
+  66% { opacity:.68; filter:brightness(1.22); }
+  68% { opacity:.12; }
+  72% { opacity:.92; filter:brightness(1.52); }
+  76% { opacity:.37; }
+  81%,100% { opacity:.66; filter:brightness(1); }
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  .hero-room-lighting {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-room,
+  .hero-room-lamp,
+  .hero-room::after {
+    animation: none !important;
+  }
+
+  .hero-room { opacity:.56; filter:none; }
+  .hero-room::after { opacity:0; }
+  .hero-room-lamp { opacity:.48; }
+}
