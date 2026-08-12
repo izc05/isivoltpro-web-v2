@@ -9,7 +9,6 @@ import '../styles/home-design-v4.css';
 
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const withBase = (href: string) => href === '/' ? base : `${base}${href.replace(/^\/+/, '')}`;
-const heroApprovedImage = `${base}images/hero/hero-approved.avif`;
 const closingImage = 'https://images.pexels.com/photos/31257317/pexels-photo-31257317.jpeg?auto=compress&cs=tinysrgb&w=2200';
 
 const flow = [
@@ -41,7 +40,6 @@ const sectors = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="IsiVoltPro centraliza activos, mantenimiento, órdenes de trabajo, QR/NFC, inventario e histórico técnico para darte una visión única de toda tu instalación." />
     <meta name="theme-color" content="#020812" />
-    <link rel="preload" as="image" href={heroApprovedImage} type="image/avif" fetchpriority="high" />
     <title>IsiVoltPro · Toda tu instalación. Un solo sistema.</title>
   </head>
   <body>
