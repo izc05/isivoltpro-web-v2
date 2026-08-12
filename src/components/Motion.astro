@@ -4,6 +4,13 @@
   html.is-page-hidden .hero-haze,
   html.is-page-hidden .hero-beam,
   html.is-page-hidden .hero-reflection,
+  html.is-page-hidden .hero-energy-line i,
+  html.is-page-hidden .hero-energy-node,
+  html.is-page-hidden .hero-control-screen,
+  html.is-page-hidden .hero-control-screen::before,
+  html.is-page-hidden .hero-control-screen i,
+  html.is-page-hidden .hero-control-screen b,
+  html.is-page-hidden .hero-status-led,
   html.is-page-hidden .closing-light,
   html.is-page-hidden .closing-monitor,
   html.is-page-hidden .eco-light-mask,
@@ -69,9 +76,80 @@
       element.style.setProperty(`--${prefix}-tilt-y`, '0deg');
     };
 
+    /* Hero 2,5D: varias profundidades con interpolación suave. */
+    let heroTargetX = 0;
+    let heroTargetY = 0;
+    let heroCurrentX = 0;
+    let heroCurrentY = 0;
+    let heroDepthFrame = 0;
+
+    const writeHeroDepth = () => {
+      if (!hero || reduced || coarse) {
+        heroDepthFrame = 0;
+        return;
+      }
+
+      heroCurrentX += (heroTargetX - heroCurrentX) * 0.085;
+      heroCurrentY += (heroTargetY - heroCurrentY) * 0.085;
+
+      const x = heroCurrentX;
+      const y = heroCurrentY;
+
+      hero.style.setProperty('--hero-bg-x', `${(-x * 5.5).toFixed(2)}px`);
+      hero.style.setProperty('--hero-bg-y', `${(-y * 3.4).toFixed(2)}px`);
+      hero.style.setProperty('--hero-atmo-x', `${(-x * 8.2).toFixed(2)}px`);
+      hero.style.setProperty('--hero-atmo-y', `${(-y * 5.1).toFixed(2)}px`);
+      hero.style.setProperty('--hero-light-x', `${(-x * 10.8).toFixed(2)}px`);
+      hero.style.setProperty('--hero-light-y', `${(-y * 6.7).toFixed(2)}px`);
+      hero.style.setProperty('--hero-energy-x', `${(-x * 13.2).toFixed(2)}px`);
+      hero.style.setProperty('--hero-energy-y', `${(-y * 8.2).toFixed(2)}px`);
+      hero.style.setProperty('--hero-ui-x', `${(-x * 15.8).toFixed(2)}px`);
+      hero.style.setProperty('--hero-ui-y', `${(-y * 9.8).toFixed(2)}px`);
+      hero.style.setProperty('--hero-tilt-x', `${(-y * 0.24).toFixed(3)}deg`);
+      hero.style.setProperty('--hero-tilt-y', `${(x * 0.38).toFixed(3)}deg`);
+
+      const moving = Math.abs(heroTargetX - heroCurrentX) > 0.002 || Math.abs(heroTargetY - heroCurrentY) > 0.002;
+      if (moving) {
+        heroDepthFrame = requestAnimationFrame(writeHeroDepth);
+      } else {
+        heroCurrentX = heroTargetX;
+        heroCurrentY = heroTargetY;
+        heroDepthFrame = 0;
+      }
+    };
+
+    const wakeHeroDepth = () => {
+      if (!heroDepthFrame && hero && !reduced && !coarse) {
+        heroDepthFrame = requestAnimationFrame(writeHeroDepth);
+      }
+    };
+
+    const setHeroDepthTarget = (event) => {
+      if (!hero || reduced || coarse) return;
+      const rect = hero.getBoundingClientRect();
+      const px = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+      const py = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+      heroTargetX = (px - 0.5) * 2;
+      heroTargetY = (py - 0.5) * 2;
+      hero.style.setProperty('--hero-pointer-x', `${(px * 100).toFixed(2)}%`);
+      hero.style.setProperty('--hero-pointer-y', `${(py * 100).toFixed(2)}%`);
+      hero.style.setProperty('--hero-pointer-opacity', '.13');
+      wakeHeroDepth();
+    };
+
+    const resetHeroDepth = () => {
+      if (!hero) return;
+      heroTargetX = 0;
+      heroTargetY = 0;
+      hero.style.setProperty('--hero-pointer-opacity', '0');
+      wakeHeroDepth();
+    };
+
     if (!reduced && !coarse) {
-      hero?.addEventListener('pointermove', (event) => setPointerDepth(hero, event, 'hero', 10, 6), { passive: true });
-      hero?.addEventListener('pointerleave', () => resetPointerDepth(hero, 'hero'));
+      hero?.addEventListener('pointermove', setHeroDepthTarget, { passive: true });
+      hero?.addEventListener('pointerleave', resetHeroDepth, { passive: true });
+      hero?.addEventListener('pointercancel', resetHeroDepth, { passive: true });
+
       cutaway?.addEventListener('pointermove', (event) => setPointerDepth(cutaway, event, 'eco', 7, 5), { passive: true });
       cutaway?.addEventListener('pointerleave', () => resetPointerDepth(cutaway, 'eco'));
     }
