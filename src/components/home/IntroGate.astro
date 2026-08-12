@@ -1,55 +1,94 @@
 ---
 import '../../styles/home-entry.css';
 ---
-<div class="intro-gate" data-intro-gate>
-  <div class="intro-grid" aria-hidden="true"></div>
-  <div class="intro-trace intro-trace--a" aria-hidden="true"></div>
-  <div class="intro-trace intro-trace--b" aria-hidden="true"></div>
+<section class="intro-gate intro-gate--premium" data-intro-gate aria-label="Portada de IsiVoltPro">
+  <div class="intro-ambient" aria-hidden="true">
+    <span class="intro-ambient__glow intro-ambient__glow--warm"></span>
+    <span class="intro-ambient__glow intro-ambient__glow--blue"></span>
+    <span class="intro-ambient__horizon"></span>
+    <span class="intro-ambient__beam"></span>
+    <span class="intro-ambient__point intro-ambient__point--a"></span>
+    <span class="intro-ambient__point intro-ambient__point--b"></span>
+  </div>
 
   <div class="intro-topbar">
     <a class="intro-brand" href="#" aria-label="IsiVoltPro">
       <span class="intro-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
       <span>ISIVOLT<span>PRO</span></span>
     </a>
-    <span class="intro-status"><i></i>Sistema listo</span>
+    <span class="intro-status"><i></i>PLATAFORMA TÉCNICA</span>
   </div>
 
   <div class="intro-content">
-    <p class="intro-eyebrow">ECOSISTEMA PARA INSTALACIONES TÉCNICAS</p>
+    <p class="intro-eyebrow">UNA ÚNICA VISIÓN</p>
     <h1>
-      <span>Una única visión.</span>
+      <span>Todo conectado.</span>
       <strong>Todo bajo control.</strong>
     </h1>
-    <p class="intro-lead">Activos, mantenimiento, órdenes de trabajo y recursos conectados en una sola plataforma.</p>
+    <p class="intro-lead">Una plataforma para entender, mantener y controlar toda tu instalación.</p>
 
     <button class="intro-enter" type="button" data-intro-enter>
-      <span>Entrar en IsiVoltPro</span>
+      <span>Descubrir IsiVoltPro</span>
       <i aria-hidden="true">→</i>
     </button>
   </div>
 
-  <div class="intro-footer" aria-hidden="true">
-    <span>ACTIVOS</span><i></i><span>OT</span><i></i><span>MANTENIMIENTO</span><i></i><span>RECURSOS</span>
+  <button class="intro-scroll" type="button" data-intro-enter aria-label="Entrar en IsiVoltPro">
+    <span>DESLIZA PARA ENTRAR</span>
+    <i aria-hidden="true"></i>
+  </button>
+
+  <div class="intro-corner" aria-hidden="true">
+    <span>01</span>
+    <i></i>
+    <span>CONTROL · TRAZABILIDAD · MANTENIMIENTO</span>
   </div>
-</div>
+</section>
 
 <script is:inline>
   (() => {
     const gate = document.querySelector('[data-intro-gate]');
-    const enter = document.querySelector('[data-intro-enter]');
-    if (!gate || !enter) return;
+    if (!gate) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
+    const triggers = gate.querySelectorAll('[data-intro-enter]');
+    let leaving = false;
 
     const openSite = () => {
+      if (leaving) return;
+      leaving = true;
       gate.classList.add('is-leaving');
       document.body.classList.remove('has-intro');
+
       const video = document.querySelector('[data-hero-video]');
       if (video instanceof HTMLVideoElement) video.play().catch(() => {});
-      window.setTimeout(() => gate.remove(), 760);
+
+      window.setTimeout(() => gate.remove(), reduced ? 40 : 880);
     };
 
-    enter.addEventListener('click', openSite);
-    enter.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') openSite();
-    });
+    requestAnimationFrame(() => gate.classList.add('is-ready'));
+    triggers.forEach((trigger) => trigger.addEventListener('click', openSite));
+
+    window.addEventListener('wheel', (event) => {
+      if (Math.abs(event.deltaY) > 18) openSite();
+    }, { passive: true, once: true });
+
+    window.addEventListener('keydown', (event) => {
+      if (['ArrowDown', 'PageDown', 'Enter', ' ', 'Escape'].includes(event.key)) openSite();
+    }, { once: true });
+
+    if (!reduced && finePointer) {
+      let frame = 0;
+      gate.addEventListener('pointermove', (event) => {
+        if (frame) cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(() => {
+          const x = (event.clientX / window.innerWidth - .5) * 2;
+          const y = (event.clientY / window.innerHeight - .5) * 2;
+          gate.style.setProperty('--intro-x', `${(x * 7).toFixed(2)}px`);
+          gate.style.setProperty('--intro-y', `${(y * 5).toFixed(2)}px`);
+        });
+      }, { passive: true });
+    }
   })();
 </script>
