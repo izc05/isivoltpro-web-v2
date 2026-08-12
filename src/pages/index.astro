@@ -6,6 +6,7 @@ import HeroSection from '../components/home/HeroSection.astro';
 import IntroCinematic from '../components/home/IntroCinematic.astro';
 import '../styles/global.css';
 import '../styles/home-sections.css';
+import '../styles/home-design-v4.css';
 
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const withBase = (href: string) => href === '/' ? base : `${base}${href.replace(/^\/+/, '')}`;
@@ -14,10 +15,10 @@ const heroImage = 'https://images.pexels.com/photos/5953729/pexels-photo-5953729
 const closingImage = 'https://images.pexels.com/photos/31257317/pexels-photo-31257317.jpeg?auto=compress&cs=tinysrgb&w=2200';
 
 const flow = [
-  { n: '01', icon: '▣', title: 'Activo', text: 'Identifica y centraliza el contexto técnico de cada equipo.' },
-  { n: '02', icon: '△', title: 'Incidencia', text: 'Registra, clasifica y prioriza lo que requiere actuación.' },
-  { n: '03', icon: '↗', title: 'OT', text: 'Convierte la necesidad en trabajo asignado y trazable.' },
-  { n: '04', icon: '▥', title: 'Histórico', text: 'Conserva evidencias, tiempos y decisiones para el futuro.' }
+  { n: '01', title: 'Activo', signal: 'Identificación', text: 'Cada equipo parte de una ficha única con ubicación, contexto técnico, QR/NFC y documentación.', label: 'Contexto', value: 'Centralizado' },
+  { n: '02', title: 'Incidencia', signal: 'Detección', text: 'Una anomalía se registra con prioridad, evidencias y toda la información necesaria para actuar.', label: 'Entrada', value: 'Trazable' },
+  { n: '03', title: 'Orden de trabajo', signal: 'Ejecución', text: 'La necesidad se convierte en trabajo asignado, con técnico, estado, tiempos y seguimiento.', label: 'Operación', value: 'En curso' },
+  { n: '04', title: 'Histórico', signal: 'Aprendizaje', text: 'El cierre conserva actuaciones, evidencias y decisiones para entender la instalación con el tiempo.', label: 'Memoria', value: 'Disponible' }
 ];
 
 const products = [
@@ -52,43 +53,75 @@ const sectors = [
     <main id="contenido">
       <HeroSection image={heroImage} contactHref={withBase('/contacto')} />
 
-      <section class="flow-section" id="como-funciona">
-        <div class="shell">
-          <div class="section-intro" data-reveal>
+      <section class="operations-section" id="como-funciona">
+        <div class="shell operations-layout">
+          <div class="operations-copy" data-reveal>
             <div>
-              <p class="kicker">Todo conectado. Todo trazable.</p>
-              <h2>Del activo al histórico,<br /><span>en una secuencia clara.</span></h2>
+              <p class="kicker">El sistema operativo de tu instalación</p>
+              <h2>De la señal al histórico.<br /><span>Sin perder el contexto.</span></h2>
             </div>
-            <p>IsiVoltPro conecta la operación diaria con la información que necesitas para entender qué ocurrió, qué se hizo y qué viene después.</p>
+            <p>IsiVoltPro une lo que normalmente queda repartido entre avisos, hojas, llamadas y aplicaciones distintas. Cada paso deja contexto para el siguiente.</p>
+            <div class="operations-proof" aria-label="Principios de operación de IsiVoltPro">
+              <div><strong>Un dato</strong><span>Una única fuente de contexto</span></div>
+              <div><strong>Un flujo</strong><span>Estados claros y trazables</span></div>
+              <div><strong>Un histórico</strong><span>Todo queda conectado</span></div>
+            </div>
           </div>
 
-          <div class="flow-grid">
-            {flow.map((item, index) => (
-              <article class="flow-card" data-reveal style={`--delay:${index * 80}ms`}>
-                <div class="flow-icon"><span>{item.icon}</span></div>
-                <span class="flow-number">{item.n}</span>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-                {index < flow.length - 1 && <span class="flow-arrow" aria-hidden="true">→</span>}
+          <div class="operations-console" data-reveal>
+            <div class="operations-console-bar">
+              <div><i></i><strong>Operación en tiempo real</strong></div>
+              <span>Instalación · Granada · Sistema estable</span>
+            </div>
+
+            <div class="operations-track">
+              {flow.map((item, index) => (
+                <article class="operation-stage" style={`--delay:${index * 70}ms`}>
+                  <span class="operation-index">{item.n}</span>
+                  <div class="operation-main">
+                    <div class="operation-meta"><i></i><span>{item.signal}</span></div>
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </div>
+                  <div class="operation-status">
+                    <span>{item.label}</span>
+                    <strong>{item.value}</strong>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div class="operations-feed">
+              <article>
+                <span>Último cambio</span>
+                <strong>OT #2481 · Bombeo principal</strong>
+                <p>Incidencia convertida en orden de trabajo con prioridad alta y técnico asignado.</p>
               </article>
-            ))}
+              <article>
+                <span>Trazabilidad</span>
+                <strong>4 eventos conectados</strong>
+                <p>Activo, aviso, actuación y cierre quedan unidos en una única secuencia operativa.</p>
+              </article>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="products-section" id="productos">
+      <section class="products-section products-section--v4" id="productos">
         <div class="shell">
           <div class="product-heading" data-reveal>
-            <p class="kicker">Producto real, presentación clara</p>
-            <h2>Tres aplicaciones.<br /><span>Un mismo estándar.</span></h2>
-            <p>Esta V2 separa lo operativo de lo que todavía está en desarrollo. Las capturas definitivas se sustituirán por imágenes reales de cada aplicación.</p>
+            <div>
+              <p class="kicker">Aplicaciones que trabajan juntas</p>
+              <h2>Herramientas reales.<br /><span>Un mismo ecosistema.</span></h2>
+            </div>
+            <p>Cada aplicación resuelve una necesidad concreta, pero todas comparten la misma lógica: identificar, actuar, registrar y mantener el contexto.</p>
           </div>
 
           <div class="product-grid">
             {products.map((product, index) => (
               <article class="product-card" data-reveal style={`--delay:${index * 90}ms`}>
                 <div class:list={['product-visual', `is-${product.kind}`]} aria-label={`Vista conceptual de ${product.title}`}>
-                  <span class="concept-label">Vista conceptual</span>
+                  <span class="concept-label">Vista de producto</span>
                   <div class="device-shell">
                     <div class="device-top"><i></i><i></i><i></i></div>
                     <div class="device-body">
@@ -99,10 +132,10 @@ const sectors = [
                   </div>
                 </div>
                 <div class="product-copy">
-                  <div class="product-meta"><span>{product.n}</span><b class:list={[product.state === 'Beta' && 'is-beta']}>{product.state}</b></div>
+                  <div class="product-meta"><span>{product.n} · IsiVoltPro</span><b class:list={[product.state === 'Beta' && 'is-beta']}>{product.state}</b></div>
                   <h3>{product.title}</h3>
                   <p>{product.text}</p>
-                  <a href={withBase(product.href)}>Conocer producto <span>→</span></a>
+                  <a href={withBase(product.href)}>Conocer aplicación <span>→</span></a>
                 </div>
               </article>
             ))}
